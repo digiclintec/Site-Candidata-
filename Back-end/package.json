@@ -1,0 +1,13 @@
+{
+  "name": "alexsandra-tomaz-backend",
+  "version": "1.0.0",
+  "description": "Servidor e API para o Portal Oficial de Alexsandra Tomaz",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["eleicoes", "portal", "campanha"],
+  "author": "Equipe Alexsandra Tomaz",
+  "license": "ISC"
+}
