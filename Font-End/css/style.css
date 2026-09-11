@@ -242,18 +242,27 @@ button, input, textarea, select {
 
 .brand-badge {
   width: 46px;
-  height: 46px;
-  background: linear-gradient(135deg, var(--secondary-light), var(--primary));
-  border: 2px solid var(--gold);
+  height: 50px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-heading);
-  font-weight: 900;
-  font-size: 1.4rem;
-  color: var(--text-main);
-  box-shadow: var(--shadow-gold);
+  box-shadow: 0 4px 14px rgba(0, 82, 165, 0.45);
+  transition: transform var(--transition-fast);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.brand-logo:hover .brand-badge {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 82, 165, 0.65);
+}
+
+.brand-badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .brand-info {
