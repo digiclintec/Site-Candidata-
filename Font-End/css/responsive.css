@@ -50,6 +50,11 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     gap: 1.5rem;
   }
 
+  .videos-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 1.25rem !important;
+  }
+
   .support-wrapper {
     grid-template-columns: 1.1fr 0.9fr;
     gap: 3.5rem;
@@ -163,9 +168,9 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     object-fit: contain !important;
   }
 
-  /* Galeria de Vídeos Tablet (Auto-fit flexível para 3 vídeos) */
+  /* Galeria de Vídeos Tablet (2 colunas para 4 vídeos) */
   .videos-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 1.5rem !important;
   }
 
@@ -826,7 +831,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .video-thumb-wrapper {
-    aspect-ratio: 9 / 12 !important;
+    aspect-ratio: 9 / 14 !important;
   }
 
   .video-info {

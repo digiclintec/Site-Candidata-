@@ -147,6 +147,37 @@ function initVideoModal() {
       e.preventDefault();
       openVideo(videoId, videoTitle);
     });
+
+    // Resolução progressiva para máxima nitidez (720p HD / WebP)
+    const thumbImg = card.querySelector('.video-thumb-img');
+    if (thumbImg && videoId) {
+      const hdCandidates = [
+        `https://i.ytimg.com/vi_webp/${videoId}/hq720.webp`,
+        `https://i.ytimg.com/vi/${videoId}/hq720.jpg`,
+        `https://i.ytimg.com/vi_webp/${videoId}/maxresdefault.webp`,
+        `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+        `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`,
+        `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+      ];
+
+      let candidateIndex = 0;
+      function probeNextCandidate() {
+        if (candidateIndex >= hdCandidates.length) return;
+        const candidateUrl = hdCandidates[candidateIndex++];
+        const tester = new Image();
+        tester.onload = function() {
+          // Se for maior que 120px (não é o placeholder vazio padrão do YouTube), aplica imediatamente
+          if (this.naturalWidth > 120) {
+            thumbImg.src = candidateUrl;
+          } else {
+            probeNextCandidate();
+          }
+        };
+        tester.onerror = probeNextCandidate;
+        tester.src = candidateUrl;
+      }
+      probeNextCandidate();
+    }
   });
 
   if (closeBtn) {
