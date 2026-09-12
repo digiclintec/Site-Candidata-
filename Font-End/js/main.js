@@ -112,7 +112,17 @@ function initVideoModal() {
       videoModalTitle.textContent = videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal';
     }
     if (videoModalShareZap) {
-      const shareText = encodeURIComponent(`Assista ao vídeo oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo): "${videoTitle || 'Compromisso com o Povo'}"!\nVeja no site oficial: https://alexsandratomaz2223.com.br`);
+      // Se o site estiver rodando em domínio online real (ex: https://seudominio.com), usa o link do site; caso contrário, usa o Instagram oficial confirmado
+      const isOnlineSite = window.location.protocol.startsWith('http') && 
+                           !window.location.hostname.includes('localhost') && 
+                           !window.location.hostname.includes('127.0.0.1');
+      const shareUrl = isOnlineSite ? window.location.href : 'https://www.instagram.com/alexsandra_pl_itapemirim/';
+
+      const shareText = encodeURIComponent(
+        `Assista ao vídeo oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo):\n` +
+        `"${videoTitle || 'Compromisso com o Espírito Santo e com o Brasil'}"\n\n` +
+        `Acompanhe as novidades oficiais:\n${shareUrl}`
+      );
       videoModalShareZap.href = `https://api.whatsapp.com/send?text=${shareText}`;
     }
     videoModal.classList.add('active');
