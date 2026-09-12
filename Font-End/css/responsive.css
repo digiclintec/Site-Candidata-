@@ -472,30 +472,29 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     display: flex;
     flex-direction: column;
     width: 100% !important;
-    gap: 0.9rem;
+    gap: 1rem;
+    padding-top: 0.25rem;
   }
 
   .hero-badge-pill {
-    font-size: 0.74rem;
-    padding: 0.3rem 0.8rem;
-    max-width: 100%;
-    line-height: 1.3;
+    display: none !important;
   }
 
   .hero-title {
-    font-size: clamp(2rem, 7vw, 2.5rem) !important;
-    line-height: 1.12 !important;
+    font-size: clamp(2.2rem, 7.5vw, 2.7rem) !important;
+    line-height: 1.08 !important;
     margin-bottom: 0.2rem;
+    letter-spacing: -0.02em;
   }
 
   .hero-slogan {
     border: none;
     padding: 0;
     font-size: 0.95rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 0.5rem;
+    line-height: 1.55 !important;
+    margin-bottom: 0.4rem;
     max-width: 100% !important;
-    color: var(--text-secondary);
+    color: #cbd5e1;
   }
 
   /* CTAs da Hero em Mobile */
@@ -503,15 +502,17 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     display: flex;
     flex-direction: column;
     width: 100% !important;
+    max-width: 360px;
     gap: 0.65rem;
-    margin-top: 0.6rem;
+    margin-top: 0.4rem;
   }
 
   .hero-ctas .btn {
     width: 100% !important;
-    padding: 0.8rem 1.1rem;
-    font-size: 0.92rem;
-    min-height: 48px;
+    padding: 0.78rem 1.1rem;
+    font-size: 0.88rem;
+    min-height: 46px;
+    letter-spacing: 0.03em;
   }
 
   /* Foto Oficial da Candidata na Hero */
