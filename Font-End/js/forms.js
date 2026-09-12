@@ -104,8 +104,8 @@ function initVolunteerForm() {
       `Contem com meu apoio para transformar nossa cidade e estado!`
     );
 
-    // Número padrão da coordenação de campanha (substituível)
-    const campaignPhone = "5521999999999";
+    // Número oficial da coordenação de campanha
+    const campaignPhone = "5527996920048";
     const waUrl = `https://wa.me/${campaignPhone}?text=${whatsappMsg}`;
 
     showAlert(alertBox, `
