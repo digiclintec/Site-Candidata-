@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProposalFilters();
   initScrollAnimations();
   initModals();
+  initVideoModal();
 });
 
 /* --------------------------------------------------------------------------
@@ -116,6 +117,11 @@ function initProposalFilters() {
       // Atualizar botão ativo
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+
+      // Suavemente centraliza a aba ativa no scroll horizontal mobile
+      if (window.innerWidth <= 768) {
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
 
       const category = btn.getAttribute('data-filter');
 
@@ -336,3 +342,75 @@ function closeModal(modal) {
   modal.classList.remove('active');
   document.body.style.overflow = '';
 }
+
+/* --------------------------------------------------------------------------
+   6. MODAL DE VÍDEOS OFICIAIS (PLAYER EMBED COM AUTOPLAY E PARADA AUTOMÁTICA)
+   -------------------------------------------------------------------------- */
+function initVideoModal() {
+  const videoModal = document.getElementById('videoModal');
+  if (!videoModal) return;
+
+  const videoIframe = document.getElementById('videoIframe');
+  const videoModalTitle = document.getElementById('videoModalTitle');
+  const videoModalExternalLink = document.getElementById('videoModalExternalLink');
+  const closeBtn = videoModal.querySelector('.video-modal-close');
+
+  function openVideo(videoId, videoTitle) {
+    if (!videoId) return;
+    if (videoIframe) {
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+    }
+    if (videoModalTitle) {
+      videoModalTitle.textContent = videoTitle || 'Alexsandra Tomaz 2223';
+    }
+    if (videoModalExternalLink) {
+      videoModalExternalLink.href = `https://youtube.com/shorts/${videoId}`;
+    }
+    videoModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVideo() {
+    videoModal.classList.remove('active');
+    document.body.style.overflow = '';
+    // Interrompe imediatamente o áudio e reprodução do vídeo
+    if (videoIframe) {
+      videoIframe.src = '';
+    }
+  }
+
+  // Event listeners para cards de vídeo com videoId
+  document.querySelectorAll('.video-card[data-video-id]').forEach(card => {
+    const videoId = card.getAttribute('data-video-id');
+    const videoTitle = card.getAttribute('data-video-title');
+
+    card.addEventListener('click', (e) => {
+      // Se clicou no link externo direto do YouTube, deixa navegar
+      if (e.target.closest('.video-link-external')) {
+        return;
+      }
+      e.preventDefault();
+      openVideo(videoId, videoTitle);
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeVideo();
+    });
+  }
+
+  videoModal.addEventListener('click', (e) => {
+    if (e.target === videoModal) {
+      closeVideo();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+      closeVideo();
+    }
+  });
+}
+

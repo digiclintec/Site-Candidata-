@@ -1,13 +1,21 @@
 {
   "name": "alexsandra-tomaz-backend",
-  "version": "1.0.0",
-  "description": "Servidor e API para o Portal Oficial de Alexsandra Tomaz",
+  "version": "1.1.0",
+  "description": "Servidor e API modular com suporte a .env para o Portal Oficial de Alexsandra Tomaz",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "sync-assets": "node -e \"require('./src/utils/fileStorage').syncCampaignAssets()\"",
+    "check": "node -e \"require('./src/config/env'); console.log('Configuracoes validadas com sucesso!')\""
   },
-  "keywords": ["eleicoes", "portal", "campanha"],
+  "keywords": [
+    "eleicoes",
+    "portal",
+    "campanha",
+    "api",
+    "backend"
+  ],
   "author": "Equipe Alexsandra Tomaz",
   "license": "ISC"
 }

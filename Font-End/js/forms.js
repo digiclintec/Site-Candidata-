@@ -69,9 +69,13 @@ function initVolunteerForm() {
 
     let apiSuccess = false;
 
-    // Tentativa de envio para a API Node.js/Express
+    // Tentativa de envio para a API Node.js
     try {
-      const response = await fetch('http://localhost:3001/api/apoiadores', {
+      const apiUrl = window.location.protocol.startsWith('http') 
+        ? '/api/apoiadores' 
+        : 'http://localhost:3001/api/apoiadores';
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(supporterData)
