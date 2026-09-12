@@ -71,7 +71,9 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .hero-candidate-photo {
-    height: 480px;
+    height: auto !important;
+    aspect-ratio: 4 / 5;
+    object-fit: contain !important;
   }
 
   .proposals-grid {
@@ -113,7 +115,9 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .hero-candidate-photo {
-    height: 430px !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5;
+    object-fit: contain !important;
   }
 
   /* Grid 2x2 na Faixa de Estatísticas */
@@ -154,7 +158,9 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .about-main-image img {
-    height: 380px !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5;
+    object-fit: contain !important;
   }
 
   /* Galeria de Vídeos Tablet (2 colunas) */
@@ -507,18 +513,22 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   .hero-media-wrapper {
     margin: 0.5rem auto 0;
     width: 100% !important;
-    max-width: 320px;
+    max-width: 360px;
   }
 
   .hero-image-frame {
     width: 100% !important;
     border-radius: 20px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    background: #07162c;
   }
 
   .hero-candidate-photo {
     width: 100% !important;
-    height: 350px !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5 !important;
+    object-fit: contain !important;
+    display: block;
   }
 
   .candidate-name-overlay {
@@ -671,9 +681,12 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .about-main-image img {
-    height: 280px !important;
+    height: auto !important;
     width: 100% !important;
+    aspect-ratio: 4 / 5 !important;
+    object-fit: contain !important;
     border-radius: 16px !important;
+    display: block;
   }
 
   .about-quote-card {
@@ -899,7 +912,9 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .hero-candidate-photo {
-    height: 310px !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5 !important;
+    object-fit: contain !important;
   }
 
   .stat-box {

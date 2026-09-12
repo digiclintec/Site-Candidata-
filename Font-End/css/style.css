@@ -620,37 +620,34 @@ button, input, textarea, select {
 .hero-image-frame {
   position: relative;
   width: 100%;
-  max-width: 460px;
-  border-radius: 28px;
+  max-width: 440px;
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7),
               0 0 0 1px rgba(255, 255, 255, 0.15),
               0 0 40px rgba(30, 92, 209, 0.35);
-  background: linear-gradient(180deg, rgba(30, 92, 209, 0.2) 0%, rgba(7, 22, 44, 0.9) 100%);
+  background: #07162c;
+  display: flex;
+  flex-direction: column;
 }
 
 .hero-candidate-photo {
   width: 100%;
-  height: 560px;
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
   object-position: top center;
-  transition: transform 0.6s ease;
+  display: block;
+  border-radius: 20px;
+  transition: transform 0.5s ease;
 }
 
 .hero-image-frame:hover .hero-candidate-photo {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .hero-image-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2rem 1.5rem 1.25rem;
-  background: linear-gradient(180deg, transparent 0%, rgba(3, 10, 22, 0.95) 85%);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  display: none; /* A arte oficial da campanha já possui o nome, cargo e número 2223 nítidos, evitando sobreposição escura sobre o corpo */
 }
 
 .candidate-name-overlay h3 {
@@ -859,13 +856,17 @@ section {
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-subtle);
+  background: #07162c;
   position: relative;
 }
 
 .about-main-image img {
   width: 100%;
-  height: 480px;
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  object-position: top center;
+  display: block;
 }
 
 .about-quote-card {
