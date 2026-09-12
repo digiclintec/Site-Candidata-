@@ -82,7 +82,7 @@ function initScrollAnimations() {
 }
 
 /* --------------------------------------------------------------------------
-   3. MODAL DE VÍDEOS OFICIAIS (PLAYER EMBED COM AUTOPLAY E PARADA AUTOMÁTICA)
+   3. MODAL DE VÍDEOS OFICIAIS (PLAYER EMBED LIMPO, SEM BRANDING DO YOUTUBE)
    -------------------------------------------------------------------------- */
 function initVideoModal() {
   const videoModal = document.getElementById('videoModal');
@@ -90,19 +90,30 @@ function initVideoModal() {
 
   const videoIframe = document.getElementById('videoIframe');
   const videoModalTitle = document.getElementById('videoModalTitle');
-  const videoModalExternalLink = document.getElementById('videoModalExternalLink');
+  const videoModalShareZap = document.getElementById('videoModalShareZap');
   const closeBtn = videoModal.querySelector('.video-modal-close');
 
   function openVideo(videoId, videoTitle) {
-    if (!videoId) return;
+    if (!videoId) {
+      alert('Vídeo em preparação. Em breve disponível no portal oficial!');
+      return;
+    }
     if (videoIframe) {
-      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+      // Parâmetros para ocultar ao máximo elementos da plataforma YouTube:
+      // 1. youtube-nocookie.com: minimiza tracking e cookies de terceiros
+      // 2. modestbranding=1: remove logo do YouTube na barra
+      // 3. rel=0: restringe vídeos recomendados estritamente ao canal oficial
+      // 4. iv_load_policy=3: desativa anotações/cards intrusivos
+      // 5. playsinline=1: mantém o vídeo no modal do site em smartphones
+      // 6. controls=1 & color=white: controles essenciais limpos
+      videoIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&controls=1&color=white`;
     }
     if (videoModalTitle) {
-      videoModalTitle.textContent = videoTitle || 'Alexsandra Tomaz 2223';
+      videoModalTitle.textContent = videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal';
     }
-    if (videoModalExternalLink) {
-      videoModalExternalLink.href = `https://youtube.com/shorts/${videoId}`;
+    if (videoModalShareZap) {
+      const shareText = encodeURIComponent(`Assista ao vídeo oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo): "${videoTitle || 'Compromisso com o Povo'}"!\nVeja no site oficial: https://alexsandratomaz2223.com.br`);
+      videoModalShareZap.href = `https://api.whatsapp.com/send?text=${shareText}`;
     }
     videoModal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -111,22 +122,18 @@ function initVideoModal() {
   function closeVideo() {
     videoModal.classList.remove('active');
     document.body.style.overflow = '';
-    // Interrompe imediatamente o áudio e reprodução do vídeo
+    // Interrompe imediatamente áudio e reprodução
     if (videoIframe) {
       videoIframe.src = '';
     }
   }
 
-  // Event listeners para cards de vídeo com videoId
-  document.querySelectorAll('.video-card[data-video-id]').forEach(card => {
+  // Event listeners para cards de vídeo
+  document.querySelectorAll('.video-card').forEach(card => {
     const videoId = card.getAttribute('data-video-id');
     const videoTitle = card.getAttribute('data-video-title');
 
     card.addEventListener('click', (e) => {
-      // Se clicou no link externo direto do YouTube, navega normalmente
-      if (e.target.closest('.video-link-external')) {
-        return;
-      }
       e.preventDefault();
       openVideo(videoId, videoTitle);
     });
