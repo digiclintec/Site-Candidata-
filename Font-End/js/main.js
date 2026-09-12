@@ -37,8 +37,8 @@ function initNavbar() {
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
-    // Fechar menu ao clicar em qualquer link
-    navLinks.forEach(link => {
+    // Fechar menu ao clicar em qualquer link ou botão interno
+    navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
         toggleBtn.classList.remove('active');

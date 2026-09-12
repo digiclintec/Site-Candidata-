@@ -291,8 +291,15 @@ button, input, textarea, select {
 .nav-menu {
   display: flex;
   align-items: center;
+}
+
+.nav-links-list {
+  display: flex;
+  align-items: center;
   list-style: none;
   gap: 1.75rem;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link {
@@ -301,6 +308,26 @@ button, input, textarea, select {
   color: var(--text-secondary);
   position: relative;
   padding: 0.4rem 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-link-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-icon {
+  display: none;
+}
+
+.nav-arrow {
+  display: none;
+}
+
+.mobile-menu-footer {
+  display: none;
 }
 
 .nav-link::after {
@@ -1584,25 +1611,6 @@ section {
   transform: translateY(-4px);
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: var(--shadow-md);
-}
-
-.videos-cta-bar {
-  margin-top: 2.5rem;
-  background: rgba(13, 27, 49, 0.7);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.videos-cta-bar span {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  font-weight: 500;
 }
 
 /* ==========================================================================
