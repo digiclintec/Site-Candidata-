@@ -3,20 +3,26 @@
    main.js - Navegação fluida, animações e player de vídeo popup
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initNavbar();
-  initScrollAnimations();
-  initVideoModal();
-});
+function startApp() {
+  try { initNavbar(); } catch (e) { console.warn('[NAVBAR]', e); }
+  try { initScrollAnimations(); } catch (e) { console.warn('[ANIMATIONS]', e); }
+  try { initVideoModal(); } catch (e) { console.warn('[VIDEOS]', e); }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startApp);
+} else {
+  startApp();
+}
 
 /* --------------------------------------------------------------------------
    1. NAVBAR & MENU MOBILE
    -------------------------------------------------------------------------- */
 function initNavbar() {
   const navbar = document.querySelector('.header-navbar');
+  if (!navbar) return;
   const toggleBtn = document.querySelector('.mobile-nav-toggle');
   const navMenu = document.querySelector('.nav-menu');
-  const navLinks = document.querySelectorAll('.nav-link');
 
   // Efeito de scroll na navbar
   window.addEventListener('scroll', () => {
@@ -25,7 +31,7 @@ function initNavbar() {
     } else {
       navbar.classList.remove('scrolled');
     }
-  });
+  }, { passive: true });
 
   // Toggle do menu mobile
   if (toggleBtn && navMenu) {
@@ -60,11 +66,30 @@ function initNavbar() {
 }
 
 /* --------------------------------------------------------------------------
-   2. OBSERVER DE ANIMAÇÃO AO ROLAR (FADE-IN-UP)
+   2. OBSERVER DE ANIMAÇÃO AO ROLAR (FADE-IN-UP COM RESILIÊNCIA TOTAL NO IOS)
    -------------------------------------------------------------------------- */
 function initScrollAnimations() {
   const animatedElements = document.querySelectorAll('.fade-in-up');
   if (!animatedElements.length) return;
+
+  // 1. Revela imediatamente tudo o que já estiver visível na tela inicial
+  animatedElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 100) {
+      el.classList.add('visible');
+    }
+  });
+
+  // 2. Garantia anti-tela-escura: após 400ms, garante que todo o conteúdo apareça no iOS
+  setTimeout(() => {
+    animatedElements.forEach(el => el.classList.add('visible'));
+  }, 400);
+
+  // 3. Se o navegador não suportar IntersectionObserver, revela tudo
+  if (!('IntersectionObserver' in window)) {
+    animatedElements.forEach(el => el.classList.add('visible'));
+    return;
+  }
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -74,23 +99,29 @@ function initScrollAnimations() {
       }
     });
   }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.05,
+    rootMargin: '60px 0px 60px 0px'
   });
 
-  animatedElements.forEach(el => observer.observe(el));
+  animatedElements.forEach(el => {
+    if (!el.classList.contains('visible')) {
+      observer.observe(el);
+    }
+  });
 }
 
 /* --------------------------------------------------------------------------
-   3. MODAL DE VÍDEOS OFICIAIS (PLAYER EMBED LIMPO, SEM BRANDING DO YOUTUBE)
+   3. MODAL DE VÍDEOS OFICIAIS (ALTA PERFORMANCE NO MOBILE & IPHONE)
    -------------------------------------------------------------------------- */
 function initVideoModal() {
   const videoModal = document.getElementById('videoModal');
   if (!videoModal) return;
 
   const videoIframe = document.getElementById('videoIframe');
+  const videoLoader = document.getElementById('videoLoader');
   const videoModalTitle = document.getElementById('videoModalTitle');
   const videoModalShareZap = document.getElementById('videoModalShareZap');
+  const videoModalDirect = document.getElementById('videoModalDirect');
   const closeBtn = videoModal.querySelector('.video-modal-close');
 
   function openVideo(videoId, videoTitle) {
@@ -98,21 +129,30 @@ function initVideoModal() {
       alert('Vídeo em preparação. Em breve disponível no portal oficial!');
       return;
     }
-    if (videoIframe) {
-      // Parâmetros para ocultar ao máximo elementos da plataforma YouTube:
-      // 1. youtube-nocookie.com: minimiza tracking e cookies de terceiros
-      // 2. modestbranding=1: remove logo do YouTube na barra
-      // 3. rel=0: restringe vídeos recomendados estritamente ao canal oficial
-      // 4. iv_load_policy=3: desativa anotações/cards intrusivos
-      // 5. playsinline=1: mantém o vídeo no modal do site em smartphones
-      // 6. controls=1 & color=white: controles essenciais limpos
-      videoIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&controls=1&color=white`;
+
+    // Feedback visual imediato: exibe o spinner enquanto o iframe conecta
+    if (videoLoader) {
+      videoLoader.style.display = 'flex';
     }
+
+    if (videoIframe) {
+      videoIframe.onload = () => {
+        if (videoLoader) videoLoader.style.display = 'none';
+      };
+
+      // No iOS/Safari, youtube.com com playsinline=1 inicia muito mais rápido que youtube-nocookie
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&controls=1&enablejsapi=1`;
+    }
+
     if (videoModalTitle) {
       videoModalTitle.textContent = videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal';
     }
+
+    if (videoModalDirect) {
+      videoModalDirect.href = `https://www.youtube.com/watch?v=${videoId}`;
+    }
+
     if (videoModalShareZap) {
-      // Se o site estiver rodando em domínio online real (ex: https://seudominio.com), usa o link do site; caso contrário, usa o Instagram oficial confirmado
       const isOnlineSite = window.location.protocol.startsWith('http') && 
                            !window.location.hostname.includes('localhost') && 
                            !window.location.hostname.includes('127.0.0.1');
@@ -125,6 +165,7 @@ function initVideoModal() {
       );
       videoModalShareZap.href = `https://api.whatsapp.com/send?text=${shareText}`;
     }
+
     videoModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -132,13 +173,15 @@ function initVideoModal() {
   function closeVideo() {
     videoModal.classList.remove('active');
     document.body.style.overflow = '';
-    // Interrompe imediatamente áudio e reprodução
     if (videoIframe) {
       videoIframe.src = '';
     }
+    if (videoLoader) {
+      videoLoader.style.display = 'none';
+    }
   }
 
-  // Event listeners para cards de vídeo
+  // Event listeners para cards de vídeo (leves e diretos, sem sobrecarga de rede)
   document.querySelectorAll('.video-card').forEach(card => {
     const videoId = card.getAttribute('data-video-id');
     const videoTitle = card.getAttribute('data-video-title');
@@ -147,37 +190,6 @@ function initVideoModal() {
       e.preventDefault();
       openVideo(videoId, videoTitle);
     });
-
-    // Resolução progressiva para máxima nitidez (720p HD / WebP)
-    const thumbImg = card.querySelector('.video-thumb-img');
-    if (thumbImg && videoId) {
-      const hdCandidates = [
-        `https://i.ytimg.com/vi_webp/${videoId}/hq720.webp`,
-        `https://i.ytimg.com/vi/${videoId}/hq720.jpg`,
-        `https://i.ytimg.com/vi_webp/${videoId}/maxresdefault.webp`,
-        `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
-        `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`,
-        `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
-      ];
-
-      let candidateIndex = 0;
-      function probeNextCandidate() {
-        if (candidateIndex >= hdCandidates.length) return;
-        const candidateUrl = hdCandidates[candidateIndex++];
-        const tester = new Image();
-        tester.onload = function() {
-          // Se for maior que 120px (não é o placeholder vazio padrão do YouTube), aplica imediatamente
-          if (this.naturalWidth > 120) {
-            thumbImg.src = candidateUrl;
-          } else {
-            probeNextCandidate();
-          }
-        };
-        tester.onerror = probeNextCandidate;
-        tester.src = candidateUrl;
-      }
-      probeNextCandidate();
-    }
   });
 
   if (closeBtn) {

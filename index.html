@@ -6,7 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alexsandra Tomaz 2223 • Deputada Federal • PL Espírito Santo</title>
   <script>
-    window.location.replace("Font-End/index.html");
+    (function() {
+      var target = 'Font-End/index.html' + window.location.search + window.location.hash;
+      try {
+        window.location.replace(target);
+      } catch (e) {
+        window.location.href = target;
+      }
+      setTimeout(function() {
+        if (window.location.href.indexOf('Font-End') === -1) {
+          window.location.href = target;
+        }
+      }, 300);
+    })();
   </script>
   <style>
     body {

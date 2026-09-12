@@ -19,6 +19,14 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/alexsandra-portrait.jpg">
 
+  <!-- Preconnect & DNS-Prefetch para Aceleração Máxima no Mobile/iPhone -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="dns-prefetch" href="https://www.youtube.com">
+  <link rel="dns-prefetch" href="https://i.ytimg.com">
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -137,7 +145,7 @@
       <div class="hero-grid">
         
         <!-- Coluna de Texto -->
-        <div class="hero-content fade-in-up">
+        <div class="hero-content">
           <h1 class="hero-title">
             Alexsandra <span class="highlight-gold">Tomaz</span>
           </h1>
@@ -160,7 +168,7 @@
         </div>
 
         <!-- Coluna da Imagem Oficial (Arte Oficial da Campanha sem cortes) -->
-        <div class="hero-media-wrapper fade-in-up">
+        <div class="hero-media-wrapper">
           <div class="hero-image-frame">
             <img src="assets/images/alexsandra-portrait.jpg" onerror="this.src='assets/images/campanha/WhatsApp Image 2026-09-12 at 10.29.52.jpeg'" alt="Alexsandra Tomaz - Deputada Federal 2223" class="hero-candidate-photo">
           </div>
@@ -179,7 +187,7 @@
         
         <div class="about-image-column fade-in-up">
           <div class="about-main-image">
-            <img src="assets/images/alexsandra-action.jpg" onerror="this.src='assets/images/campanha/WhatsApp Image 2026-09-12 at 10.29.49 (1).jpeg'" alt="Alexsandra Tomaz - Minha História Como Caminhoneira">
+            <img src="assets/images/alexsandra-action.jpg" onerror="this.src='assets/images/campanha/WhatsApp Image 2026-09-12 at 10.29.49 (1).jpeg'" alt="Alexsandra Tomaz - Minha História Como Caminhoneira" loading="lazy">
           </div>
           <div class="about-quote-card">
             <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
@@ -538,13 +546,22 @@
         <button class="modal-close-btn video-modal-close" aria-label="Fechar Vídeo">&times;</button>
       </div>
       <div class="video-iframe-container">
-        <iframe id="videoIframe" src="" title="Vídeo Oficial Alexsandra Tomaz" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <div class="video-loader" id="videoLoader">
+          <i class="fas fa-spinner fa-spin"></i>
+          <span>Carregando vídeo...</span>
+        </div>
+        <iframe id="videoIframe" src="" title="Vídeo Oficial Alexsandra Tomaz" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen playsinline></iframe>
       </div>
       <div class="video-modal-info">
         <h4 id="videoModalTitle">Alexsandra Tomaz 2223</h4>
-        <a id="videoModalShareZap" href="https://wa.me/?text=" target="_blank" class="btn btn-whatsapp btn-sm">
-          <i class="fab fa-whatsapp"></i> Compartilhar
-        </a>
+        <div class="video-modal-actions">
+          <a id="videoModalDirect" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+            <i class="fab fa-youtube"></i> Abrir no YouTube
+          </a>
+          <a id="videoModalShareZap" href="https://wa.me/?text=" target="_blank" class="btn btn-whatsapp btn-sm">
+            <i class="fab fa-whatsapp"></i> Compartilhar
+          </a>
+        </div>
       </div>
     </div>
   </div>

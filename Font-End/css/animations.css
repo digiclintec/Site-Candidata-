@@ -46,18 +46,35 @@
   animation: glow-pulse 10s ease-in-out infinite alternate-reverse;
 }
 
-/* Animações de Entrada com IntersectionObserver */
+/* A Hero (área inicial acima da dobra) é 100% visível imediatamente para evitar tela escura no iOS/Safari */
+.hero-section .fade-in-up,
+.hero-content,
+.hero-media-wrapper {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Animações de Entrada suaves para as seções seguintes */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, 
+              transform 0.5s ease-out;
   will-change: opacity, transform;
 }
 
 .fade-in-up.visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Fallback para usuários com redução de movimento ou navegadores que restringem animações */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-up {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* Efeito de brilho em botões e cartões */
