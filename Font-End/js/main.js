@@ -6,6 +6,7 @@
 function startApp() {
   try { initNavbar(); } catch (e) { console.warn('[NAVBAR]', e); }
   try { initScrollAnimations(); } catch (e) { console.warn('[ANIMATIONS]', e); }
+  try { initPhotoGallery(); } catch (e) { console.warn('[GALLERY]', e); }
   try { initVideoModal(); } catch (e) { console.warn('[VIDEOS]', e); }
 }
 
@@ -66,31 +67,27 @@ function initNavbar() {
 }
 
 /* --------------------------------------------------------------------------
-   2. OBSERVER DE ANIMAÇÃO AO ROLAR (FADE-IN-UP COM RESILIÊNCIA TOTAL NO IOS)
+   2. OBSERVER DE ANIMAÇÃO AO ROLAR (TRANSIÇÕES SUAVES E FLUIDAS)
    -------------------------------------------------------------------------- */
 function initScrollAnimations() {
   const animatedElements = document.querySelectorAll('.fade-in-up');
   if (!animatedElements.length) return;
 
-  // 1. Revela imediatamente tudo o que já estiver visível na tela inicial
+  // 1. Revela imediatamente apenas o que já está na tela ao carregar (Hero/Topo)
   animatedElements.forEach(el => {
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight + 100) {
+    if (rect.top < window.innerHeight - 30) {
       el.classList.add('visible');
     }
   });
 
-  // 2. Garantia anti-tela-escura: após 400ms, garante que todo o conteúdo apareça no iOS
-  setTimeout(() => {
-    animatedElements.forEach(el => el.classList.add('visible'));
-  }, 400);
-
-  // 3. Se o navegador não suportar IntersectionObserver, revela tudo
+  // 2. Se o navegador não suportar IntersectionObserver, revela tudo
   if (!('IntersectionObserver' in window)) {
     animatedElements.forEach(el => el.classList.add('visible'));
     return;
   }
 
+  // 3. Observer com transição suave conforme o usuário rola a página
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -99,8 +96,8 @@ function initScrollAnimations() {
       }
     });
   }, {
-    threshold: 0.05,
-    rootMargin: '60px 0px 60px 0px'
+    threshold: 0.08,
+    rootMargin: '0px 0px -40px 0px'
   });
 
   animatedElements.forEach(el => {
@@ -108,10 +105,182 @@ function initScrollAnimations() {
       observer.observe(el);
     }
   });
+
+  // 4. Fallback de segurança generoso (3.5s) apenas para navegadores muito antigos
+  setTimeout(() => {
+    animatedElements.forEach(el => el.classList.add('visible'));
+  }, 3500);
 }
 
 /* --------------------------------------------------------------------------
-   3. MODAL DE VÍDEOS OFICIAIS (ALTA PERFORMANCE NO MOBILE & IPHONE)
+   3. GALERIA DE FOTOS & MODAL LIGHTBOX (LEVE, RÁPIDO E INTUITIVO)
+   -------------------------------------------------------------------------- */
+function initPhotoGallery() {
+  const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+  const galleryCards = document.querySelectorAll('.gallery-card');
+  const photoModal = document.getElementById('photoModal');
+
+  // Filtros por Categoria com transição suave
+  if (filterBtns.length && galleryCards.length) {
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        galleryCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.classList.remove('hidden-filter');
+            setTimeout(() => card.classList.add('visible'), 30);
+          } else {
+            card.classList.add('hidden-filter');
+          }
+        });
+      });
+    });
+  }
+
+  // Lightbox Modal para Fotos e Legendas Enfatizadas
+  if (photoModal && galleryCards.length) {
+    const modalImg = document.getElementById('modalPhotoImg');
+    const modalBadge = document.getElementById('modalPhotoBadge');
+    const modalTitle = document.getElementById('modalPhotoTitle');
+    const modalQuote = document.getElementById('modalPhotoQuote');
+    const modalText = document.getElementById('modalPhotoText');
+    const modalPoints = document.getElementById('modalPhotoPoints');
+    const modalShareZap = document.getElementById('modalPhotoShareZap');
+    const closeBtn = photoModal.querySelector('.photo-modal-close');
+    const prevBtn = photoModal.querySelector('.photo-modal-nav.prev');
+    const nextBtn = photoModal.querySelector('.photo-modal-nav.next');
+
+    const cardsArray = Array.from(galleryCards);
+    let currentIndex = 0;
+
+    function renderCardInModal(index) {
+      if (index < 0) index = cardsArray.length - 1;
+      if (index >= cardsArray.length) index = 0;
+      currentIndex = index;
+
+      const card = cardsArray[currentIndex];
+      const img = card.querySelector('.gallery-card-img');
+      const badge = card.querySelector('.gallery-caption-badge');
+      const title = card.querySelector('.gallery-caption-title');
+      const quote = card.querySelector('.gallery-caption-quote');
+      const desc = card.querySelector('.gallery-caption-text');
+      const points = card.querySelector('.gallery-points-list');
+
+      if (modalImg && img) {
+        modalImg.src = img.src;
+        modalImg.alt = img.alt || 'Foto Oficial Alexsandra Tomaz';
+      }
+
+      if (modalBadge && badge) {
+        modalBadge.innerHTML = badge.innerHTML;
+      }
+
+      if (modalTitle && title) {
+        modalTitle.textContent = title.textContent.trim();
+      }
+
+      if (modalQuote && quote) {
+        modalQuote.textContent = quote.textContent.trim();
+        modalQuote.style.display = 'block';
+      } else if (modalQuote) {
+        modalQuote.style.display = 'none';
+      }
+
+      if (modalText && desc) {
+        modalText.textContent = desc.textContent.trim();
+      }
+
+      if (modalPoints && points) {
+        modalPoints.innerHTML = points.innerHTML;
+      }
+
+      if (modalShareZap) {
+        const isOnlineSite = window.location.protocol.startsWith('http') && 
+                             !window.location.hostname.includes('localhost') && 
+                             !window.location.hostname.includes('127.0.0.1');
+        const shareUrl = isOnlineSite ? window.location.href : 'https://www.instagram.com/alexsandra_pl_itapemirim/';
+        const cardTitle = title ? title.textContent.trim() : 'Alexsandra Tomaz 2223';
+        const cardQuote = quote ? quote.textContent.trim() : '';
+
+        const msg = encodeURIComponent(
+          `*Alexsandra Tomaz 2223 - Deputada Federal (PL Espírito Santo)*\n` +
+          `📌 *${cardTitle}*\n` +
+          (cardQuote ? `"${cardQuote}"\n\n` : `\n`) +
+          `Acompanhe as propostas e fotos oficiais:\n${shareUrl}`
+        );
+        modalShareZap.href = `https://api.whatsapp.com/send?text=${msg}`;
+      }
+    }
+
+    function openModal(index) {
+      renderCardInModal(index);
+      photoModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      photoModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    cardsArray.forEach((card, index) => {
+      const imgFrame = card.querySelector('.gallery-image-frame');
+      const zoomBtn = card.querySelector('.gallery-zoom-action');
+
+      if (imgFrame) {
+        imgFrame.addEventListener('click', () => openModal(index));
+      }
+      if (zoomBtn) {
+        zoomBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal(index);
+        });
+      }
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeModal();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        renderCardInModal(currentIndex - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        renderCardInModal(currentIndex + 1);
+      });
+    }
+
+    photoModal.addEventListener('click', (e) => {
+      if (e.target === photoModal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!photoModal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') renderCardInModal(currentIndex - 1);
+      if (e.key === 'ArrowRight') renderCardInModal(currentIndex + 1);
+    });
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. MODAL DE VÍDEOS OFICIAIS (ALTA PERFORMANCE NO MOBILE & IPHONE)
    -------------------------------------------------------------------------- */
 function initVideoModal() {
   const videoModal = document.getElementById('videoModal');

@@ -46,20 +46,36 @@
   animation: glow-pulse 10s ease-in-out infinite alternate-reverse;
 }
 
-/* A Hero (área inicial acima da dobra) é 100% visível imediatamente para evitar tela escura no iOS/Safari */
-.hero-section .fade-in-up,
-.hero-content,
-.hero-media-wrapper {
-  opacity: 1 !important;
-  transform: none !important;
+/* A Hero utiliza animação CSS nativa para entrada suave e imediata sem risco de tela escura */
+@keyframes heroEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Animações de Entrada suaves para as seções seguintes */
+.hero-section {
+  animation: heroEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-content {
+  animation: heroEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.hero-media-wrapper {
+  animation: heroEntrance 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+/* Transições de rolagem suaves para as seções seguintes */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease-out, 
-              transform 0.5s ease-out;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -68,9 +84,47 @@
   transform: translateY(0) !important;
 }
 
+/* Delays escalonados em cascata suave */
+.fade-in-up.delay-1 { transition-delay: 0.1s; }
+.fade-in-up.delay-2 { transition-delay: 0.2s; }
+.fade-in-up.delay-3 { transition-delay: 0.3s; }
+.fade-in-up.delay-4 { transition-delay: 0.4s; }
+.fade-in-up.delay-5 { transition-delay: 0.5s; }
+
+/* Transições para o Modal Lightbox de Fotos e Vídeos */
+.modal-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-backdrop .modal-video-card,
+.modal-backdrop .modal-photo-dialog {
+  opacity: 0;
+  transform: scale(0.95) translateY(16px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.active .modal-video-card,
+.modal-backdrop.active .modal-photo-dialog {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
 /* Fallback para usuários com redução de movimento ou navegadores que restringem animações */
 @media (prefers-reduced-motion: reduce) {
+  .hero-section,
+  .hero-content,
+  .hero-media-wrapper,
   .fade-in-up {
+    animation: none !important;
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;

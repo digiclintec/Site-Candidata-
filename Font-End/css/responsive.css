@@ -1001,3 +1001,79 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     gap: 1.2rem !important;
   }
 }
+
+/* ==========================================================================
+   RESPONSIVIDADE: GALERIA DE FOTOS & MODAL LIGHTBOX
+   ========================================================================== */
+@media (max-width: 991px) {
+  .gallery-panoramic-caption {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 1.25rem !important;
+    gap: 0.75rem !important;
+  }
+
+  .panoramic-slogan {
+    font-size: 1.05rem !important;
+  }
+
+  .gallery-cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 1.5rem !important;
+  }
+
+  .modal-photo-dialog {
+    flex-direction: column !important;
+    max-height: 92vh !important;
+  }
+
+  .modal-photo-left {
+    min-height: 240px !important;
+    max-height: 300px !important;
+    background: #02060f !important;
+  }
+
+  .modal-photo-right {
+    padding: 1.5rem 1.25rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .gallery-filter-btn {
+    font-size: 0.8rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+
+  .gallery-caption-box {
+    padding: 1.35rem 1.15rem !important;
+  }
+
+  .gallery-caption-title {
+    font-size: 1.12rem !important;
+  }
+
+  .gallery-caption-quote {
+    font-size: 0.86rem !important;
+  }
+
+  .gallery-point-item {
+    font-size: 0.82rem !important;
+  }
+
+  .modal-photo-left {
+    min-height: 210px !important;
+    max-height: 240px !important;
+  }
+
+  .photo-modal-nav {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.95rem !important;
+  }
+}
+
