@@ -45,38 +45,19 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     align-items: center;
   }
 
-  .proposals-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.75rem;
-  }
-
-  /* Preenchimento perfeito do grid de 3 colunas: Card 7 ocupa 2 colunas e Card 8 ocupa 1 */
-  .proposal-card[data-category="empreendedorismo"] {
-    grid-column: span 2;
-  }
-
-  .proposal-card-cta {
-    grid-column: span 1;
-  }
-
-  .stats-grid {
+  .commitments-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
   }
 
-  .materials-grid {
-    grid-template-columns: 0.95fr 1.05fr;
-    gap: 3rem;
+  .support-wrapper {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3.5rem;
     align-items: center;
   }
 
-  .contact-cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.75rem;
-  }
-
   .footer-grid {
-    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    grid-template-columns: 1.5fr 1fr 1fr;
     gap: 2.5rem;
   }
 }
@@ -155,44 +136,25 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     gap: 1.4rem !important;
   }
 
-  .proposal-card[data-category="empreendedorismo"] {
-    grid-column: span 1 !important;
+  .commitments-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem !important;
   }
 
-  .proposal-card-cta {
-    grid-column: span 1 !important;
+  .support-wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
   }
 
   /* Seção Sobre / Biografia */
   .about-grid {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr !important;
     gap: 2.5rem !important;
     align-items: center !important;
   }
 
   .about-main-image img {
     height: 380px !important;
-  }
-
-  /* Central de Materiais */
-  .materials-grid {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
-  }
-
-  .flyer-preview-box {
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  /* Contato em 2 colunas com o 3º card centralizado */
-  .contact-cards-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1.4rem !important;
-  }
-
-  .contact-cards-grid > .contact-card:nth-child(3) {
-    grid-column: span 2;
   }
 
   /* Galeria de Vídeos Tablet (2 colunas) */
@@ -548,43 +510,38 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     display: none !important;
   }
 
-  .filter-btn {
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
-    padding: 0.5rem 0.95rem !important;
-    font-size: 0.82rem !important;
-    min-height: 40px !important;
-  }
-
-  /* Grid dos Cards de Propostas em Mobile */
-  .proposals-grid {
+  /* Grid dos Compromissos em Mobile */
+  .commitments-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
     width: 100% !important;
   }
 
-  .proposal-card {
+  .commitment-card {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  .support-wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .support-form-card {
+    padding: 1.8rem 1.25rem !important;
+    border-radius: 20px !important;
+  }
+
+  .support-wa-box {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+    padding: 1.25rem !important;
+  }
+
+  .support-wa-box .btn-whatsapp {
     width: 100% !important;
-    padding: 1.4rem 1.2rem !important;
-  }
-
-  .proposal-icon-box {
-    width: 48px;
-    height: 48px;
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    border-radius: 12px;
-  }
-
-  .proposal-title {
-    font-size: 1.2rem !important;
-    line-height: 1.3 !important;
-  }
-
-  .proposal-summary {
-    font-size: 0.9rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 1.2rem !important;
+    text-align: center;
+    justify-content: center;
   }
 
   /* Seção Biografia em Mobile */

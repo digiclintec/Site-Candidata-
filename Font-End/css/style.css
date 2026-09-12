@@ -709,62 +709,57 @@ button, input, textarea, select {
   color: var(--text-muted);
 }
 
-/* ==========================================================================
-   STATS COUNTER BAR (Faixa de Impacto)
-   ========================================================================== */
-.stats-counter-bar {
-  background: linear-gradient(90deg, #091c38 0%, #102d59 50%, #091c38 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: clamp(1.4rem, 2.5vw, 2rem) 0;
-  position: relative;
-  z-index: 10;
+/* Highlights da História & Trajetória */
+.about-highlights-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin: 1.8rem 0;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-}
-
-.stat-box {
+.highlight-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1.25rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.4rem 0.8rem;
-  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  gap: 1.1rem;
+  transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
-.stat-box:last-child {
-  border-right: none;
-}
-
-.stat-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 14px;
+.highlight-box:hover {
+  transform: translateX(6px);
+  border-color: rgba(212, 175, 55, 0.35);
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.highlight-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  color: var(--gold);
+  font-size: 1.2rem;
   flex-shrink: 0;
 }
 
-.stat-value {
+.highlight-text h4 {
   font-family: var(--font-heading);
-  font-size: 2.2rem;
-  font-weight: 900;
+  font-size: 1rem;
+  font-weight: 700;
   color: #ffffff;
-  line-height: 1.1;
+  margin-bottom: 0.2rem;
 }
 
-.stat-label {
-  font-size: 0.85rem;
+.highlight-text p {
+  font-size: 0.88rem;
   color: var(--text-muted);
-  font-weight: 500;
+  line-height: 1.45;
+  margin: 0;
 }
 
 /* ==========================================================================
@@ -947,570 +942,205 @@ section {
 }
 
 /* ==========================================================================
-   BANDEIRAS & PROPOSTAS (INSPIRADO EM FLAVIOBOLSONARO.NET)
+   PRINCIPAIS COMPROMISSOS (4 EIXOS DIRETOS & REAIS)
    ========================================================================== */
 .proposals-section {
   background: var(--bg-main);
+  position: relative;
 }
 
-.proposal-filters {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 3.5rem;
-}
-
-.filter-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  padding: 0.65rem 1.4rem;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: var(--transition-fast);
-}
-
-.filter-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.filter-btn.active {
-  background: linear-gradient(135deg, var(--secondary-light), var(--secondary));
-  color: #ffffff;
-  border-color: var(--secondary-light);
-  box-shadow: var(--shadow-blue);
-}
-
-.filter-btn-cta {
-  border-color: rgba(14, 165, 233, 0.4);
-  color: #38bdf8;
-}
-
-.filter-btn-cta:hover,
-.filter-btn-cta.active {
-  background: linear-gradient(135deg, #0284c7, #0369a1);
-  border-color: #38bdf8;
-  color: #ffffff;
-  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
-}
-
-.proposals-grid {
+.commitments-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
 }
 
-.proposal-card {
+.commitment-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 2rem 1.75rem;
+  border-radius: var(--radius-lg);
+  padding: 2.2rem 1.6rem;
   display: flex;
   flex-direction: column;
-  transition: var(--transition-normal);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
   position: relative;
   overflow: hidden;
-  height: 100%;
 }
 
-/* Card 7 e Card 8 completam o grid de 3 colunas perfeitamente (2 + 1 = 3) */
-@media (min-width: 1024px) {
-  .proposal-card[data-category="empreendedorismo"] {
-    grid-column: span 2;
-  }
-
-  .proposal-card-cta {
-    grid-column: span 1;
-  }
-}
-
-.proposal-card-cta {
-  background: linear-gradient(145deg, rgba(14, 165, 233, 0.1) 0%, rgba(15, 34, 68, 0.85) 100%);
-  border: 1px dashed rgba(14, 165, 233, 0.4);
-}
-
-.proposal-card-cta:hover {
-  border-color: var(--secondary-cyan);
-  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.25);
-}
-
-.cta-icon-box {
-  background: rgba(14, 165, 233, 0.18) !important;
-  color: #38bdf8 !important;
-  border-color: rgba(14, 165, 233, 0.4) !important;
-}
-
-.cta-category {
-  color: #38bdf8 !important;
-}
-
-.proposal-card-cta .proposal-cta-actions {
-  margin-top: auto;
-  padding-top: 0.8rem;
-  display: flex;
-  gap: 0.6rem;
-  width: 100%;
-}
-
-.proposal-card-cta .btn-card-action {
-  width: 100%;
-  padding: 0.7rem 1.2rem;
-  font-size: 0.85rem;
-}
-
-.proposal-card::before {
+.commitment-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--secondary-light), var(--gold));
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), #38bdf8);
   opacity: 0;
-  transition: var(--transition-fast);
+  transition: opacity 0.3s ease;
 }
 
-.proposal-card:hover {
-  transform: translateY(-6px);
-  background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: var(--shadow-lg);
+.commitment-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45), 0 0 25px rgba(212, 175, 55, 0.12);
 }
 
-.proposal-card:hover::before {
+.commitment-card:hover::before {
   opacity: 1;
 }
 
-.proposal-icon-box {
-  width: 58px;
-  height: 58px;
-  border-radius: 16px;
-  background: rgba(30, 92, 209, 0.15);
-  border: 1px solid rgba(30, 92, 209, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-  color: #38bdf8;
-  margin-bottom: 1.5rem;
-}
-
-.proposal-category {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--gold);
-  margin-bottom: 0.6rem;
-}
-
-.proposal-title {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--text-main);
-  line-height: 1.3;
-  margin-bottom: 0.8rem;
-}
-
-.proposal-summary {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 1.8rem;
-  flex-grow: 1;
-}
-
-.proposal-action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 700;
-  font-size: 0.88rem;
-  color: var(--secondary-cyan);
-  cursor: pointer;
-  transition: var(--transition-fast);
-  background: none;
-  padding: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.proposal-action-btn:hover {
-  color: var(--gold);
-  gap: 0.75rem;
-}
-
-/* ==========================================================================
-   FATO OU BOATO (ANTI FAKE NEWS - INSPIRADO NO PORTAL DE FLÁVIO)
-   ========================================================================== */
-.fact-check-section {
-  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-main) 100%);
-  border-top: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.fact-check-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-.fact-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  transition: var(--transition-normal);
-}
-
-.fact-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: var(--shadow-md);
-}
-
-.fact-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.25rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.boato-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-weight: 700;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-}
-
-.fato-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-weight: 700;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-}
-
-.fact-date {
-  font-size: 0.8rem;
-  color: var(--text-dim);
-}
-
-.boato-box {
-  background: rgba(239, 68, 68, 0.05);
-  border-left: 3px solid var(--red-accent);
-  padding: 1rem 1.25rem;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  margin-bottom: 1.25rem;
-}
-
-.boato-box h4 {
-  color: #fca5a5;
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 0.3rem;
-}
-
-.boato-box p {
-  color: #e2e8f0;
-  font-size: 0.92rem;
-  font-style: italic;
-}
-
-.fato-box {
-  background: rgba(16, 185, 129, 0.05);
-  border-left: 3px solid var(--green-vibrant);
-  padding: 1.2rem 1.25rem;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-}
-
-.fato-box h4 {
-  color: #6ee7b7;
-  font-size: 0.88rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
-}
-
-.fato-box p {
-  color: #ffffff;
-  font-size: 0.95rem;
-  line-height: 1.55;
-}
-
-.fato-source {
-  display: block;
-  margin-top: 0.8rem;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* ==========================================================================
-   NOTÍCIAS & ATUALIZAÇÕES
-   ========================================================================== */
-.news-section {
-  background: var(--bg-main);
-}
-
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-
-.news-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: var(--transition-normal);
-}
-
-.news-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: var(--shadow-lg);
-}
-
-.news-thumb {
-  position: relative;
-  height: 220px;
-  overflow: hidden;
-  background: #0f1f38;
-}
-
-.news-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.news-card:hover .news-thumb img {
-  transform: scale(1.05);
-}
-
-.news-category-badge {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: rgba(7, 22, 44, 0.85);
-  backdrop-filter: blur(8px);
-  color: var(--gold);
-  border: 1px solid var(--border-gold);
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.news-body {
-  padding: 1.8rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.news-meta {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  margin-bottom: 0.75rem;
-}
-
-.news-title {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-main);
-  line-height: 1.35;
-  margin-bottom: 0.75rem;
-}
-
-.news-excerpt {
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  flex-grow: 1;
-}
-
-.news-link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--secondary-cyan);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  background: none;
-  cursor: pointer;
-}
-
-.news-link-btn:hover {
-  color: var(--gold);
-}
-
-/* ==========================================================================
-   HUB DE MATERIAIS DE CAMPANHA (DOWNLOAD)
-   ========================================================================== */
-.materials-section {
-  background: var(--bg-surface);
-}
-
-.materials-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5rem;
-  align-items: center;
-}
-
-.flyer-preview-box {
-  background: rgba(15, 34, 68, 0.6);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  box-shadow: var(--shadow-lg);
-  position: relative;
-}
-
-.flyer-preview-box img {
-  max-height: 480px;
-  border-radius: var(--radius-md);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-  transition: transform 0.4s ease;
-}
-
-.flyer-preview-box:hover img {
-  transform: scale(1.02);
-}
-
-.materials-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.material-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  transition: var(--transition-normal);
-}
-
-.material-card:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.material-info {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.material-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  background: rgba(245, 158, 11, 0.15);
+.commitment-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(245, 158, 11, 0.08) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.25);
   color: var(--gold);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
-  flex-shrink: 0;
+  margin-bottom: 1.25rem;
 }
 
-.material-details h4 {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
+.commitment-category {
+  font-size: 0.74rem;
   font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
 }
 
-.material-details p {
-  font-size: 0.85rem;
+.commitment-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.85rem;
+  line-height: 1.3;
+}
+
+.commitment-desc {
+  font-size: 0.92rem;
   color: var(--text-muted);
-}
-
-.btn-download {
-  padding: 0.6rem 1.2rem;
-  font-size: 0.82rem;
-  flex-shrink: 0;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* ==========================================================================
-   CENTRAL DO APOIADOR / SEJA VOLUNTÁRIO (FORMULÁRIO)
+   APOIE A CAMPANHA & FALE CONOSCO (DIRETO E SEM BUROCRACIA)
    ========================================================================== */
-.volunteer-section {
-  background: radial-gradient(circle at 50% 50%, rgba(18, 64, 144, 0.3) 0%, var(--bg-main) 80%);
+.support-section {
+  background: linear-gradient(180deg, var(--bg-surface) 0%, #050d1a 100%);
   position: relative;
 }
 
-.volunteer-card {
-  background: rgba(10, 23, 46, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 28px;
-  padding: clamp(2.2rem, 4vw, 3.2rem) clamp(1.4rem, 3vw, 2.75rem);
-  box-shadow: var(--shadow-lg);
-  max-width: 840px;
-  margin: 0 auto;
+.support-wrapper {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.support-callout {
+  display: flex;
+  flex-direction: column;
+}
+
+.support-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  margin: 1rem 0;
+}
+
+.support-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+
+.support-wa-box {
+  background: rgba(37, 211, 102, 0.08);
+  border: 1px solid rgba(37, 211, 102, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.support-wa-box .wa-box-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.support-wa-box .wa-box-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.support-wa-box .wa-box-text h4 {
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.support-wa-box .wa-box-text p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.support-form-card {
+  background: rgba(13, 27, 49, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 2.2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.form-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.form-card-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.75rem;
 }
 
 .volunteer-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .form-group label {
@@ -1539,68 +1169,39 @@ section {
   color: var(--text-dim);
 }
 
-/* Checkboxes de Participação */
-.support-options-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-top: 0.5rem;
-}
-
-.checkbox-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.9rem;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-subtle);
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  transition: var(--transition-fast);
-}
-
-.checkbox-label:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.checkbox-label input[type="checkbox"] {
-  accent-color: var(--gold);
-  width: 17px;
-  height: 17px;
-}
-
 .form-submit-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.btn-block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
 }
 
 .form-note {
   font-size: 0.8rem;
   color: var(--text-dim);
   text-align: center;
+  margin: 0;
 }
 
-/* Alertas de Status do Form */
 .form-status-alert {
-  padding: 1rem 1.25rem;
+  padding: 0.9rem 1.15rem;
   border-radius: var(--radius-sm);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 600;
   display: none;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
 }
 
 .form-status-alert.success {
@@ -1615,103 +1216,6 @@ section {
   border: 1px solid rgba(239, 68, 68, 0.4);
   color: #f87171;
   display: flex;
-}
-
-/* ==========================================================================
-   CANAIS OFICIAIS DE CONTATO
-   ========================================================================== */
-.contact-section {
-  background: var(--bg-surface);
-  position: relative;
-}
-
-.contact-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
-  width: 100%;
-}
-
-.contact-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 1.8rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  transition: var(--transition-normal);
-  height: 100%;
-}
-
-.contact-card:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-}
-
-.contact-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-}
-
-.contact-icon.wa-icon {
-  background: rgba(37, 211, 102, 0.15);
-  color: #25d366;
-}
-
-.contact-icon.email-icon {
-  background: rgba(14, 165, 233, 0.15);
-  color: #0ea5e9;
-}
-
-.contact-icon.location-icon {
-  background: rgba(245, 158, 11, 0.15);
-  color: var(--gold);
-}
-
-.contact-title {
-  color: #ffffff;
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 0.4rem;
-}
-
-.contact-desc {
-  color: var(--text-muted);
-  font-size: 0.92rem;
-  line-height: 1.5;
-  margin-bottom: 1.25rem;
-  flex-grow: 1;
-}
-
-.contact-hours-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--gold);
-  font-weight: 700;
-  font-size: 0.88rem;
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.25);
-  padding: 0.5rem 0.85rem;
-  border-radius: var(--radius-sm);
-  width: 100%;
-  justify-content: center;
-}
-
-.contact-action-btn {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 0.88rem;
 }
 
 /* ==========================================================================
