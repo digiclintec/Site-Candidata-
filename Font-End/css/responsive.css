@@ -163,9 +163,9 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     object-fit: contain !important;
   }
 
-  /* Galeria de Vídeos Tablet (2 colunas) */
+  /* Galeria de Vídeos Tablet (Auto-fit flexível para 3 vídeos) */
   .videos-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
     gap: 1.5rem !important;
   }
 
