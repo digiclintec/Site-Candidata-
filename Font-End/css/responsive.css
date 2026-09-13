@@ -1370,6 +1370,21 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     padding: 1.35rem 1.15rem !important;
   }
 
+  .gallery-card-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    width: 100% !important;
+  }
+
+  .gallery-card-actions .btn {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    padding: 0.6rem 0.45rem !important;
+    font-size: 0.76rem !important;
+    white-space: nowrap !important;
+  }
+
   .gallery-caption-title {
     font-size: 1.12rem !important;
   }
@@ -1874,6 +1889,24 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     padding: 0.85rem 0.8rem !important;
   }
 
+  .gallery-card-actions {
+    margin-top: auto !important;
+    padding-top: 0.65rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.45rem !important;
+    width: 100% !important;
+  }
+
+  .gallery-card-actions .btn {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    padding: 0.48rem 0.35rem !important;
+    font-size: 0.72rem !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+  }
+
   .gallery-caption-title {
     font-size: 0.98rem !important;
     margin-bottom: 0.3rem !important;
@@ -2001,5 +2034,18 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     right: 10px !important;
   }
 }
+
+@media (max-width: 360px) {
+  .gallery-card-actions {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  .gallery-card-actions .btn {
+    width: 100% !important;
+    flex: none !important;
+  }
+}
+
 
 

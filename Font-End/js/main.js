@@ -83,21 +83,13 @@ function initScrollAnimations() {
   const animatedElements = document.querySelectorAll('.fade-in-up');
   if (!animatedElements.length) return;
 
-  // 1. Revela imediatamente apenas o que já está na tela ao carregar (Hero/Topo)
-  animatedElements.forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 30) {
-      el.classList.add('visible');
-    }
-  });
-
-  // 2. Se o navegador não suportar IntersectionObserver, revela tudo
+  // Se o navegador não suportar IntersectionObserver, revela tudo imediatamente
   if (!('IntersectionObserver' in window)) {
     animatedElements.forEach(el => el.classList.add('visible'));
     return;
   }
 
-  // 3. Observer com transição suave conforme o usuário rola a página
+  // Observer com transição marcante conforme os boxes entram na tela ao rolar
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -106,8 +98,8 @@ function initScrollAnimations() {
       }
     });
   }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px -25px 0px'
   });
 
   animatedElements.forEach(el => {
@@ -116,10 +108,10 @@ function initScrollAnimations() {
     }
   });
 
-  // 4. Fallback de segurança generoso (3.5s) apenas para navegadores muito antigos
+  // Fallback de segurança generoso para garantir que tudo seja visível
   setTimeout(() => {
     animatedElements.forEach(el => el.classList.add('visible'));
-  }, 3500);
+  }, 4000);
 }
 
 /* --------------------------------------------------------------------------
