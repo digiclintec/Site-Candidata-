@@ -310,6 +310,7 @@ button, input, textarea, select {
   padding: 0.4rem 0;
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 .nav-link-content {
@@ -2021,43 +2022,30 @@ section {
 .gallery-image-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3.4;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
-  background: #050e1c;
+  background: #020612;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery-card-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: contain;
+  background: #020612;
   transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   display: block;
 }
 
 .gallery-card:hover .gallery-card-img {
-  transform: scale(1.06);
+  transform: scale(1.03);
 }
 
 .gallery-image-tag {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  background: rgba(4, 11, 23, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(245, 158, 11, 0.4);
-  color: var(--gold);
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 0.3rem 0.75rem;
-  border-radius: var(--radius-full);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  z-index: 2;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: none;
 }
 
 .gallery-zoom-overlay {
@@ -2185,35 +2173,40 @@ section {
 
 /* Modal Lightbox de Foto */
 .modal-photo-dialog {
-  background: rgba(7, 18, 36, 0.98);
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  background: rgba(6, 15, 30, 0.98);
+  border: 1.5px solid rgba(245, 158, 11, 0.45);
   border-radius: var(--radius-xl);
-  max-width: 980px;
+  max-width: 1040px;
   width: 95%;
-  max-height: 90vh;
+  max-height: 88vh;
   display: flex;
   flex-direction: row;
   overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(245, 158, 11, 0.15);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(245, 158, 11, 0.15);
   position: relative;
 }
 
 .modal-photo-left {
   flex: 1.1;
-  background: #030814;
+  background: #020611;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  min-height: 380px;
+  min-height: 480px;
+  padding: 1rem;
 }
 
 .modal-photo-left img {
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 82vh;
   object-fit: contain;
+  border-radius: 8px;
   display: block;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .modal-photo-right {
@@ -2222,7 +2215,7 @@ section {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  background: rgba(10, 24, 48, 0.9);
+  background: rgba(8, 20, 40, 0.95);
 }
 
 .photo-modal-nav {
@@ -2232,15 +2225,18 @@ section {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(4, 11, 23, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(3, 9, 20, 0.82);
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   cursor: pointer;
   z-index: 10;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
   transition: all var(--transition-fast);
 }
 
@@ -2249,14 +2245,17 @@ section {
   color: #040d1b;
   border-color: var(--gold);
   transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 8px 22px rgba(245, 158, 11, 0.4);
 }
 
+.modal-photo-left .photo-modal-nav.prev,
 .photo-modal-nav.prev {
-  left: 12px;
+  left: 14px;
 }
 
+.modal-photo-left .photo-modal-nav.next,
 .photo-modal-nav.next {
-  right: 12px;
+  right: 14px;
 }
 
 .photo-modal-close {

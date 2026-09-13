@@ -68,16 +68,97 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
 }
 
 /* --------------------------------------------------------------------------
-   3. DESKTOPS COMPACTOS E NOTEBOOKS (1024px até 1199px)
+   3. DESKTOPS COMPACTOS, NOTEBOOKS E TABLETS LANDSCAPE (1024px até 1199px)
+   Elimina quebra de linhas no menu superior e calibra o Hero para telas de 768px de altura
    -------------------------------------------------------------------------- */
 @media (max-width: 1199px) and (min-width: 1024px) {
+  /* Navbar Compacta e Fluida - Sem quebra de linha de textos como 'Quem Sou' ou 'Fotos & Pautas' */
+  .nav-wrapper {
+    gap: 0.5rem !important;
+  }
+
+  .brand-badge {
+    width: 38px !important;
+    height: 42px !important;
+  }
+
+  .brand-name {
+    font-size: 1.05rem !important;
+  }
+
+  .brand-tag {
+    font-size: 0.62rem !important;
+  }
+
+  .nav-links-list {
+    gap: clamp(0.5rem, 0.9vw, 0.95rem) !important;
+  }
+
+  .nav-link {
+    font-size: 0.81rem !important;
+    white-space: nowrap !important;
+    padding: 0.35rem 0.15rem !important;
+  }
+
+  .nav-link-content {
+    gap: 0.35rem !important;
+  }
+
+  .nav-actions .btn-header {
+    padding: 0.52rem 0.95rem !important;
+    font-size: 0.78rem !important;
+    white-space: nowrap !important;
+    gap: 0.4rem !important;
+  }
+
+  /* Hero Section Enquadrado para Viewports de 768px (iPad Mini Landscape, Laptops) */
+  .hero-section {
+    padding: 1.8rem 0 1.5rem !important;
+    min-height: calc(100vh - 64px) !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .hero-grid {
+    gap: clamp(1.5rem, 2.5vw, 2.25rem) !important;
+    align-items: center !important;
+  }
+
   .hero-title {
-    font-size: 3rem;
+    font-size: 2.5rem !important;
+    line-height: 1.08 !important;
+    margin-bottom: 0.45rem !important;
+  }
+
+  .hero-slogan {
+    font-size: 0.92rem !important;
+    line-height: 1.42 !important;
+    max-width: 480px !important;
+    margin-bottom: 0.8rem !important;
+  }
+
+  .hero-ctas {
+    gap: 0.55rem !important;
+    margin-top: 0.35rem !important;
+  }
+
+  .hero-ctas .btn {
+    padding: 0.55rem 1.1rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .hero-image-frame {
+    max-height: clamp(370px, 58vh, 450px) !important;
+    max-width: 360px !important;
+    width: auto !important;
+    aspect-ratio: 4 / 5 !important;
+    margin: 0 auto !important;
   }
 
   .hero-candidate-photo {
-    height: auto !important;
-    aspect-ratio: 4 / 5;
+    height: 100% !important;
+    width: auto !important;
+    aspect-ratio: 4 / 5 !important;
     object-fit: contain !important;
   }
 
@@ -87,6 +168,31 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
 
   .proposal-card {
     padding: 1.75rem 1.4rem;
+  }
+}
+
+/* Telas com Altura Reduzida (ex: 1024x768, 1280x720, 1366x768) */
+@media (min-width: 1024px) and (max-height: 820px) {
+  .hero-section {
+    padding: 1.5rem 0 1.25rem !important;
+    min-height: calc(100vh - 64px) !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .hero-image-frame {
+    max-height: clamp(350px, 56vh, 440px) !important;
+    max-width: 350px !important;
+    width: auto !important;
+    aspect-ratio: 4 / 5 !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-candidate-photo {
+    height: 100% !important;
+    width: auto !important;
+    aspect-ratio: 4 / 5 !important;
+    object-fit: contain !important;
   }
 }
 
@@ -178,6 +284,184 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   .footer-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 2rem !important;
+  }
+
+  /* Header e Navbar Tablet (768px até 1023px) - Evita colisão de itens e estouro do botão WhatsApp */
+  .mobile-nav-toggle {
+    display: flex !important;
+    z-index: 10001;
+  }
+
+  .nav-actions .btn-header {
+    display: inline-flex !important;
+    font-size: 0.8rem !important;
+    padding: 0.55rem 1rem !important;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: calc(100dvh - 64px);
+    background: linear-gradient(180deg, #050f22 0%, #030814 100%) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: stretch !important;
+    padding: 1.25rem 1.75rem 2rem !important;
+    transform: translateY(-120%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.35s;
+    z-index: 99999;
+    overflow-y: auto;
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95);
+  }
+
+  .nav-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-links-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .nav-links-list li {
+    width: 100% !important;
+    list-style: none !important;
+  }
+
+  .nav-link {
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 1rem 1.35rem !important;
+    border-radius: 14px !important;
+    background: rgba(13, 27, 49, 0.75) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    transition: all 0.22s ease !important;
+    text-align: left !important;
+  }
+
+  .nav-link-content {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.85rem !important;
+  }
+
+  .nav-icon {
+    display: inline-flex !important;
+    font-size: 1.15rem !important;
+    color: var(--gold) !important;
+    width: 24px !important;
+    justify-content: center !important;
+  }
+
+  .nav-arrow {
+    display: inline-flex !important;
+    font-size: 0.85rem !important;
+    color: rgba(255, 255, 255, 0.35) !important;
+    transition: transform 0.2s ease, color 0.2s ease !important;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.18) 0%, rgba(13, 27, 49, 0.9) 100%) !important;
+    color: #ffffff !important;
+    border-color: rgba(212, 175, 55, 0.45) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35), 0 0 15px rgba(212, 175, 55, 0.15) !important;
+  }
+
+  .nav-link:hover .nav-arrow,
+  .nav-link.active .nav-arrow {
+    color: var(--gold) !important;
+    transform: translateX(4px) !important;
+  }
+
+  .nav-link::after {
+    display: none !important;
+  }
+
+  .mobile-menu-footer {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    margin-top: 1.25rem !important;
+    padding-top: 1.1rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    width: 100% !important;
+  }
+
+  .mobile-menu-ctas {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+  }
+
+  .mobile-cta-btn {
+    width: 100% !important;
+    padding: 0.85rem 1rem !important;
+    font-size: 0.88rem !important;
+    border-radius: 12px !important;
+  }
+
+  .mobile-menu-social {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 0.85rem !important;
+  }
+
+  .mobile-menu-social a {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--gold) !important;
+    font-size: 1.05rem !important;
+  }
+
+  .mobile-menu-legal {
+    text-align: center !important;
+    font-size: 0.7rem !important;
+    color: var(--text-dim) !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+  }
+
+  .mobile-nav-toggle.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobile-nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+
+  .mobile-nav-toggle.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 }
 
@@ -1000,6 +1284,17 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     grid-template-columns: 1fr !important;
     gap: 1.2rem !important;
   }
+
+  .modal-photo-left {
+    height: 38vh !important;
+    max-height: 38vh !important;
+    min-height: 190px !important;
+    padding: 0.4rem !important;
+  }
+
+  .modal-photo-right {
+    padding: 1rem 0.85rem 2.8rem !important;
+  }
 }
 
 /* ==========================================================================
@@ -1024,17 +1319,39 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
 
   .modal-photo-dialog {
     flex-direction: column !important;
-    max-height: 92vh !important;
+    max-height: 90vh !important;
+    width: 92% !important;
+    margin: auto !important;
   }
 
   .modal-photo-left {
-    min-height: 240px !important;
-    max-height: 300px !important;
-    background: #02060f !important;
+    width: 100% !important;
+    height: 44vh !important;
+    max-height: 44vh !important;
+    min-height: 260px !important;
+    flex: 0 0 auto !important;
+    background: #020611 !important;
+    padding: 0.75rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+  }
+
+  .modal-photo-left img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    border-radius: 6px !important;
   }
 
   .modal-photo-right {
-    padding: 1.5rem 1.25rem !important;
+    flex: 1 1 auto !important;
+    padding: 1.5rem 1.25rem 2.5rem !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 }
 
@@ -1065,15 +1382,480 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     font-size: 0.82rem !important;
   }
 
-  .modal-photo-left {
-    min-height: 210px !important;
-    max-height: 240px !important;
+  .modal-photo-dialog {
+    width: 95% !important;
+    max-height: 92vh !important;
+    border-radius: 16px !important;
   }
 
-  .photo-modal-nav {
+  .modal-photo-left {
+    width: 100% !important;
+    height: 42vh !important;
+    max-height: 42vh !important;
+    min-height: 230px !important;
+    padding: 0.5rem !important;
+  }
+
+  .modal-photo-left img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  .photo-modal-nav,
+  .modal-photo-left .photo-modal-nav {
     width: 36px !important;
     height: 36px !important;
     font-size: 0.95rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .photo-modal-nav.prev,
+  .modal-photo-left .photo-modal-nav.prev {
+    left: 8px !important;
+  }
+
+  .photo-modal-nav.next,
+  .modal-photo-left .photo-modal-nav.next {
+    right: 8px !important;
+  }
+
+  .modal-photo-right {
+    padding: 1.15rem 1rem 2.75rem !important;
   }
 }
+
+/* ==========================================================================
+   7. CELULARES DEITADOS / SMARTPHONES EM MODO LANDSCAPE (PAISAGEM)
+   Otimização extrema para telas com altura reduzida (320px até 550px)
+   Garante visualização completa do Hero, botões CTA visíveis sem corte,
+   menu compacto em 2 colunas e ajuste perfeito de todos os modais.
+   ========================================================================== */
+@media screen and (orientation: landscape) and (max-height: 550px),
+       screen and (max-height: 500px) and (max-width: 1024px) {
+
+  /* 1. Header Compacto e Limpo */
+  .header-navbar {
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: #040c1a !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .nav-wrapper {
+    height: 48px !important;
+  }
+
+  .brand-badge {
+    width: 30px !important;
+    height: 32px !important;
+    border-radius: 7px !important;
+  }
+
+  .brand-name {
+    font-size: 0.9rem !important;
+  }
+
+  .brand-tag {
+    font-size: 0.56rem !important;
+  }
+
+  .mobile-nav-toggle {
+    display: flex !important;
+    width: 34px !important;
+    height: 34px !important;
+    padding: 6px !important;
+    z-index: 10001 !important;
+  }
+
+  .nav-actions .btn-header {
+    display: none !important; /* Deixa o topo minimalista e espaçoso */
+  }
+
+  /* 2. Menu Gaveta Landscape (Grade 2 Colunas Limpa e Acessível) */
+  .nav-menu {
+    top: 48px !important;
+    height: calc(100dvh - 48px) !important;
+    padding: 0.65rem 1.25rem 1rem !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .nav-links-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.4rem !important;
+    width: 100% !important;
+  }
+
+  .nav-link {
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.82rem !important;
+    border-radius: 9px !important;
+  }
+
+  .nav-icon {
+    font-size: 0.9rem !important;
+    width: 18px !important;
+  }
+
+  .mobile-menu-footer {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-top: 0.5rem !important;
+    padding-top: 0.5rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .mobile-menu-ctas {
+    flex: 1 !important;
+    max-width: 260px !important;
+    margin: 0 !important;
+  }
+
+  .mobile-cta-btn {
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  .mobile-menu-social {
+    gap: 0.45rem !important;
+  }
+
+  .mobile-menu-social a {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .mobile-menu-legal {
+    display: none !important;
+  }
+
+  /* 3. Hero Section Landscape (Ajuste Exato para Exibir Tudo na Primeira Tela) */
+  .hero-section {
+    min-height: calc(100dvh - 48px) !important;
+    height: auto !important;
+    padding: 0.5rem 0 0.85rem !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: visible !important;
+  }
+
+  .hero-grid {
+    display: grid !important;
+    grid-template-columns: 1.18fr 0.82fr !important;
+    gap: clamp(0.75rem, 2.5vw, 1.5rem) !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .hero-content {
+    gap: 0.25rem !important;
+    justify-content: center !important;
+  }
+
+  .hero-badge-pill {
+    font-size: 0.65rem !important;
+    padding: 0.15rem 0.55rem !important;
+    margin-bottom: 0.1rem !important;
+  }
+
+  .hero-title {
+    font-size: clamp(1.35rem, 3.2vw, 1.75rem) !important;
+    line-height: 1.06 !important;
+    margin: 0 0 0.1rem 0 !important;
+  }
+
+  .hero-title .highlight-gold {
+    display: inline !important;
+  }
+
+  .hero-slogan {
+    font-size: clamp(0.7rem, 1.35vw, 0.78rem) !important;
+    line-height: 1.3 !important;
+    border-left: 2.5px solid var(--gold) !important;
+    padding-left: 0.55rem !important;
+    margin: 0 0 0.2rem 0 !important;
+    max-width: 100% !important;
+  }
+
+  .hero-ctas {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+    margin-top: 0.25rem !important;
+  }
+
+  .hero-ctas .btn {
+    padding: 0.4rem 0.75rem !important;
+    font-size: 0.7rem !important;
+    border-radius: 9999px !important;
+    white-space: nowrap !important;
+    line-height: 1.15 !important;
+  }
+
+  .hero-trust-badges {
+    display: none !important; /* Remove deslocamento excessivo para manter os 3 botões CTA sempre visíveis */
+  }
+
+  .hero-media-wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100% !important;
+  }
+
+  .hero-image-frame {
+    max-height: clamp(200px, 66vh, 260px) !important;
+    width: auto !important;
+    aspect-ratio: 4 / 5 !important;
+    border-radius: 12px !important;
+    margin: 0 auto !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  .hero-candidate-photo {
+    height: 100% !important;
+    width: auto !important;
+    object-fit: contain !important;
+    aspect-ratio: 4 / 5 !important;
+  }
+
+  /* 4. Faixa de Destaques / Estatísticas */
+  .stats-strip {
+    padding: 0.75rem 0 !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .stat-box {
+    padding: 0.5rem 0.35rem !important;
+  }
+
+  .stat-number {
+    font-size: 1.15rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.68rem !important;
+  }
+
+  /* 5. Seções Gerais e Quem Sou */
+  section {
+    padding: 2rem 0 !important;
+  }
+
+  .section-header {
+    margin-bottom: 1.15rem !important;
+  }
+
+  .section-tag {
+    font-size: 0.65rem !important;
+    padding: 0.2rem 0.6rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .section-title {
+    font-size: clamp(1.35rem, 3.6vw, 1.7rem) !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .section-subtitle {
+    font-size: 0.8rem !important;
+  }
+
+  .about-grid {
+    grid-template-columns: 0.82fr 1.18fr !important;
+    gap: 1.25rem !important;
+    align-items: center !important;
+  }
+
+  .about-main-image img {
+    max-height: 65vh !important;
+    width: auto !important;
+    aspect-ratio: 4 / 5 !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+    border-radius: 12px !important;
+  }
+
+  .about-bio-text {
+    font-size: 0.82rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* 6. Compromissos e Propostas */
+  .proposals-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+
+  .proposal-card {
+    padding: 0.85rem 1rem !important;
+  }
+
+  .proposal-title {
+    font-size: 0.92rem !important;
+  }
+
+  .proposal-text {
+    font-size: 0.78rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .commitments-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+
+  /* 7. Galeria de Fotos e Lightbox Modal */
+  .gallery-cards-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.85rem !important;
+  }
+
+  .gallery-caption-box {
+    padding: 0.85rem 0.8rem !important;
+  }
+
+  .gallery-caption-title {
+    font-size: 0.98rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .gallery-caption-quote {
+    font-size: 0.8rem !important;
+    padding: 0.35rem 0.6rem !important;
+    margin-bottom: 0.55rem !important;
+  }
+
+  .gallery-caption-text {
+    font-size: 0.78rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.6rem !important;
+  }
+
+  .gallery-point-item {
+    font-size: 0.74rem !important;
+  }
+
+  .modal-photo-dialog {
+    flex-direction: row !important;
+    max-height: 92vh !important;
+    width: 94% !important;
+    max-width: 960px !important;
+    margin: auto !important;
+  }
+
+  .modal-photo-left {
+    flex: 1 !important;
+    height: 88vh !important;
+    max-height: 88vh !important;
+    min-height: auto !important;
+    width: auto !important;
+    padding: 0.4rem !important;
+  }
+
+  .modal-photo-left img {
+    max-height: 88vh !important;
+    object-fit: contain !important;
+  }
+
+  .modal-photo-right {
+    flex: 1.15 !important;
+    max-height: 88vh !important;
+    overflow-y: auto !important;
+    padding: 0.85rem 1.1rem !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .photo-modal-nav {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* 8. Vídeos e Player Modal */
+  .videos-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.85rem !important;
+  }
+
+  .video-thumb-wrapper {
+    aspect-ratio: 9 / 13 !important;
+  }
+
+  .video-info {
+    padding: 0.7rem 0.65rem 0.8rem !important;
+  }
+
+  .video-title {
+    font-size: 0.88rem !important;
+  }
+
+  .video-desc {
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .modal-video-card {
+    max-height: 94vh !important;
+    width: auto !important;
+    max-width: 90vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .modal-video-header {
+    padding: 0.3rem 0.65rem !important;
+  }
+
+  .video-iframe-container {
+    height: calc(94vh - 75px) !important;
+    width: calc((94vh - 75px) * 9 / 16) !important;
+    max-width: 80vw !important;
+    aspect-ratio: auto !important;
+    margin: 0 auto !important;
+  }
+
+  .video-modal-info {
+    padding: 0.35rem 0.65rem !important;
+  }
+
+  /* 9. Apoie & Rodapé */
+  .support-wrapper-direct {
+    padding: 1.15rem !important;
+  }
+
+  .footer-official {
+    padding: 2rem 0 1.25rem !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem !important;
+  }
+
+  /* 10. Botão Flutuante do WhatsApp */
+  .whatsapp-float-btn {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 1.2rem !important;
+    bottom: 10px !important;
+    right: 10px !important;
+  }
+}
+
 
