@@ -71,7 +71,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
    3. DESKTOPS COMPACTOS, NOTEBOOKS E TABLETS LANDSCAPE (1024px até 1199px)
    Elimina quebra de linhas no menu superior e calibra o Hero para telas de 768px de altura
    -------------------------------------------------------------------------- */
-@media (max-width: 1199px) and (min-width: 1024px) {
+@media (max-width: 1199px) and (min-width: 1024px) and (min-height: 601px) {
   /* Navbar Compacta e Fluida - Sem quebra de linha de textos como 'Quem Sou' ou 'Fotos & Pautas' */
   .nav-wrapper {
     gap: 0.5rem !important;
@@ -1430,108 +1430,252 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
 
 /* ==========================================================================
    7. CELULARES DEITADOS / SMARTPHONES EM MODO LANDSCAPE (PAISAGEM)
-   Otimização extrema para telas com altura reduzida (320px até 550px)
-   Garante visualização completa do Hero, botões CTA visíveis sem corte,
-   menu compacto em 2 colunas e ajuste perfeito de todos os modais.
+   Otimização extrema para telas com altura reduzida (320px até 680px)
+   Garante visualização perfeita no Samsung Galaxy S20, iPhone e todos celulares:
+   Header compacto sem cortes, menu gaveta em 2 colunas e zero sobreposição.
    ========================================================================== */
-@media screen and (orientation: landscape) and (max-height: 550px),
-       screen and (max-height: 500px) and (max-width: 1024px) {
+@media screen and (orientation: landscape) and (max-height: 680px),
+       screen and (max-height: 600px),
+       screen and (max-width: 1200px) and (max-height: 680px),
+       screen and (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-height: 720px) {
 
   /* 1. Header Compacto e Limpo */
   .header-navbar {
+    position: sticky !important;
+    top: 0 !important;
     width: 100% !important;
     left: 0 !important;
     right: 0 !important;
     background: #040c1a !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    z-index: 1000 !important;
   }
 
   .nav-wrapper {
     height: 48px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  .brand-logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.55rem !important;
+    text-decoration: none !important;
+    flex-shrink: 0 !important;
+    max-width: 75% !important;
   }
 
   .brand-badge {
     width: 30px !important;
     height: 32px !important;
     border-radius: 7px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .brand-info {
+    display: flex !important;
+    flex-direction: column !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    line-height: 1.15 !important;
   }
 
   .brand-name {
     font-size: 0.9rem !important;
+    white-space: nowrap !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.01em !important;
+    color: var(--text-main) !important;
   }
 
   .brand-tag {
     font-size: 0.56rem !important;
+    white-space: nowrap !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0.08em !important;
+    color: var(--gold) !important;
+  }
+
+  .nav-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .nav-actions .btn-header {
+    display: none !important; /* Deixa o topo minimalista e espaçoso, idêntico ao Print 2 */
   }
 
   .mobile-nav-toggle {
     display: flex !important;
-    width: 34px !important;
-    height: 34px !important;
-    padding: 6px !important;
-    z-index: 10001 !important;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 7px !important;
+    z-index: 100001 !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 9px !important;
+    cursor: pointer !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 4px !important;
   }
 
-  .nav-actions .btn-header {
-    display: none !important; /* Deixa o topo minimalista e espaçoso */
+  .mobile-nav-toggle span {
+    width: 100% !important;
+    height: 2px !important;
+    background: #ffffff !important;
+    border-radius: 2px !important;
+    transition: all 0.25s ease !important;
   }
 
-  /* 2. Menu Gaveta Landscape (Grade 2 Colunas Limpa e Acessível) */
+  .mobile-nav-toggle.active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg) !important;
+  }
+
+  .mobile-nav-toggle.active span:nth-child(2) {
+    opacity: 0 !important;
+    transform: scale(0.2) !important;
+  }
+
+  .mobile-nav-toggle.active span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg) !important;
+  }
+
+  /* 2. Menu Gaveta Landscape (Grade 2 Colunas Limpa e Acessível - Idêntico ao Print 2) */
   .nav-menu {
+    position: fixed !important;
     top: 48px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
     height: calc(100dvh - 48px) !important;
-    padding: 0.65rem 1.25rem 1rem !important;
+    background: linear-gradient(180deg, #050f22 0%, #030814 100%) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: stretch !important;
+    padding: 0.65rem 1.25rem 0.85rem !important;
+    transform: translateY(-120%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.35s !important;
+    z-index: 99999 !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.3) !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95) !important;
+  }
+
+  .nav-menu.open {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 
   .nav-links-list {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.4rem !important;
+    gap: 0.45rem !important;
     width: 100% !important;
-  }
-
-  .nav-link {
-    padding: 0.45rem 0.75rem !important;
-    font-size: 0.82rem !important;
-    border-radius: 9px !important;
-  }
-
-  .nav-icon {
-    font-size: 0.9rem !important;
-    width: 18px !important;
-  }
-
-  .mobile-menu-footer {
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    margin-top: 0.5rem !important;
-    padding-top: 0.5rem !important;
-    gap: 0.5rem !important;
-  }
-
-  .mobile-menu-ctas {
-    flex: 1 !important;
-    max-width: 260px !important;
+    list-style: none !important;
+    padding: 0 !important;
     margin: 0 !important;
   }
 
-  .mobile-cta-btn {
-    padding: 0.45rem 0.75rem !important;
-    font-size: 0.78rem !important;
+  .nav-links-list li {
+    width: 100% !important;
+    list-style: none !important;
+  }
+
+  .nav-link {
+    font-size: 0.84rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0.48rem 0.8rem !important;
+    border-radius: 10px !important;
+    background: rgba(13, 27, 49, 0.75) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    transition: all 0.22s ease !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+
+  .nav-link-content {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+  }
+
+  .nav-icon {
+    display: inline-block !important;
+    font-size: 0.88rem !important;
+    color: var(--gold) !important;
+    width: 18px !important;
+    text-align: center !important;
+  }
+
+  .nav-arrow {
+    display: inline-block !important;
+    font-size: 0.72rem !important;
+    color: rgba(255, 255, 255, 0.35) !important;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background: rgba(245, 158, 11, 0.12) !important;
+    border-color: rgba(245, 158, 11, 0.4) !important;
+    color: var(--gold) !important;
+  }
+
+  .nav-link::after {
+    display: none !important;
+  }
+
+  .mobile-menu-footer {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-top: 0.45rem !important;
+    padding-top: 0.45rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
   }
 
   .mobile-menu-social {
-    gap: 0.45rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
   }
 
   .mobile-menu-social a {
-    width: 32px !important;
-    height: 32px !important;
-    font-size: 0.85rem !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--gold) !important;
+    font-size: 0.9rem !important;
   }
 
   .mobile-menu-legal {

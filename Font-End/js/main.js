@@ -63,6 +63,16 @@ function initNavbar() {
         document.body.style.overflow = '';
       }
     });
+
+    // Fechar automaticamente se a tela for redimensionada para desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1200 && window.innerHeight > 650 && navMenu.classList.contains('open')) {
+        navMenu.classList.remove('open');
+        toggleBtn.classList.remove('active');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    }, { passive: true });
   }
 }
 
