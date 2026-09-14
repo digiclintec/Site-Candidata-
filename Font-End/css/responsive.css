@@ -2036,12 +2036,14 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
 }
 
 @media (max-width: 360px) {
-  .gallery-card-actions {
+  .gallery-card-actions,
+  .video-actions-row {
     flex-direction: column !important;
     gap: 0.5rem !important;
   }
 
-  .gallery-card-actions .btn {
+  .gallery-card-actions .btn,
+  .video-actions-row .btn {
     width: 100% !important;
     flex: none !important;
   }

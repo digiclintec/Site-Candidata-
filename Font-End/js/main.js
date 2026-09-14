@@ -8,6 +8,7 @@ function startApp() {
   try { initScrollAnimations(); } catch (e) { console.warn('[ANIMATIONS]', e); }
   try { initPhotoGallery(); } catch (e) { console.warn('[GALLERY]', e); }
   try { initVideoModal(); } catch (e) { console.warn('[VIDEOS]', e); }
+  try { handleDirectHash(); } catch (e) { console.warn('[HASH]', e); }
 }
 
 if (document.readyState === 'loading') {
@@ -202,10 +203,7 @@ function initPhotoGallery() {
       }
 
       if (modalShareZap) {
-        const isOnlineSite = window.location.protocol.startsWith('http') && 
-                             !window.location.hostname.includes('localhost') && 
-                             !window.location.hostname.includes('127.0.0.1');
-        const shareUrl = isOnlineSite ? window.location.href : 'https://www.instagram.com/alexsandra_pl_itapemirim/';
+        const shareUrl = `${getBaseSiteUrl()}/#galeria`;
         const cardTitle = title ? title.textContent.trim() : 'Alexsandra Tomaz 2223';
         const cardQuote = quote ? quote.textContent.trim() : '';
 
@@ -331,6 +329,26 @@ function initPhotoGallery() {
 }
 
 /* --------------------------------------------------------------------------
+   UTILITÁRIOS DE URL & COMPARTILHAMENTO
+   -------------------------------------------------------------------------- */
+function getBaseSiteUrl() {
+  const isOnlineSite = window.location.protocol.startsWith('http') && 
+                       !window.location.hostname.includes('localhost') && 
+                       !window.location.hostname.includes('127.0.0.1');
+  if (isOnlineSite) {
+    const origin = window.location.origin;
+    const path = window.location.pathname.replace(/\/index\.html$/i, '').replace(/\/+$/, '');
+    return origin + (path ? path : '');
+  }
+  return 'https://alexasandratomaz.helpclintec.com.br';
+}
+
+function getVideoShareUrl(videoId) {
+  const base = getBaseSiteUrl();
+  return `${base}/#video-${videoId}`;
+}
+
+/* --------------------------------------------------------------------------
    4. MODAL DE VÍDEOS OFICIAIS (ALTA PERFORMANCE NO MOBILE & IPHONE)
    -------------------------------------------------------------------------- */
 function initVideoModal() {
@@ -373,17 +391,20 @@ function initVideoModal() {
     }
 
     if (videoModalShareZap) {
-      const isOnlineSite = window.location.protocol.startsWith('http') && 
-                           !window.location.hostname.includes('localhost') && 
-                           !window.location.hostname.includes('127.0.0.1');
-      const shareUrl = isOnlineSite ? window.location.href : 'https://www.instagram.com/alexsandra_pl_itapemirim/';
-
+      const shareUrl = getVideoShareUrl(videoId);
+      const titleText = videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal';
       const shareText = encodeURIComponent(
         `Assista ao vídeo oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo):\n` +
-        `"${videoTitle || 'Compromisso com o Espírito Santo e com o Brasil'}"\n\n` +
-        `Acompanhe as novidades oficiais:\n${shareUrl}`
+        `"${titleText}"\n\n` +
+        `Assista direto no card oficial:\n${shareUrl}`
       );
       videoModalShareZap.href = `https://api.whatsapp.com/send?text=${shareText}`;
+    }
+
+    try {
+      history.replaceState(null, '', `#video-${videoId}`);
+    } catch (err) {
+      // Silencioso em caso de restrições de sandbox
     }
 
     videoModal.classList.add('active');
@@ -401,14 +422,36 @@ function initVideoModal() {
     }
   }
 
-  // Event listeners para cards de vídeo (leves e diretos, sem sobrecarga de rede)
+  // Event listeners para cards de vídeo (clique no card abre o player)
   document.querySelectorAll('.video-card').forEach(card => {
     const videoId = card.getAttribute('data-video-id');
     const videoTitle = card.getAttribute('data-video-title');
 
     card.addEventListener('click', (e) => {
+      // Se clicou no botão de compartilhar do WhatsApp no card, não abre o player
+      if (e.target.closest('.video-share-btn')) {
+        return;
+      }
       e.preventDefault();
       openVideo(videoId, videoTitle);
+    });
+  });
+
+  // Botões de compartilhamento direto no WhatsApp dentro de cada card
+  document.querySelectorAll('.video-share-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const videoId = btn.getAttribute('data-video-id');
+      const videoTitle = btn.getAttribute('data-video-title');
+      const shareUrl = getVideoShareUrl(videoId);
+      const titleText = videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal';
+      const shareText = encodeURIComponent(
+        `Assista ao vídeo oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo):\n` +
+        `"${titleText}"\n\n` +
+        `Assista direto no card oficial:\n${shareUrl}`
+      );
+      window.open(`https://api.whatsapp.com/send?text=${shareText}`, '_blank');
     });
   });
 
@@ -431,3 +474,47 @@ function initVideoModal() {
     }
   });
 }
+
+/* --------------------------------------------------------------------------
+   5. NAVEGAÇÃO DIRETA POR HASH / LINK COMPARTILHADO (#video-...)
+   -------------------------------------------------------------------------- */
+function handleDirectHash() {
+  const hash = window.location.hash;
+  if (!hash) return;
+
+  let target = null;
+  try {
+    target = document.querySelector(hash);
+  } catch (e) {
+    // Hash pode ter caracteres inválidos para seletor CSS
+  }
+
+  // Suporte a alias #video-1, #video-2, etc.
+  if (!target && /^#video-\d+$/i.test(hash)) {
+    const num = parseInt(hash.replace('#video-', ''), 10) - 1;
+    const cards = document.querySelectorAll('.video-card');
+    if (cards[num]) {
+      target = cards[num];
+    }
+  }
+
+  if (target) {
+    // Garante que o card e a seção pai fiquem visíveis imediatamente
+    target.classList.add('visible');
+    const parentSection = target.closest('section');
+    if (parentSection) {
+      parentSection.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
+    }
+
+    // Scroll suave com centralização do card na viewport
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      target.classList.add('highlight-target');
+      setTimeout(() => target.classList.remove('highlight-target'), 3500);
+    }, 300);
+  }
+}
+
+window.addEventListener('hashchange', () => {
+  try { handleDirectHash(); } catch (e) { console.warn('[HASH]', e); }
+});
