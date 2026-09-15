@@ -2,12 +2,16 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=Font-End/index.html">
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=Font-End/index.html">
+  </noscript>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alexsandra Tomaz 2223 • Deputada Federal • PL Espírito Santo</title>
   <script>
     (function() {
-      var target = 'Font-End/index.html' + window.location.search + window.location.hash;
+      var search = window.location.search || '';
+      var hash = window.location.hash || '';
+      var target = 'Font-End/index.html' + search + hash;
       try {
         window.location.replace(target);
       } catch (e) {

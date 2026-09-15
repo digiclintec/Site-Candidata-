@@ -13,7 +13,7 @@ git add .
 
 echo.
 echo Criando commit com as ultimas atualizacoes...
-git commit -m "feat: restauracao de animacoes fluidas de rolagem e correcao dos botoes de compartilhamento"
+git commit -m "fix: abertura automatica do player no video compartilhado e preservacao de parametros de navegacao"
 
 echo.
 echo Enviando para o repositorio remoto (origin main)...

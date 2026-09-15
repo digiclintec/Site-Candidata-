@@ -340,12 +340,22 @@ function getBaseSiteUrl() {
     const path = window.location.pathname.replace(/\/index\.html$/i, '').replace(/\/+$/, '');
     return origin + (path ? path : '');
   }
-  return 'https://alexasandratomaz.helpclintec.com.br';
+  return 'https://alexasandratomaz.helpclintec.com.br/Font-End';
 }
 
 function getVideoShareUrl(videoId) {
   const base = getBaseSiteUrl();
-  return `${base}/#video-${videoId}`;
+  return `${base}/?video=${videoId}#video-${videoId}`;
+}
+
+function getWhatsAppVideoShareMessage(videoId, videoTitle) {
+  const shareUrl = getVideoShareUrl(videoId);
+  const titleText = videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal';
+  return encodeURIComponent(
+    `Assista ao vídeo oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo):\n` +
+    `"${titleText}"\n\n` +
+    `Assista direto no portal oficial:\n${shareUrl}`
+  );
 }
 
 /* --------------------------------------------------------------------------
@@ -391,18 +401,11 @@ function initVideoModal() {
     }
 
     if (videoModalShareZap) {
-      const shareUrl = getVideoShareUrl(videoId);
-      const titleText = videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal';
-      const shareText = encodeURIComponent(
-        `Assista ao vídeo oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo):\n` +
-        `"${titleText}"\n\n` +
-        `Assista direto no card oficial:\n${shareUrl}`
-      );
-      videoModalShareZap.href = `https://api.whatsapp.com/send?text=${shareText}`;
+      videoModalShareZap.href = `https://api.whatsapp.com/send?text=${getWhatsAppVideoShareMessage(videoId, videoTitle)}`;
     }
 
     try {
-      history.replaceState(null, '', `#video-${videoId}`);
+      history.replaceState(null, '', `?video=${videoId}#video-${videoId}`);
     } catch (err) {
       // Silencioso em caso de restrições de sandbox
     }
@@ -421,6 +424,10 @@ function initVideoModal() {
       videoLoader.style.display = 'none';
     }
   }
+
+  // Expor globalmente para navegação direta e links compartilhados
+  window.openOfficialVideo = openVideo;
+  window.closeOfficialVideo = closeVideo;
 
   // Event listeners para cards de vídeo (clique no card abre o player)
   document.querySelectorAll('.video-card').forEach(card => {
@@ -444,13 +451,7 @@ function initVideoModal() {
       e.stopPropagation();
       const videoId = btn.getAttribute('data-video-id');
       const videoTitle = btn.getAttribute('data-video-title');
-      const shareUrl = getVideoShareUrl(videoId);
-      const titleText = videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal';
-      const shareText = encodeURIComponent(
-        `Assista ao vídeo oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo):\n` +
-        `"${titleText}"\n\n` +
-        `Assista direto no card oficial:\n${shareUrl}`
-      );
+      const shareText = getWhatsAppVideoShareMessage(videoId, videoTitle);
       window.open(`https://api.whatsapp.com/send?text=${shareText}`, '_blank');
     });
   });
@@ -476,45 +477,113 @@ function initVideoModal() {
 }
 
 /* --------------------------------------------------------------------------
-   5. NAVEGAÇÃO DIRETA POR HASH / LINK COMPARTILHADO (#video-...)
+   5. NAVEGAÇÃO DIRETA POR HASH / LINK COMPARTILHADO (#video-..., ?video=...)
    -------------------------------------------------------------------------- */
 function handleDirectHash() {
-  const hash = window.location.hash;
-  if (!hash) return;
-
-  let target = null;
+  // 1. Extrair parâmetro de query (?video=... ou ?v=...)
+  let videoParam = null;
   try {
-    target = document.querySelector(hash);
-  } catch (e) {
-    // Hash pode ter caracteres inválidos para seletor CSS
-  }
+    const urlParams = new URLSearchParams(window.location.search);
+    videoParam = urlParams.get('video') || urlParams.get('v');
+  } catch (e) {}
 
-  // Suporte a alias #video-1, #video-2, etc.
-  if (!target && /^#video-\d+$/i.test(hash)) {
-    const num = parseInt(hash.replace('#video-', ''), 10) - 1;
-    const cards = document.querySelectorAll('.video-card');
-    if (cards[num]) {
-      target = cards[num];
+  const hash = window.location.hash || '';
+
+  // Se não há hash nem parâmetro de vídeo, nada a fazer
+  if (!hash && !videoParam) return;
+
+  let targetVideoCard = null;
+  let shouldAutoPlayVideo = false;
+
+  // Busca por parâmetro de busca ?video=...
+  if (videoParam) {
+    if (/^\d+$/.test(videoParam)) {
+      const idx = parseInt(videoParam, 10) - 1;
+      const cards = document.querySelectorAll('.video-card');
+      if (cards[idx]) targetVideoCard = cards[idx];
+    } else {
+      targetVideoCard = document.getElementById(`video-${videoParam}`) ||
+                        document.querySelector(`.video-card[data-video-id="${videoParam}"]`);
     }
+    if (targetVideoCard) shouldAutoPlayVideo = true;
   }
 
-  if (target) {
-    // Garante que o card e a seção pai fiquem visíveis imediatamente
-    target.classList.add('visible');
-    const parentSection = target.closest('section');
+  // Busca por hash direto de vídeo #video-...
+  if (!targetVideoCard && hash && /^#video-/i.test(hash)) {
+    const rawId = hash.replace(/^#video-/i, '');
+    if (/^\d+$/.test(rawId)) {
+      const idx = parseInt(rawId, 10) - 1;
+      const cards = document.querySelectorAll('.video-card');
+      if (cards[idx]) targetVideoCard = cards[idx];
+    } else {
+      targetVideoCard = document.getElementById(`video-${rawId}`) ||
+                        document.getElementById(rawId) ||
+                        document.querySelector(`.video-card[data-video-id="${rawId}"]`);
+    }
+    if (targetVideoCard) shouldAutoPlayVideo = true;
+  }
+
+  // Se encontrou um vídeo específico compartilhado:
+  if (targetVideoCard) {
+    const videoId = targetVideoCard.getAttribute('data-video-id');
+    const videoTitle = targetVideoCard.getAttribute('data-video-title');
+
+    // Revela imediatamente a seção e o card sem animação bloqueada
+    targetVideoCard.classList.add('visible');
+    const parentSection = targetVideoCard.closest('section');
     if (parentSection) {
       parentSection.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
     }
 
-    // Scroll suave com centralização do card na viewport
+    // Scroll suave e centralização precisa do card na tela
     setTimeout(() => {
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      target.classList.add('highlight-target');
-      setTimeout(() => target.classList.remove('highlight-target'), 3500);
-    }, 300);
+      targetVideoCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetVideoCard.classList.add('highlight-target');
+      setTimeout(() => targetVideoCard.classList.remove('highlight-target'), 4000);
+    }, 250);
+
+    // CRUCIAL: Abre o player do vídeo imediatamente direto na tela do visitante!
+    if (shouldAutoPlayVideo && videoId && typeof window.openOfficialVideo === 'function') {
+      setTimeout(() => {
+        window.openOfficialVideo(videoId, videoTitle);
+      }, 400);
+    }
+    return;
+  }
+
+  // Se o hash for apenas a seção geral de vídeos (#videos), apenas rola até a seção
+  if (hash === '#videos') {
+    const videosSection = document.getElementById('videos');
+    if (videosSection) {
+      videosSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    return;
+  }
+
+  // Navegação para qualquer outra âncora (#sobre, #compromissos, #galeria, etc.)
+  if (hash) {
+    try {
+      const genericTarget = document.querySelector(hash);
+      if (genericTarget) {
+        genericTarget.classList.add('visible');
+        const parent = genericTarget.closest('section');
+        if (parent) {
+          parent.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
+        }
+        setTimeout(() => {
+          genericTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
+    } catch (e) {}
   }
 }
 
 window.addEventListener('hashchange', () => {
   try { handleDirectHash(); } catch (e) { console.warn('[HASH]', e); }
+});
+
+window.addEventListener('load', () => {
+  const modal = document.getElementById('videoModal');
+  if (modal && modal.classList.contains('active')) return;
+  try { handleDirectHash(); } catch (e) { console.warn('[LOAD_HASH]', e); }
 });
