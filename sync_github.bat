@@ -13,7 +13,7 @@ git add .
 
 echo.
 echo Criando commit com as ultimas atualizacoes...
-git commit -m "fix: abertura automatica do player no video compartilhado e preservacao de parametros de navegacao"
+git commit -m "fix: adiciona link oficial completo e abertura direta ao compartilhar propostas e fotos no whatsapp"
 
 echo.
 echo Enviando para o repositorio remoto (origin main)...

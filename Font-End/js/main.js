@@ -202,19 +202,17 @@ function initPhotoGallery() {
         modalPoints.innerHTML = points.innerHTML;
       }
 
-      if (modalShareZap) {
-        const shareUrl = `${getBaseSiteUrl()}/#galeria`;
-        const cardTitle = title ? title.textContent.trim() : 'Alexsandra Tomaz 2223';
-        const cardQuote = quote ? quote.textContent.trim() : '';
+      const cardId = card.getAttribute('data-card-id') || (currentIndex + 1);
+      const cardTitle = title ? title.textContent.trim() : 'Alexsandra Tomaz 2223';
+      const cardQuote = quote ? quote.textContent.trim() : '';
 
-        const msg = encodeURIComponent(
-          `*Alexsandra Tomaz 2223 - Deputada Federal (PL Espírito Santo)*\n` +
-          `📌 *${cardTitle}*\n` +
-          (cardQuote ? `"${cardQuote}"\n\n` : `\n`) +
-          `Acompanhe as propostas e fotos oficiais:\n${shareUrl}`
-        );
-        modalShareZap.href = `https://api.whatsapp.com/send?text=${msg}`;
+      if (modalShareZap) {
+        modalShareZap.href = `https://api.whatsapp.com/send?text=${getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote)}`;
       }
+
+      try {
+        history.replaceState(null, '', `?foto=${cardId}#foto-${cardId}`);
+      } catch (err) {}
     }
 
     function getNavCards() {
@@ -249,9 +247,14 @@ function initPhotoGallery() {
       document.body.style.overflow = '';
     }
 
+    // Expor globalmente para navegação direta e links compartilhados
+    window.openOfficialPhoto = openModal;
+    window.closeOfficialPhoto = closeModal;
+
     cardsArray.forEach((card, index) => {
       const imgFrame = card.querySelector('.gallery-image-frame');
       const zoomBtn = card.querySelector('.gallery-zoom-action');
+      const shareBtn = card.querySelector('.photo-share-btn');
 
       if (imgFrame) {
         imgFrame.addEventListener('click', () => openModal(index));
@@ -260,6 +263,17 @@ function initPhotoGallery() {
         zoomBtn.addEventListener('click', (e) => {
           e.preventDefault();
           openModal(index);
+        });
+      }
+      if (shareBtn) {
+        shareBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const cardId = card.getAttribute('data-card-id') || (index + 1);
+          const cardTitle = card.getAttribute('data-card-title') || card.querySelector('.gallery-caption-title')?.textContent?.trim();
+          const cardQuote = card.querySelector('.gallery-caption-quote')?.textContent?.trim();
+          const msg = getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote);
+          window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
         });
       }
     });
@@ -355,6 +369,22 @@ function getWhatsAppVideoShareMessage(videoId, videoTitle) {
     `Assista ao vídeo oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo):\n` +
     `"${titleText}"\n\n` +
     `Assista direto no portal oficial:\n${shareUrl}`
+  );
+}
+
+function getPhotoShareUrl(cardId) {
+  const base = getBaseSiteUrl();
+  return `${base}/?foto=${cardId}#foto-${cardId}`;
+}
+
+function getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote) {
+  const shareUrl = getPhotoShareUrl(cardId);
+  const titleText = cardTitle || 'Alexsandra Tomaz 2223 • Deputada Federal';
+  const quoteSnippet = cardQuote ? `\n"${cardQuote}"` : '';
+  return encodeURIComponent(
+    `Confira o que Alexsandra Tomaz 2223 defende para o Espírito Santo!\n\n` +
+    `📌 *${titleText}*${quoteSnippet}\n\n` +
+    `Acesse a proposta completa no portal oficial:\n${shareUrl}`
   );
 }
 
@@ -480,22 +510,26 @@ function initVideoModal() {
    5. NAVEGAÇÃO DIRETA POR HASH / LINK COMPARTILHADO (#video-..., ?video=...)
    -------------------------------------------------------------------------- */
 function handleDirectHash() {
-  // 1. Extrair parâmetro de query (?video=... ou ?v=...)
+  // 1. Extrair parâmetros de query (?video=..., ?foto=...)
   let videoParam = null;
+  let photoParam = null;
   try {
     const urlParams = new URLSearchParams(window.location.search);
     videoParam = urlParams.get('video') || urlParams.get('v');
+    photoParam = urlParams.get('foto') || urlParams.get('p') || urlParams.get('proposta');
   } catch (e) {}
 
   const hash = window.location.hash || '';
 
-  // Se não há hash nem parâmetro de vídeo, nada a fazer
-  if (!hash && !videoParam) return;
+  // Se não há hash nem parâmetros, nada a fazer
+  if (!hash && !videoParam && !photoParam) return;
 
+  // ========================================================================
+  // A. TRATAMENTO DE VÍDEO COMPARTILHADO (?video=... ou #video-...)
+  // ========================================================================
   let targetVideoCard = null;
   let shouldAutoPlayVideo = false;
 
-  // Busca por parâmetro de busca ?video=...
   if (videoParam) {
     if (/^\d+$/.test(videoParam)) {
       const idx = parseInt(videoParam, 10) - 1;
@@ -508,7 +542,6 @@ function handleDirectHash() {
     if (targetVideoCard) shouldAutoPlayVideo = true;
   }
 
-  // Busca por hash direto de vídeo #video-...
   if (!targetVideoCard && hash && /^#video-/i.test(hash)) {
     const rawId = hash.replace(/^#video-/i, '');
     if (/^\d+$/.test(rawId)) {
@@ -523,29 +556,95 @@ function handleDirectHash() {
     if (targetVideoCard) shouldAutoPlayVideo = true;
   }
 
-  // Se encontrou um vídeo específico compartilhado:
   if (targetVideoCard) {
     const videoId = targetVideoCard.getAttribute('data-video-id');
     const videoTitle = targetVideoCard.getAttribute('data-video-title');
 
-    // Revela imediatamente a seção e o card sem animação bloqueada
     targetVideoCard.classList.add('visible');
     const parentSection = targetVideoCard.closest('section');
     if (parentSection) {
       parentSection.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
     }
 
-    // Scroll suave e centralização precisa do card na tela
     setTimeout(() => {
       targetVideoCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
       targetVideoCard.classList.add('highlight-target');
       setTimeout(() => targetVideoCard.classList.remove('highlight-target'), 4000);
     }, 250);
 
-    // CRUCIAL: Abre o player do vídeo imediatamente direto na tela do visitante!
     if (shouldAutoPlayVideo && videoId && typeof window.openOfficialVideo === 'function') {
       setTimeout(() => {
         window.openOfficialVideo(videoId, videoTitle);
+      }, 400);
+    }
+    return;
+  }
+
+  // ========================================================================
+  // B. TRATAMENTO DE PROPOSTA / FOTO COMPARTILHADA (?foto=... ou #foto-...)
+  // ========================================================================
+  let targetPhotoCard = null;
+  let shouldOpenPhotoModal = false;
+  let photoIndexToOpen = -1;
+
+  if (photoParam) {
+    if (/^\d+$/.test(photoParam)) {
+      const idx = parseInt(photoParam, 10) - 1;
+      const cards = document.querySelectorAll('.gallery-card');
+      if (cards[idx]) {
+        targetPhotoCard = cards[idx];
+        photoIndexToOpen = idx;
+      }
+    } else {
+      targetPhotoCard = document.getElementById(`foto-${photoParam}`) ||
+                        document.getElementById(`proposta-${photoParam}`) ||
+                        document.querySelector(`.gallery-card[data-card-id="${photoParam}"]`);
+      if (targetPhotoCard) {
+        const allCards = Array.from(document.querySelectorAll('.gallery-card'));
+        photoIndexToOpen = allCards.indexOf(targetPhotoCard);
+      }
+    }
+    if (targetPhotoCard) shouldOpenPhotoModal = true;
+  }
+
+  if (!targetPhotoCard && hash && /^(#foto-|#proposta-)/i.test(hash)) {
+    const rawId = hash.replace(/^(#foto-|#proposta-)/i, '');
+    if (/^\d+$/.test(rawId)) {
+      const idx = parseInt(rawId, 10) - 1;
+      const cards = document.querySelectorAll('.gallery-card');
+      if (cards[idx]) {
+        targetPhotoCard = cards[idx];
+        photoIndexToOpen = idx;
+      }
+    } else {
+      targetPhotoCard = document.getElementById(`foto-${rawId}`) ||
+                        document.getElementById(`proposta-${rawId}`) ||
+                        document.getElementById(rawId) ||
+                        document.querySelector(`.gallery-card[data-card-id="${rawId}"]`);
+      if (targetPhotoCard) {
+        const allCards = Array.from(document.querySelectorAll('.gallery-card'));
+        photoIndexToOpen = allCards.indexOf(targetPhotoCard);
+      }
+    }
+    if (targetPhotoCard) shouldOpenPhotoModal = true;
+  }
+
+  if (targetPhotoCard) {
+    targetPhotoCard.classList.add('visible');
+    const parentSection = targetPhotoCard.closest('section');
+    if (parentSection) {
+      parentSection.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
+    }
+
+    setTimeout(() => {
+      targetPhotoCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetPhotoCard.classList.add('highlight-target');
+      setTimeout(() => targetPhotoCard.classList.remove('highlight-target'), 4000);
+    }, 250);
+
+    if (shouldOpenPhotoModal && photoIndexToOpen >= 0 && typeof window.openOfficialPhoto === 'function') {
+      setTimeout(() => {
+        window.openOfficialPhoto(photoIndexToOpen);
       }, 400);
     }
     return;

@@ -1644,7 +1644,8 @@ section {
   }
 }
 
-.video-card.highlight-target {
+.video-card.highlight-target,
+.gallery-card.highlight-target {
   animation: videoCardPulse 2.8s ease-out;
   border-color: #f59e0b !important;
 }
