@@ -354,7 +354,7 @@ function getBaseSiteUrl() {
     const path = window.location.pathname.replace(/\/index\.html$/i, '').replace(/\/+$/, '');
     return origin + (path ? path : '');
   }
-  return 'https://alexasandratomaz.helpclintec.com.br/Font-End';
+  return 'https://alexsandratomaz.com.br';
 }
 
 function getVideoShareUrl(videoId) {

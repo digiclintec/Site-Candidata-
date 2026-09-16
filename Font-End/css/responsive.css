@@ -735,10 +735,12 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     line-height: 1.5 !important;
   }
 
-  /* Hero Section Mobile */
+  /* Hero Section Mobile - Otimizado para iPhone e Smartphones */
   .hero-section {
-    padding: 1.8rem 0 2rem !important;
-    min-height: auto;
+    display: block !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 1.15rem 0 2rem !important;
     width: 100% !important;
     overflow: hidden;
   }
@@ -748,19 +750,56 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .hero-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem;
-    text-align: center;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.25rem !important;
+    align-items: center !important;
+    text-align: center !important;
     width: 100% !important;
   }
 
-  .hero-content {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+  /* Foto Oficial da Candidata no Topo (Destaque Imediato no iPhone sem cortes nem rolagem) */
+  .hero-media-wrapper {
+    order: -1 !important;
     width: 100% !important;
-    gap: 1rem;
-    padding-top: 0.25rem;
+    max-width: 320px !important;
+    margin: 0 auto 0.25rem !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .hero-image-frame {
+    width: 100% !important;
+    max-width: 290px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 25px rgba(30, 92, 209, 0.35) !important;
+    border: 1.5px solid rgba(245, 158, 11, 0.45) !important;
+    background: #07162c !important;
+    overflow: hidden !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-candidate-photo {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5 !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    display: block !important;
+    border-radius: 18px !important;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  .hero-content {
+    align-items: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    gap: 0.85rem !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
   }
 
   .hero-badge-pill {
@@ -768,60 +807,44 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .hero-title {
-    font-size: clamp(2.2rem, 7.5vw, 2.7rem) !important;
-    line-height: 1.08 !important;
-    margin-bottom: 0.2rem;
-    letter-spacing: -0.02em;
+    font-size: clamp(2rem, 7vw, 2.5rem) !important;
+    line-height: 1.1 !important;
+    margin: 0 0 0.2rem !important;
+    letter-spacing: -0.02em !important;
+    text-align: center !important;
   }
 
   .hero-slogan {
-    border: none;
-    padding: 0;
+    border: none !important;
+    padding: 0 !important;
     font-size: 0.95rem !important;
     line-height: 1.55 !important;
-    margin-bottom: 0.4rem;
+    margin: 0 auto 0.5rem !important;
     max-width: 100% !important;
-    color: #cbd5e1;
+    color: #cbd5e1 !important;
+    text-align: center !important;
   }
 
   /* CTAs da Hero em Mobile */
   .hero-ctas {
-    display: flex;
-    flex-direction: column;
+    display: flex !important;
+    flex-direction: column !important;
     width: 100% !important;
-    max-width: 360px;
-    gap: 0.65rem;
-    margin-top: 0.4rem;
+    max-width: 320px !important;
+    gap: 0.65rem !important;
+    margin: 0 auto !important;
   }
 
   .hero-ctas .btn {
     width: 100% !important;
-    padding: 0.78rem 1.1rem;
-    font-size: 0.88rem;
-    min-height: 46px;
-    letter-spacing: 0.03em;
-  }
-
-  /* Foto Oficial da Candidata na Hero */
-  .hero-media-wrapper {
-    margin: 0.5rem auto 0;
-    width: 100% !important;
-    max-width: 360px;
-  }
-
-  .hero-image-frame {
-    width: 100% !important;
-    border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-    background: #07162c;
-  }
-
-  .hero-candidate-photo {
-    width: 100% !important;
-    height: auto !important;
-    aspect-ratio: 4 / 5 !important;
-    object-fit: contain !important;
-    display: block;
+    padding: 0.85rem 1.25rem !important;
+    font-size: 0.92rem !important;
+    min-height: 48px !important;
+    letter-spacing: 0.03em !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.6rem !important;
   }
 
   .candidate-name-overlay {
@@ -1450,8 +1473,8 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
    Header compacto sem cortes, menu gaveta em 2 colunas e zero sobreposição.
    ========================================================================== */
 @media screen and (orientation: landscape) and (max-height: 680px),
-       screen and (max-height: 600px),
-       screen and (max-width: 1200px) and (max-height: 680px),
+       screen and (orientation: landscape) and (max-height: 600px),
+       screen and (orientation: landscape) and (max-width: 1200px) and (max-height: 680px),
        screen and (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-height: 720px) {
 
   /* 1. Header Compacto e Limpo */

@@ -13,7 +13,7 @@ git add .
 
 echo.
 echo Criando commit com as ultimas atualizacoes...
-git commit -m "fix: adiciona link oficial completo e abertura direta ao compartilhar propostas e fotos no whatsapp"
+git commit -m "fix(mobile): corrige exibicao da foto oficial e elimina espaco em branco no iPhone/Safari"
 
 echo.
 echo Enviando para o repositorio remoto (origin main)...

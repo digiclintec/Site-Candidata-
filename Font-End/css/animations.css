@@ -47,27 +47,49 @@
 }
 
 /* A Hero utiliza animação CSS nativa para entrada suave e imediata sem risco de tela escura */
-@keyframes heroEntrance {
+@-webkit-keyframes heroEntrance {
   0% {
     opacity: 0;
-    transform: translateY(22px);
+    -webkit-transform: translateY(18px);
+    transform: translateY(18px);
   }
   100% {
     opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroEntrance {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(18px);
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 }
 
 .hero-section {
+  -webkit-animation: heroEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation: heroEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .hero-content {
+  -webkit-animation: heroEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
   animation: heroEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .hero-media-wrapper {
-  animation: heroEntrance 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+  -webkit-animation: heroEntrance 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+  animation: heroEntrance 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Transições de rolagem com efeito de subida e encaixe suave dos boxes */
