@@ -13,7 +13,7 @@ git add .
 
 echo.
 echo Criando commit com as ultimas atualizacoes...
-git commit -m "fix(mobile): corrige exibicao da foto oficial e elimina espaco em branco no iPhone/Safari"
+git commit -m "fix: retorno automatico a tela inicial ao atualizar pagina e correcao hero iphone"
 
 echo.
 echo Enviando para o repositorio remoto (origin main)...

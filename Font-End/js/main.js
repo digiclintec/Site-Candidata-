@@ -3,7 +3,71 @@
    main.js - Navegação fluida, animações e player de vídeo popup
    ========================================================================== */
 
+// Desativa a restauração automática de rolagem do navegador para garantir
+// que qualquer atualização (reload/F5/pull-to-refresh) volte sempre à tela de início
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+function isPageReload() {
+  try {
+    const navEntries = window.performance && performance.getEntriesByType ? performance.getEntriesByType('navigation') : [];
+    if (navEntries.length > 0) {
+      return navEntries[0].type === 'reload';
+    }
+    if (window.performance && performance.navigation) {
+      return performance.navigation.type === 1;
+    }
+  } catch (e) {}
+  return false;
+}
+
+function resetToHomeScreen() {
+  // Limpa âncoras comuns de seções da URL para não prender o eleitor na aba anterior
+  const hash = window.location.hash || '';
+  const isSectionHash = /^(#inicio|#sobre|#compromissos|#galeria|#videos|#contato)$/i.test(hash);
+  
+  if (isSectionHash) {
+    try {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    } catch (e) {}
+  }
+
+  // Rola instantaneamente para o topo absoluto (Tela Inicial)
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  // Atualiza classe ativa da navbar para "Início"
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    if (link.getAttribute('href') === '#inicio') {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
+// Executa o reset de rolagem imediatamente caso seja atualização da página
+if (isPageReload()) {
+  resetToHomeScreen();
+}
+
+window.addEventListener('beforeunload', () => {
+  window.scrollTo(0, 0);
+});
+
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted || isPageReload()) {
+    resetToHomeScreen();
+  }
+});
+
 function startApp() {
+  if (isPageReload()) {
+    resetToHomeScreen();
+  }
   try { initNavbar(); } catch (e) { console.warn('[NAVBAR]', e); }
   try { initScrollAnimations(); } catch (e) { console.warn('[ANIMATIONS]', e); }
   try { initPhotoGallery(); } catch (e) { console.warn('[GALLERY]', e); }
@@ -650,6 +714,13 @@ function handleDirectHash() {
     return;
   }
 
+  // Se for um reload da página sem parâmetro direto de mídia (?video ou ?foto),
+  // garante que não role para as seções e mantenha o eleitor na tela inicial
+  if (isPageReload() && !videoParam && !photoParam) {
+    resetToHomeScreen();
+    return;
+  }
+
   // Se o hash for apenas a seção geral de vídeos (#videos), apenas rola até a seção
   if (hash === '#videos') {
     const videosSection = document.getElementById('videos');
@@ -682,6 +753,10 @@ window.addEventListener('hashchange', () => {
 });
 
 window.addEventListener('load', () => {
+  if (isPageReload()) {
+    resetToHomeScreen();
+    return;
+  }
   const modal = document.getElementById('videoModal');
   if (modal && modal.classList.contains('active')) return;
   try { handleDirectHash(); } catch (e) { console.warn('[LOAD_HASH]', e); }
