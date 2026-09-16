@@ -9,7 +9,10 @@ if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
 
+let pageReloadHandled = false;
+
 function isPageReload() {
+  if (pageReloadHandled) return false;
   try {
     const navEntries = window.performance && performance.getEntriesByType ? performance.getEntriesByType('navigation') : [];
     if (navEntries.length > 0) {
@@ -23,15 +26,23 @@ function isPageReload() {
 }
 
 function resetToHomeScreen() {
-  // Limpa âncoras comuns de seções da URL para não prender o eleitor na aba anterior
-  const hash = window.location.hash || '';
-  const isSectionHash = /^(#inicio|#sobre|#compromissos|#galeria|#videos|#contato)$/i.test(hash);
-  
-  if (isSectionHash) {
-    try {
-      history.replaceState(null, '', window.location.pathname + window.location.search);
-    } catch (e) {}
+  // Limpa parâmetros e âncoras da URL (como ?video=..., ?foto=..., #videos, #compromissos)
+  try {
+    history.replaceState(null, '', window.location.pathname);
+  } catch (e) {}
+
+  // Fecha qualquer modal que pudesse estar aberto e cancela vídeos em reprodução
+  const vModal = document.getElementById('videoModal');
+  if (vModal) {
+    vModal.classList.remove('active');
+    const vIframe = document.getElementById('videoIframe');
+    if (vIframe) vIframe.src = '';
   }
+  const pModal = document.getElementById('photoModal');
+  if (pModal) {
+    pModal.classList.remove('active');
+  }
+  document.body.style.overflow = '';
 
   // Rola instantaneamente para o topo absoluto (Tela Inicial)
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -49,7 +60,7 @@ function resetToHomeScreen() {
   });
 }
 
-// Executa o reset de rolagem imediatamente caso seja atualização da página
+// Executa o reset de rolagem no boot se a página foi recarregada
 if (isPageReload()) {
   resetToHomeScreen();
 }
@@ -59,7 +70,7 @@ window.addEventListener('beforeunload', () => {
 });
 
 window.addEventListener('pageshow', (e) => {
-  if (e.persisted || isPageReload()) {
+  if (e.persisted) {
     resetToHomeScreen();
   }
 });
@@ -68,6 +79,9 @@ function startApp() {
   if (isPageReload()) {
     resetToHomeScreen();
   }
+  // Marca o reset de reload como concluído para que todos os cliques de navegação funcionem livremente
+  pageReloadHandled = true;
+
   try { initNavbar(); } catch (e) { console.warn('[NAVBAR]', e); }
   try { initScrollAnimations(); } catch (e) { console.warn('[ANIMATIONS]', e); }
   try { initPhotoGallery(); } catch (e) { console.warn('[GALLERY]', e); }
@@ -139,6 +153,98 @@ function initNavbar() {
       }
     }, { passive: true });
   }
+
+  // Navegação suave com clique nos links do menu e compensação da navbar
+  const navAnchors = document.querySelectorAll('.nav-link, .nav-menu a, .hero-ctas a, .footer-links a');
+  navAnchors.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#' || !href.startsWith('#')) return;
+
+      const targetElement = document.querySelector(href);
+      if (targetElement) {
+        e.preventDefault();
+
+        // Fechar menu mobile se estiver aberto
+        if (navMenu && navMenu.classList.contains('open')) {
+          navMenu.classList.remove('open');
+          if (toggleBtn) {
+            toggleBtn.classList.remove('active');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+          }
+          document.body.style.overflow = '';
+        }
+
+        // Rolar suavemente com compensação da altura da navbar
+        if (href === '#inicio') {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+          try {
+            history.pushState(null, '', window.location.pathname);
+          } catch (err) {}
+        } else {
+          const navHeight = navbar ? navbar.offsetHeight : 80;
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+          window.scrollTo({
+            top: Math.max(0, targetPosition),
+            behavior: 'smooth'
+          });
+
+          try {
+            history.pushState(null, '', href);
+          } catch (err) {}
+        }
+
+        // Atualizar estado ativo na navbar
+        document.querySelectorAll('.nav-link').forEach(nl => {
+          if (nl.getAttribute('href') === href) {
+            nl.classList.add('active');
+          } else {
+            nl.classList.remove('active');
+          }
+        });
+
+        // Revelar elementos caso ainda estejam aguardando animação
+        targetElement.classList.add('visible');
+        targetElement.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
+      }
+    });
+  });
+
+  // ScrollSpy: destaca o link da seção ativa conforme a página é rolada
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id], footer[id]');
+
+  function updateScrollSpy() {
+    const navHeight = navbar ? navbar.offsetHeight : 80;
+    const scrollPos = window.pageYOffset + navHeight + 100;
+    let currentId = 'inicio';
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+        currentId = section.getAttribute('id');
+      }
+    });
+
+    if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 80) {
+      currentId = 'contato';
+    }
+
+    navLinks.forEach(link => {
+      if (link.getAttribute('href') === `#${currentId}`) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateScrollSpy, { passive: true });
 }
 
 /* --------------------------------------------------------------------------
@@ -274,9 +380,6 @@ function initPhotoGallery() {
         modalShareZap.href = `https://api.whatsapp.com/send?text=${getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote)}`;
       }
 
-      try {
-        history.replaceState(null, '', `?foto=${cardId}#foto-${cardId}`);
-      } catch (err) {}
     }
 
     function getNavCards() {
@@ -309,6 +412,9 @@ function initPhotoGallery() {
     function closeModal() {
       photoModal.classList.remove('active');
       document.body.style.overflow = '';
+      try {
+        history.replaceState(null, '', window.location.pathname);
+      } catch (e) {}
     }
 
     // Expor globalmente para navegação direta e links compartilhados
@@ -498,12 +604,6 @@ function initVideoModal() {
       videoModalShareZap.href = `https://api.whatsapp.com/send?text=${getWhatsAppVideoShareMessage(videoId, videoTitle)}`;
     }
 
-    try {
-      history.replaceState(null, '', `?video=${videoId}#video-${videoId}`);
-    } catch (err) {
-      // Silencioso em caso de restrições de sandbox
-    }
-
     videoModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -517,6 +617,9 @@ function initVideoModal() {
     if (videoLoader) {
       videoLoader.style.display = 'none';
     }
+    try {
+      history.replaceState(null, '', window.location.pathname);
+    } catch (e) {}
   }
 
   // Expor globalmente para navegação direta e links compartilhados
@@ -714,12 +817,7 @@ function handleDirectHash() {
     return;
   }
 
-  // Se for um reload da página sem parâmetro direto de mídia (?video ou ?foto),
-  // garante que não role para as seções e mantenha o eleitor na tela inicial
-  if (isPageReload() && !videoParam && !photoParam) {
-    resetToHomeScreen();
-    return;
-  }
+
 
   // Se o hash for apenas a seção geral de vídeos (#videos), apenas rola até a seção
   if (hash === '#videos') {
@@ -753,10 +851,6 @@ window.addEventListener('hashchange', () => {
 });
 
 window.addEventListener('load', () => {
-  if (isPageReload()) {
-    resetToHomeScreen();
-    return;
-  }
   const modal = document.getElementById('videoModal');
   if (modal && modal.classList.contains('active')) return;
   try { handleDirectHash(); } catch (e) { console.warn('[LOAD_HASH]', e); }

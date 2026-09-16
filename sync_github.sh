@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
-# Garante a execução correta apontando para o repositório Git
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-REPO_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
-
-cd "$REPO_ROOT" || exit 1
-
 echo "========================================================"
 echo "  Sincronizando alteracoes com o GitHub (Site-Candidata-)"
 echo "========================================================"
@@ -13,8 +7,8 @@ echo ""
 git status
 
 echo ""
-echo "Adicionando arquivos modificados de Front-End..."
-git add -A
+echo "Adicionando arquivos modificados..."
+git add .
 
 echo ""
 echo "Criando commit com as ultimas atualizacoes..."
