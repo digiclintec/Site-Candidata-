@@ -86,3 +86,7 @@ Ele abrirá diretamente no Google Chrome, Microsoft Edge ou no seu navegador pad
 11. **Rodapé Oficial & Transparência:**
     - CNPJ da campanha, identificação da coligação e conformidade com as regras do TSE.
     - Botão flutuante permanente do WhatsApp.
+
+---
+
+**Desenvolvido com excelência por Blessed Soluções**

@@ -1395,6 +1395,33 @@ section {
   font-weight: 700;
 }
 
+.footer-credits {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-top: 0.35rem;
+  letter-spacing: 0.03em;
+}
+
+.footer-credits .credits-name {
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.mobile-credits {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-top: 0.35rem;
+  opacity: 0.85;
+}
+
+.mobile-credits strong {
+  color: var(--gold);
+  font-weight: 700;
+}
+
 /* ==========================================================================
    VÍDEOS & SHORTS DA CAMPANHA (GALERIA MULTIMÍDIA)
    ========================================================================== */
