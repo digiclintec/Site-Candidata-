@@ -101,6 +101,15 @@
               </a>
             </li>
             <li>
+              <a href="#noticias" class="nav-link">
+                <span class="nav-link-content">
+                  <i class="fas fa-landmark nav-icon"></i>
+                  <span>Notícias Oficiais</span>
+                </span>
+                <i class="fas fa-chevron-right nav-arrow"></i>
+              </a>
+            </li>
+            <li>
               <a href="#contato" class="nav-link">
                 <span class="nav-link-content">
                   <i class="fas fa-comments nav-icon"></i>
@@ -147,9 +156,46 @@
         
         <!-- Coluna de Texto -->
         <div class="hero-content">
-          <h1 class="hero-title">
-            Alexsandra <span class="highlight-gold">Tomaz</span>
-          </h1>
+          <div class="hero-santinho-wrapper">
+            <h1 class="hero-santinho-brand" aria-label="Alexsandra Tomaz - Deputada Federal 2223">
+              <div class="santinho-brand-main">
+                <span class="santinho-letter-a-wrap">
+                  <svg class="santinho-letter-a-svg" viewBox="0 0 95 96" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="heroBrazilRibbon" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#008b38"/>
+                        <stop offset="38%" stop-color="#00a843"/>
+                        <stop offset="58%" stop-color="#f8b319"/>
+                        <stop offset="100%" stop-color="#ffcc00"/>
+                      </linearGradient>
+                      <linearGradient id="heroWhiteMetallic" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="40%" stop-color="#f1f5f9"/>
+                        <stop offset="100%" stop-color="#cbd5e1"/>
+                      </linearGradient>
+                    </defs>
+                    <!-- Topo e perna direita do A em branco metálico -->
+                    <path d="M 46,6 L 66,6 L 94,92 L 72,92 L 63,64 L 38,64 L 46,38 L 52,18 Z" fill="url(#heroWhiteMetallic)"/>
+                    <path d="M 46,6 L 52,18 L 36,46 L 24,46 Z" fill="url(#heroWhiteMetallic)"/>
+                    <!-- Fita do Brasil Verde & Amarelo cruzando o A -->
+                    <path d="M 10,92 L 24,52 C 26,46 32,44 40,46 L 76,54 C 84,56 88,60 84,66 L 70,68 C 58,66 42,62 34,66 L 26,92 Z" fill="url(#heroBrazilRibbon)"/>
+                    <path d="M 28,68 C 36,54 50,52 68,54 L 84,56 C 88,57 87,63 81,64 L 62,66 C 48,66 38,70 32,80 Z" fill="#ffcc00"/>
+                  </svg>
+                </span>
+                <span class="santinho-text-rest">LEXSANDRA</span>
+                <div class="santinho-accent-bars" aria-hidden="true">
+                  <span class="bar-green"></span>
+                  <span class="bar-yellow"></span>
+                </div>
+              </div>
+              <div class="santinho-brand-sub" aria-hidden="true">
+                <span class="santinho-taper-line left"></span>
+                <span class="santinho-tomaz">TOMAZ</span>
+                <span class="santinho-taper-line right"></span>
+              </div>
+              <div class="santinho-tagline">DEPUTADA FEDERAL</div>
+            </h1>
+          </div>
 
           <p class="hero-slogan">
             Empresária do setor de mármore e granito, caminhoneira, mãe de cinco filhos, avó, esposa e dona de casa. Uma trajetória de trabalho que representa, coragem que transforma e compromisso com as famílias capixabas e brasileiras.
@@ -733,6 +779,177 @@
   </section>
 
   <!-- ========================================================================
+       6. SEÇÃO DE NOTÍCIAS ELEITORAIS (JUSTIÇA ELEITORAL - TSE, TRE-ES & GOV.BR)
+       ======================================================================== -->
+  <section id="noticias" class="news-section">
+    <div class="news-glow-1"></div>
+    <div class="news-glow-2"></div>
+
+    <div class="container">
+      
+      <!-- Cabeçalho Institucional da Seção -->
+      <div class="section-header text-center fade-in-up news-institutional-header">
+        <div class="news-official-stamp">
+          <i class="fas fa-landmark"></i>
+          <span>JUSTIÇA ELEITORAL & GOV.BR • INFORMATIVO INSTITUCIONAL</span>
+        </div>
+        <h2 class="section-title news-institutional-title">
+          Notícias e Orientações Oficiais da <span class="text-gold">Justiça Eleitoral & Previdência</span>
+        </h2>
+        <div class="news-title-sub">
+          Transparência, Prazos e Serviços aos Cidadãos • TSE, TRE-ES & GOV.BR / INSS
+        </div>
+        <div class="section-divider news-divider"></div>
+        <p class="section-desc news-institutional-desc">
+          Canal de utilidade pública dedicado à publicação de atos oficiais, prazos do calendário eleitoral, serviços previdenciários e combate à desinformação, integrando comunicados do Tribunal Superior Eleitoral, do TRE-ES e do Ministério da Previdência Social.
+        </p>
+
+        <!-- Indicador de Status da Justiça Eleitoral -->
+        <div class="electoral-live-indicator">
+          <span class="pulse-dot"></span>
+          <span class="live-text">Conexão Oficial com a Justiça Eleitoral • Eleições 2026</span>
+          <span class="live-badge"><i class="fas fa-check-circle"></i> Fontes Verificadas</span>
+        </div>
+      </div>
+
+      <!-- Hub de Serviços Rápidos ao Eleitor (Central do Cidadão) -->
+      <div class="electoral-quick-hub fade-in-up delay-1">
+        <div class="hub-header">
+          <span class="hub-title"><i class="fas fa-compass"></i> Central de Serviços do Cidadão</span>
+          <span class="hub-subtitle">Acesso direto aos sistemas e portais homologados pelos tribunais eleitorais e órgãos federais</span>
+        </div>
+        <div class="hub-grid">
+          <a href="https://www.tse.jus.br/servicos-eleitorais/autoatendimento-eleitoral" target="_blank" rel="noopener noreferrer" class="hub-card">
+            <div class="hub-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="hub-info">
+              <h4>Local de Votação</h4>
+              <p>Consulta oficial de zona e seção pelo TSE</p>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square hub-arrow"></i>
+          </a>
+
+          <a href="https://www.gov.br/inss/pt-br/assuntos/noticias/comparecimento-as-urnas-vale-como-prova-de-vida-automatica-no-inss" target="_blank" rel="noopener noreferrer" class="hub-card">
+            <div class="hub-icon"><i class="fas fa-id-card"></i></div>
+            <div class="hub-info">
+              <h4>Prova de Vida INSS</h4>
+              <p>Voto na urna homologa prova de vida anual</p>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square hub-arrow"></i>
+          </a>
+
+          <a href="https://www.tse.jus.br/servicos-eleitorais/autoatendimento-eleitoral#/titulo-eleitoral" target="_blank" rel="noopener noreferrer" class="hub-card">
+            <div class="hub-icon"><i class="fas fa-mobile-alt"></i></div>
+            <div class="hub-info">
+              <h4>e-Título & Quitação</h4>
+              <p>Baixe a via digital e certidão de quitação</p>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square hub-arrow"></i>
+          </a>
+
+          <a href="https://www.tse.jus.br/fato-ou-boato" target="_blank" rel="noopener noreferrer" class="hub-card hub-card-alert">
+            <div class="hub-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="hub-info">
+              <h4>Fato ou Boato?</h4>
+              <p>Checagem oficial de notícias e atos eleitorais</p>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square hub-arrow"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Barra de Controle: Filtros por Categoria, Portal e Barra de Pesquisa -->
+      <div class="news-control-bar fade-in-up delay-2">
+        <!-- Linha 1: Filtros de Categoria -->
+        <div class="news-category-filters" role="tablist">
+          <button class="news-filter-btn active" data-category="todas" role="tab" aria-selected="true">
+            <i class="fas fa-th-large"></i> Todas as Matérias
+          </button>
+          <button class="news-filter-btn" data-category="calendario" role="tab" aria-selected="false">
+            <i class="fas fa-calendar-check"></i> Calendário Eleitoral
+          </button>
+          <button class="news-filter-btn" data-category="resolucoes" role="tab" aria-selected="false">
+            <i class="fas fa-balance-scale"></i> Regras & Resoluções
+          </button>
+          <button class="news-filter-btn" data-category="servicos" role="tab" aria-selected="false">
+            <i class="fas fa-id-card"></i> Serviços & Prova de Vida
+          </button>
+          <button class="news-filter-btn" data-category="desinformacao" role="tab" aria-selected="false">
+            <i class="fas fa-shield-virus"></i> Anti-Fake News
+          </button>
+          <button class="news-filter-btn" data-category="prestacao_contas" role="tab" aria-selected="false">
+            <i class="fas fa-file-invoice-dollar"></i> Prestação de Contas
+          </button>
+        </div>
+
+        <!-- Linha 2: Filtros de Portal Oficial em chips compactos -->
+        <div class="news-portal-chips-row">
+          <span class="portal-chips-label"><i class="fas fa-landmark"></i> Filtrar por Órgão Oficial:</span>
+          <div class="news-portal-chips" role="tablist">
+            <button class="news-portal-chip active" data-portal="todos" role="tab" aria-selected="true">
+              <i class="fas fa-layer-group"></i> Todos os Órgãos <span class="portal-chip-count" id="countPortalTodos">11</span>
+            </button>
+            <button class="news-portal-chip chip-govbr" data-portal="govbr" role="tab" aria-selected="false">
+              <i class="fas fa-id-card"></i> Gov.br • INSS <span class="portal-chip-count" id="countPortalGovbr">3</span>
+            </button>
+            <button class="news-portal-chip chip-tse" data-portal="tse" role="tab" aria-selected="false">
+              <i class="fas fa-landmark"></i> TSE Nacional <span class="portal-chip-count" id="countPortalTse">5</span>
+            </button>
+            <button class="news-portal-chip chip-trees" data-portal="tre-es" role="tab" aria-selected="false">
+              <i class="fas fa-water"></i> TRE Espírito Santo <span class="portal-chip-count" id="countPortalTrees">3</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Linha 3: Barra de Pesquisa e Contador Instantâneo -->
+        <div class="news-search-toolbar">
+          <div class="news-search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="newsSearchInput" placeholder="Pesquisar notícias, regras, prazos, fonte..." aria-label="Pesquisar notícias eleitorais">
+            <button id="newsSearchClear" class="search-clear-btn" aria-label="Limpar pesquisa" style="display: none;">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+
+          <div class="news-toolbar-actions">
+            <span id="newsCountDisplay" class="news-counter-pill">11 informativos disponíveis</span>
+            <button id="newsRefreshBtn" class="btn btn-outline btn-sm btn-refresh-news" title="Verificar atualizações oficiais" aria-label="Verificar atualizações">
+              <i class="fas fa-rotate"></i> <span>Atualizar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container do Grid Dinâmico de Notícias -->
+      <div id="newsGrid" class="news-grid">
+        <!-- Injetado dinamicamente pelo noticias.js -->
+        <div class="news-loading-skeleton">
+          <i class="fas fa-spinner fa-spin"></i>
+          <span>Carregando notícias oficiais da Justiça Eleitoral...</span>
+        </div>
+      </div>
+
+      <!-- Card de Transparência e Combate à Desinformação -->
+      <div class="electoral-disclaimer-box fade-in-up">
+        <div class="disclaimer-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="disclaimer-content">
+          <h4>Compromisso Alexsandra Tomaz com a Verdade e a Lei Eleitoral</h4>
+          <p>
+            Nosso portal atua em estrita conformidade com a legislação eleitoral brasileira (Lei nº 9.504/1997 e Resoluções vigentes do TSE). Repudiamos veementemente a propagação de boatos e fake news. Antes de compartilhar conteúdos nas redes sociais, consulte sempre as fontes e canais oficiais da Justiça Eleitoral.
+          </p>
+        </div>
+        <div class="disclaimer-action">
+          <a href="https://www.tse.jus.br" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-sm">
+            <i class="fas fa-external-link-alt"></i> Portal Oficial TSE
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
        7. RODAPÉ OFICIAL (TRANSPARÊNCIA ELEITORAL & REDES)
        ======================================================================== -->
   <footer class="footer-official" id="contato">
@@ -766,6 +983,7 @@
             <li><a href="#compromissos">Nossos Compromissos</a></li>
             <li><a href="#galeria">Fotos & Pautas</a></li>
             <li><a href="#videos">Vídeos da Campanha</a></li>
+            <li><a href="#noticias">Notícias da Justiça Eleitoral</a></li>
             <li><a href="#contato">Redes & Contato</a></li>
           </ul>
         </div>
@@ -856,6 +1074,126 @@
     </div>
   </div>
 
+  <!-- ========================================================================
+       11. MODAL DE NOTÍCIA ELEITORAL (LEITURA COMPLETA & TRANSPARÊNCIA)
+       ======================================================================== -->
+  <div id="newsModal" class="modal-backdrop news-modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="modalNewsTitle">
+    <div class="modal-news-dialog">
+      <div class="modal-news-header">
+        <div class="modal-news-header-meta">
+          <span id="modalNewsBadge" class="news-modal-badge">
+            <i class="fas fa-balance-scale"></i> Justiça Eleitoral
+          </span>
+          <span class="news-modal-verified"><i class="fas fa-shield-alt"></i> Publicação Oficial Verificada</span>
+        </div>
+        <button id="newsModalClose" class="modal-close-btn" aria-label="Fechar Notícia">&times;</button>
+      </div>
+
+      <div class="modal-news-scroll-body">
+        <div class="modal-news-hero-media">
+          <img id="modalNewsImg" src="" alt="Imagem da Notícia Eleitoral">
+          <span id="modalNewsPhotoCredit" class="modal-news-credit"></span>
+        </div>
+
+        <div class="modal-news-content">
+          <div class="news-meta-row">
+            <span><i class="far fa-calendar-alt"></i> <strong id="modalNewsDate"></strong></span>
+            <span><i class="far fa-clock"></i> <strong id="modalNewsReadingTime"></strong></span>
+            <span><i class="fas fa-user-edit"></i> <strong id="modalNewsAuthor"></strong></span>
+          </div>
+
+          <h2 id="modalNewsTitle" class="modal-news-title"></h2>
+
+          <p id="modalNewsExcerpt" class="modal-news-lead"></p>
+
+          <!-- Destaques / Pontos Chave para o Eleitor -->
+          <div id="modalNewsPointsBox" class="modal-news-points-box">
+            <h4><i class="fas fa-exclamation-circle text-gold"></i> Pontos de Atenção para Eleitores e Candidatos:</h4>
+            <ul id="modalNewsPoints" class="modal-news-points-list"></ul>
+          </div>
+
+          <!-- Texto Completo da Notícia -->
+          <div id="modalNewsBody" class="modal-news-body-paragraphs"></div>
+
+          <!-- Rodapé do Modal -->
+          <div class="modal-news-footer-actions">
+            <a id="modalNewsOfficialLink" href="https://www.tse.jus.br" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+              <i class="fas fa-external-link-alt"></i> Acessar no Portal Oficial
+            </a>
+            <a id="modalNewsShareZap" href="https://wa.me/?text=" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
+              <i class="fab fa-whatsapp"></i> Compartilhar Informação Oficial
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       BOTÃO FLUTUANTE DE NOTÍCIAS (ESTILO WHATSAPP) COM BALÃO DINÂMICO
+       Dois botões perfeitamente alinhados: WhatsApp (verde) e Notícias (ouro/azul)
+       ======================================================================== -->
+  <!-- ========================================================================
+       BOTÃO REDONDO DE NOTÍCIAS COM FOTO DINÂMICA (ESTILO WHATSAPP)
+       Sem popups secundários fixos: tudo embutido no próprio botão redondo!
+       ======================================================================== -->
+  <div class="news-fab-round-wrap" id="heroNewsMinitela" role="region" aria-label="Notícias Oficiais Flutuantes">
+
+    <!-- Botão Redondo com a Imagem Dinâmica da Notícia (Irmão gêmeo do WhatsApp) -->
+    <button type="button" class="news-round-fab-btn portal-govbr" id="heroNewsAlert" aria-label="Notícias Eleitorais Oficiais - Toque para ler na íntegra">
+      
+      <!-- Anel SVG de Progresso Suave (Linha Visual Dinâmica: Verde, Azul e Roxo) -->
+      <svg class="story-progress-ring" viewBox="0 0 68 68" aria-hidden="true">
+        <defs>
+          <!-- Verde: Portal Gov.br • INSS -->
+          <linearGradient id="ringGreenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#059669" />
+            <stop offset="50%" stop-color="#10b981" />
+            <stop offset="100%" stop-color="#6ee7b7" />
+          </linearGradient>
+
+          <!-- Azul: TSE Nacional -->
+          <linearGradient id="ringBlueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2563eb" />
+            <stop offset="50%" stop-color="#3b82f6" />
+            <stop offset="100%" stop-color="#93c5fd" />
+          </linearGradient>
+
+          <!-- Roxo: TRE-ES -->
+          <linearGradient id="ringPurpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#7c3aed" />
+            <stop offset="50%" stop-color="#8b5cf6" />
+            <stop offset="100%" stop-color="#c4b5fd" />
+          </linearGradient>
+        </defs>
+        <path class="ring-track" d="M 34, 3.5 a 30.5, 30.5 0 1, 1 0, 61 a 30.5, 30.5 0 1, 1 0, -61"></path>
+        <path class="ring-fill" id="minitelaProgressFill" d="M 34, 3.5 a 30.5, 30.5 0 1, 1 0, 61 a 30.5, 30.5 0 1, 1 0, -61"></path>
+      </svg>
+
+      <!-- Imagem Redonda da Notícia Atual (Transição Fluida) -->
+      <div class="news-avatar-frame">
+        <img id="minitelaThumb" src="assets/images/noticias/inss-prova-vida.svg" alt="Notícia Oficial" class="news-avatar-img">
+        <div class="news-avatar-glow"></div>
+      </div>
+
+      <!-- Badge de Notícias no Topo (Contador '11') -->
+      <span class="news-avatar-badge" id="newsFabBadge">11</span>
+
+      <!-- Mini Ícone no Canto Inferior -->
+      <span class="news-avatar-subtag" id="minitelaSubtag">
+        <i class="fas fa-newspaper"></i>
+      </span>
+
+      <!-- Tooltip Discreto Flutuante (100% reto e alinhado ao centro) -->
+      <div class="news-round-tooltip" id="newsRoundTooltip">
+        <div class="round-tooltip-tag" id="minitelaTag">Gov.br • INSS</div>
+        <div class="round-tooltip-title" id="minitelaTitle">Comparecimento às urnas vale como Prova de Vida automática no INSS</div>
+        <div class="round-tooltip-cta">Clique para ler matéria <i class="fas fa-arrow-right"></i></div>
+      </div>
+    </button>
+
+  </div>
+
   <!-- Botão Flutuante Permanente do WhatsApp -->
   <a href="https://wa.me/5527996920048?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20com%20a%20equipe%20da%20Alexsandra%20Tomaz!" target="_blank" class="whatsapp-float-btn" aria-label="Conversar no WhatsApp">
     <i class="fab fa-whatsapp"></i>
@@ -863,5 +1201,6 @@
 
   <!-- Scripts -->
   <script src="js/main.js"></script>
+  <script src="js/noticias.js"></script>
 </body>
 </html>

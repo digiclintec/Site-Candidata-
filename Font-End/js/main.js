@@ -42,6 +42,10 @@ function resetToHomeScreen() {
   if (pModal) {
     pModal.classList.remove('active');
   }
+  const nModal = document.getElementById('newsModal');
+  if (nModal) {
+    nModal.classList.remove('active');
+  }
   document.body.style.overflow = '';
 
   // Rola instantaneamente para o topo absoluto (Tela Inicial)
@@ -154,8 +158,16 @@ function initNavbar() {
     }, { passive: true });
   }
 
-  // Navegação suave com clique nos links do menu e compensação da navbar
-  const navAnchors = document.querySelectorAll('.nav-link, .nav-menu a, .hero-ctas a, .footer-links a');
+  // Navegação suave com clique nos links do menu e compensação da navbar flutuante
+  const navAnchors = document.querySelectorAll('.brand-logo, .nav-link, .nav-menu a, .hero-ctas a, .footer-links a');
+
+  function getFloatingHeaderOffset() {
+    if (!navbar) return 95;
+    const rect = navbar.getBoundingClientRect();
+    const topOffset = rect.top > 0 ? rect.top : (window.scrollY > 40 ? 10 : 16);
+    return Math.round(rect.height + topOffset + 16);
+  }
+
   navAnchors.forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
@@ -175,7 +187,7 @@ function initNavbar() {
           document.body.style.overflow = '';
         }
 
-        // Rolar suavemente com compensação da altura da navbar
+        // Rolar suavemente com compensação dinâmica da aba flutuante
         if (href === '#inicio') {
           window.scrollTo({
             top: 0,
@@ -185,8 +197,8 @@ function initNavbar() {
             history.pushState(null, '', window.location.pathname);
           } catch (err) {}
         } else {
-          const navHeight = navbar ? navbar.offsetHeight : 80;
-          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+          const offset = getFloatingHeaderOffset();
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
 
           window.scrollTo({
             top: Math.max(0, targetPosition),
@@ -219,8 +231,8 @@ function initNavbar() {
   const sections = document.querySelectorAll('section[id], footer[id]');
 
   function updateScrollSpy() {
-    const navHeight = navbar ? navbar.offsetHeight : 80;
-    const scrollPos = window.pageYOffset + navHeight + 100;
+    const currentOffset = navbar ? (navbar.offsetHeight + 35) : 100;
+    const scrollPos = window.pageYOffset + currentOffset;
     let currentId = 'inicio';
 
     sections.forEach(section => {
@@ -245,6 +257,7 @@ function initNavbar() {
   }
 
   window.addEventListener('scroll', updateScrollSpy, { passive: true });
+  updateScrollSpy();
 }
 
 /* --------------------------------------------------------------------------

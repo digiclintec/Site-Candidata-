@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" style="background:#071426; font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <linearGradient id="bgGradContas" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1829" />
+      <stop offset="50%" stop-color="#132a42" />
+      <stop offset="100%" stop-color="#081424" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bgGradContas)" />
+
+  <g transform="translate(600, 220)">
+    <circle cx="0" cy="0" r="95" fill="#0f2942" stroke="#d4af37" stroke-width="3" />
+    <!-- Prancheta com Gráfico e Cifrão de Transparência -->
+    <rect x="-35" y="-45" width="70" height="90" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="2" />
+    <rect x="-20" y="-55" width="40" height="15" rx="4" fill="#fbbf24" />
+    <line x1="-20" y1="-15" x2="20" y2="-15" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+    <line x1="-20" y1="0" x2="20" y2="0" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+    <line x1="-20" y1="15" x2="20" y2="15" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+    <circle cx="25" cy="30" r="18" fill="#047857" stroke="#34d399" stroke-width="2" />
+    <text x="25" y="36" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle">$</text>
+  </g>
+
+  <g transform="translate(600, 380)" text-anchor="middle">
+    <rect x="-190" y="-30" width="380" height="34" rx="17" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5" />
+    <text x="0" y="-8" font-size="12.5" font-weight="800" fill="#fbbf24" letter-spacing="2">TRIBUNAL SUPERIOR ELEITORAL • SPCE</text>
+
+    <text x="0" y="45" font-size="36" font-weight="900" fill="#ffffff" letter-spacing="-0.5">Prestação de Contas Eleitorais</text>
+    <text x="0" y="85" font-size="20" font-weight="700" fill="#fbbf24">SISTEMA SPCE CADASTRO 2026 E DIVULGACANDCONTAS</text>
+
+    <line x1="-160" y1="110" x2="160" y2="110" stroke="#475569" stroke-width="1.5" />
+
+    <text x="0" y="145" font-size="16" font-weight="500" fill="#e2e8f0">Regras de arrecadação, gastos de campanha e transparência pública para partidos e candidaturas.</text>
+    <text x="0" y="175" font-size="13.5" font-weight="600" fill="#cbd5e1">Disponível no portal oficial DivulgaCandContas do TSE.</text>
+  </g>
+</svg>

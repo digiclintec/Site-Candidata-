@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" style="background:#071426; font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <linearGradient id="bgGradIA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#091b29" />
+      <stop offset="50%" stop-color="#0e2a40" />
+      <stop offset="100%" stop-color="#06131d" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bgGradIA)" />
+
+  <g transform="translate(600, 220)">
+    <circle cx="0" cy="0" r="95" fill="#0b233a" stroke="#06b6d4" stroke-width="3" />
+    <!-- Cérebro Digital / Conexões IA -->
+    <path d="M-30 -10 C-45 -20 -40 -45 -20 -45 C-15 -55 15 -55 20 -45 C40 -45 45 -20 30 -10 C45 10 35 45 15 45 C10 50 -10 50 -15 45 C-35 45 -45 10 -30 -10 Z" fill="none" stroke="#22d3ee" stroke-width="3.5" />
+    <circle cx="-15" cy="-20" r="4" fill="#67e8f9" />
+    <circle cx="15" cy="-20" r="4" fill="#67e8f9" />
+    <circle cx="0" cy="15" r="5" fill="#67e8f9" />
+    <line x1="-15" y1="-20" x2="0" y2="15" stroke="#22d3ee" stroke-width="2" />
+    <line x1="15" y1="-20" x2="0" y2="15" stroke="#22d3ee" stroke-width="2" />
+  </g>
+
+  <g transform="translate(600, 380)" text-anchor="middle">
+    <rect x="-180" y="-30" width="360" height="34" rx="17" fill="#155e75" stroke="#22d3ee" stroke-width="1.5" />
+    <text x="0" y="-8" font-size="12.5" font-weight="800" fill="#cffafe" letter-spacing="2">RESOLUÇÃO DO TSE • PROPAGANDA ELEITORAL</text>
+
+    <text x="0" y="45" font-size="36" font-weight="900" fill="#ffffff" letter-spacing="-0.5">Regras para Uso de Inteligência Artificial</text>
+    <text x="0" y="85" font-size="20" font-weight="700" fill="#22d3ee">TRANSPARÊNCIA OBRIGATÓRIA E COMBATE A DEEPFAKES</text>
+
+    <line x1="-160" y1="110" x2="160" y2="110" stroke="#0891b2" stroke-width="1.5" />
+
+    <text x="0" y="145" font-size="16" font-weight="500" fill="#cffafe">Proibição de conteúdos manipulados sem aviso explícito de IA nas eleições.</text>
+    <text x="0" y="175" font-size="13.5" font-weight="600" fill="#67e8f9">Garantia de lisura e respeito à manifestação do voto.</text>
+  </g>
+</svg>

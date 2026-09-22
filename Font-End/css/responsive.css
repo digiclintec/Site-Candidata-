@@ -91,13 +91,14 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .nav-links-list {
-    gap: clamp(0.5rem, 0.9vw, 0.95rem) !important;
+    gap: clamp(0.2rem, 0.5vw, 0.45rem) !important;
   }
 
   .nav-link {
-    font-size: 0.81rem !important;
+    font-size: 0.8rem !important;
     white-space: nowrap !important;
-    padding: 0.35rem 0.15rem !important;
+    padding: 0.38rem 0.65rem !important;
+    border-radius: 9999px !important;
   }
 
   .nav-link-content {
@@ -113,7 +114,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
 
   /* Hero Section Enquadrado para Viewports de 768px (iPad Mini Landscape, Laptops) */
   .hero-section {
-    padding: 1.8rem 0 1.5rem !important;
+    padding: calc(75px + 1.2rem) 0 1.5rem !important;
     min-height: calc(100vh - 64px) !important;
     display: flex !important;
     align-items: center !important;
@@ -174,7 +175,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
 /* Telas com Altura Reduzida (ex: 1024x768, 1280x720, 1366x768) */
 @media (min-width: 1024px) and (max-height: 820px) {
   .hero-section {
-    padding: 1.5rem 0 1.25rem !important;
+    padding: calc(75px + 1rem) 0 1.25rem !important;
     min-height: calc(100vh - 64px) !important;
     display: flex !important;
     align-items: center !important;
@@ -206,7 +207,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .hero-section {
-    padding: 3rem 0 2.5rem !important;
+    padding: calc(75px + 1.5rem) 0 2.5rem !important;
     min-height: auto;
   }
 
@@ -500,19 +501,34 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     display: none !important;
   }
 
-  /* Header e Navbar Fixa Mobile */
+  /* Header e Navbar Fixa Mobile Flutuante */
   .header-navbar {
-    width: 100% !important;
+    position: fixed !important;
+    top: 10px !important;
     left: 0 !important;
     right: 0 !important;
-    background: #040c1a !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: calc(100% - 20px) !important;
+    max-width: 100% !important;
+    border-radius: 9999px !important;
+    background: rgba(6, 17, 36, 0.76) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+    transition: top 0.3s ease, background 0.3s ease !important;
+  }
+
+  .header-navbar.scrolled {
+    top: 8px !important;
+    background: rgba(4, 12, 26, 0.90) !important;
+    border-color: rgba(245, 158, 11, 0.35) !important;
   }
 
   .nav-wrapper {
-    height: 64px;
-    width: 100%;
+    height: 58px !important;
+    width: 100% !important;
   }
 
   .brand-badge {
@@ -534,37 +550,39 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     z-index: 10001;
   }
 
-  /* Menu Gaveta Mobile (Ultra-moderno, App Native Feel) */
+  /* Menu Gaveta Mobile Flutuante (Card com Blur) */
   .nav-menu {
-    position: fixed;
-    top: 64px;
-    left: 0;
-    right: 0;
-    width: 100% !important;
+    position: fixed !important;
+    top: 74px !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: calc(100% - 20px) !important;
     max-width: 100% !important;
-    height: calc(100dvh - 64px);
-    background: linear-gradient(180deg, #050f22 0%, #030814 100%) !important;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    height: auto !important;
+    max-height: calc(100dvh - 84px) !important;
+    background: rgba(5, 15, 34, 0.96) !important;
+    backdrop-filter: blur(24px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     align-items: stretch !important;
     padding: 1.25rem 1.15rem 1.8rem !important;
-    transform: translateY(-120%);
-    opacity: 0;
-    visibility: hidden;
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.35s;
-    z-index: 99999;
-    overflow-y: auto;
-    border-top: 1px solid rgba(212, 175, 55, 0.3);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95);
+    transform: translateY(-120%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.35s !important;
+    z-index: 99999 !important;
+    overflow-y: auto !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 22px !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 82, 165, 0.25) !important;
   }
 
   .nav-menu.open {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 
   .nav-links-list {
@@ -740,7 +758,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     display: block !important;
     min-height: auto !important;
     height: auto !important;
-    padding: 1.15rem 0 2rem !important;
+    padding: calc(68px + 1.25rem) 0 2rem !important;
     width: 100% !important;
     overflow: hidden;
   }

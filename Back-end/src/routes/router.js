@@ -5,6 +5,7 @@
 
 const { createSupporter, listSupporters } = require('../controllers/supportersController');
 const { getStats, getHealth } = require('../controllers/statsController');
+const { listNews, getNewsById } = require('../controllers/newsController');
 const { serveStatic } = require('../middlewares/staticServer');
 const { syncCampaignAssets } = require('../utils/fileStorage');
 
@@ -46,6 +47,17 @@ function handleRequest(req, res) {
     // GET /api/health
     if (method === 'GET' && pathname === '/api/health') {
       return getHealth(req, res);
+    }
+
+    // GET /api/noticias
+    if (method === 'GET' && pathname === '/api/noticias') {
+      return listNews(req, res);
+    }
+
+    // GET /api/noticias/:id
+    if (method === 'GET' && pathname.startsWith('/api/noticias/')) {
+      const idOrSlug = pathname.replace('/api/noticias/', '').trim();
+      return getNewsById(req, res, idOrSlug);
     }
 
     // Rota /api/* não encontrada

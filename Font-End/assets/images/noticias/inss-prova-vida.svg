@@ -1,0 +1,232 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720" style="background:#051122; font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <!-- Gradientes de Fundo e Moldura -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040d1a" />
+      <stop offset="50%" stop-color="#091d36" />
+      <stop offset="100%" stop-color="#041a14" />
+    </linearGradient>
+
+    <linearGradient id="urnaChassis" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2c3545" />
+      <stop offset="50%" stop-color="#1e2636" />
+      <stop offset="100%" stop-color="#141a24" />
+    </linearGradient>
+
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="50%" stop-color="#d4af37" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <linearGradient id="greenBtn" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+
+    <linearGradient id="orangeBtn" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+
+    <linearGradient id="whiteBtn" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#cbd5e1" />
+    </linearGradient>
+
+    <linearGradient id="numKey" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Sombras e Efeitos -->
+    <filter id="urnaShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="20" stdDeviation="25" flood-color="#000000" flood-opacity="0.65"/>
+    </filter>
+
+    <filter id="screenInset" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+
+    <filter id="bioGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Fundo com malha institucional suave -->
+  <rect width="1000" height="720" fill="url(#bgGrad)" />
+
+  <g opacity="0.08" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="180" x2="1000" y2="180" />
+    <line x1="0" y1="360" x2="1000" y2="360" />
+    <line x1="0" y1="540" x2="1000" y2="540" />
+    <line x1="250" y1="0" x2="250" y2="720" />
+    <line x1="500" y1="0" x2="500" y2="720" />
+    <line x1="750" y1="0" x2="750" y2="720" />
+  </g>
+
+  <!-- Brilhos de Iluminação no Estúdio -->
+  <circle cx="500" cy="120" r="320" fill="#047857" opacity="0.12" filter="url(#bioGlow)" />
+  <circle cx="500" cy="400" r="380" fill="#38bdf8" opacity="0.08" filter="url(#bioGlow)" />
+
+  <!-- ============================================================== -->
+  <!-- URNA ELETRÔNICA OFICIAL - ENQUADRAMENTO CENTRAL PERFEITO       -->
+  <!-- ============================================================== -->
+  <g transform="translate(100, 45)" filter="url(#urnaShadow)">
+    <!-- Chassis / Gabinete da Urna -->
+    <rect x="0" y="0" width="800" height="630" rx="28" fill="url(#urnaChassis)" stroke="#475569" stroke-width="3" />
+    <rect x="12" y="12" width="776" height="606" rx="20" fill="none" stroke="#64748b" stroke-opacity="0.3" stroke-width="1" />
+
+    <!-- BARRA SUPERIOR INSTITUCIONAL (BRASÃO DA REPÚBLICA & TSE) -->
+    <g transform="translate(35, 26)">
+      <rect x="0" y="0" width="730" height="52" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5" />
+      
+      <!-- Brasão da República estilizado -->
+      <circle cx="34" cy="26" r="18" fill="#1e293b" stroke="url(#goldGrad)" stroke-width="2" />
+      <path d="M34 13 L37 22 L46 23 L39 30 L41 39 L34 34 L27 39 L29 30 L22 23 L31 22 Z" fill="#fbbf24" />
+      <circle cx="34" cy="26" r="5" fill="#0284c7" />
+
+      <text x="66" y="27" font-size="14.5" font-weight="800" fill="#f8fafc" letter-spacing="2">JUSTIÇA ELEITORAL</text>
+      <text x="66" y="42" font-size="10.5" font-weight="600" fill="#94a3b8" letter-spacing="1">TRIBUNAL SUPERIOR ELEITORAL • MODELO OFICIAL</text>
+
+      <!-- Selo de Autenticidade -->
+      <rect x="560" y="12" width="150" height="28" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+      <circle cx="574" cy="26" r="5" fill="#34d399" />
+      <text x="586" y="30" font-size="10" font-weight="800" fill="#a7f3d0" letter-spacing="0.5">SISTEMA OFICIAL</text>
+    </g>
+
+    <!-- ============================================================ -->
+    <!-- TELA DA URNA (ESQUERDA) - BRANCA E LIMPA (VOTO SECRETO)     -->
+    <!-- ============================================================ -->
+    <g transform="translate(35, 96)">
+      <!-- Borda Externa da Tela -->
+      <rect x="0" y="0" width="430" height="375" rx="14" fill="#020617" stroke="#475569" stroke-width="2" />
+      
+      <!-- Painel Branco da Tela -->
+      <rect x="14" y="14" width="402" height="347" rx="8" fill="url(#screenGrad)" stroke="#cbd5e1" stroke-width="1" filter="url(#screenInset)" />
+
+      <!-- Topo da Tela -->
+      <rect x="14" y="14" width="402" height="42" rx="6" fill="#0f172a" />
+      <text x="35" y="40" font-size="14" font-weight="800" fill="#38bdf8" letter-spacing="1">ELEIÇÕES GERAIS OFICIAIS</text>
+      <circle cx="390" cy="35" r="6" fill="#22c55e" />
+
+      <!-- Corpo da Tela -->
+      <text x="40" y="92" font-size="12" font-weight="700" fill="#64748b" letter-spacing="1.5">SEU VOTO PARA</text>
+      <text x="40" y="128" font-size="24" font-weight="900" fill="#0f172a" letter-spacing="-0.5">DEPUTADA FEDERAL</text>
+      <line x1="40" y1="145" x2="380" y2="145" stroke="#cbd5e1" stroke-width="2" />
+
+      <!-- Bloco de Garantia de Voto Secreto -->
+      <g transform="translate(40, 165)">
+        <rect x="0" y="0" width="350" height="110" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" />
+        
+        <!-- Ícone do Cadeado / Garantia -->
+        <circle cx="45" cy="55" r="26" fill="#e0f2fe" />
+        <path d="M45 40 C40 40 35 45 35 51 L35 56 L32 56 C30 56 28 58 28 60 L28 71 C28 73 30 75 32 75 L58 75 C60 75 62 73 62 71 L62 60 C62 58 60 56 58 56 L55 56 L55 51 C55 45 50 40 45 40 Z M45 44 C48 44 51 47 51 51 L51 56 L39 56 L39 51 C39 47 42 44 45 44 Z" fill="#0284c7" />
+        
+        <text x="88" y="44" font-size="16" font-weight="900" fill="#0369a1">VOTO SECRETO</text>
+        <text x="88" y="66" font-size="12" font-weight="700" fill="#334155">Garantia Constitucional Inviolável</text>
+        <text x="88" y="86" font-size="11" font-weight="500" fill="#64748b">Artigo 14 da Constituição Federal de 1988</text>
+      </g>
+
+      <!-- Rodapé Verde da Tela com a Informação de Prova de Vida -->
+      <rect x="14" y="305" width="402" height="56" rx="0" fill="#065f46" />
+      <circle cx="45" cy="333" r="14" fill="#047857" stroke="#34d399" stroke-width="1.5" />
+      <path d="M39 333 L43 337 L51 329" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      <text x="70" y="327" font-size="13" font-weight="900" fill="#ffffff">HOMOLOGAÇÃO AUTOMÁTICA</text>
+      <text x="70" y="345" font-size="11" font-weight="600" fill="#a7f3d0">Comparecimento homologa a Prova de Vida no INSS</text>
+    </g>
+
+    <!-- ============================================================ -->
+    <!-- TECLADO NUMÉRICO E ESPECIAL (DIREITA)                         -->
+    <!-- ============================================================ -->
+    <g transform="translate(485, 96)">
+      <!-- Fundo do Teclado -->
+      <rect x="0" y="0" width="280" height="375" rx="14" fill="#141c28" stroke="#334155" stroke-width="2" />
+      
+      <!-- TECLAS NUMÉRICAS 1 A 9 -->
+      <!-- Linha 1 -->
+      <rect x="25" y="24" width="66" height="48" rx="8" fill="url(#numKey)" stroke="#475569" stroke-width="1.5" />
+      <text x="58" y="56" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">1</text>
+
+      <rect x="107" y="24" width="66" height="48" rx="8" fill="url(#numKey)" stroke="#475569" stroke-width="1.5" />
+      <text x="140" y="56" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">2</text>
+
+      <rect x="189" y="24" width="66" height="48" rx="8" fill="url(#numKey)" stroke="#475569" stroke-width="1.5" />
+      <text x="222" y="56" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">3</text>
+
+      <!-- Linha 2 -->
+      <rect x="25" y="84" width="66" height="48" rx="8" fill="url(#numKey)" stroke="#475569" stroke-width="1.5" />
+      <text x="58" y="116" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">4</text>
+
+      <rect x="107" y="84" width="66" height="48" rx="8" fill="url(#numKey)" stroke="#475569" stroke-width="1.5" />
+      <text x="140" y="116" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">5</text>
+
+      <rect x="189" y="84" width="66" height="48" rx="8" fill="url(#numKey)" stroke="#475569" stroke-width="1.5" />
+      <text x="222" y="116" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">6</text>
+
+      <!-- Linha 3 -->
+      <rect x="25" y="144" width="66" height="48" rx="8" fill="url(#numKey)" stroke="#475569" stroke-width="1.5" />
+      <text x="58" y="176" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">7</text>
+
+      <rect x="107" y="144" width="66" height="48" rx="8" fill="url(#numKey)" stroke="#475569" stroke-width="1.5" />
+      <text x="140" y="176" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">8</text>
+
+      <rect x="189" y="144" width="66" height="48" rx="8" fill="url(#numKey)" stroke="#475569" stroke-width="1.5" />
+      <text x="222" y="176" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">9</text>
+
+      <!-- Linha 4 (Tecla 0 Central) -->
+      <rect x="107" y="204" width="66" height="48" rx="8" fill="url(#numKey)" stroke="#475569" stroke-width="1.5" />
+      <text x="140" y="236" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">0</text>
+
+      <!-- TECLAS ESPECIAIS (BRANCO, CORRIGE, CONFIRMA) -->
+      <!-- BRANCO -->
+      <rect x="18" y="278" width="74" height="54" rx="8" fill="url(#whiteBtn)" stroke="#94a3b8" stroke-width="2" />
+      <text x="55" y="310" font-size="10.5" font-weight="900" fill="#0f172a" text-anchor="middle">BRANCO</text>
+
+      <!-- CORRIGE -->
+      <rect x="98" y="278" width="80" height="54" rx="8" fill="url(#orangeBtn)" stroke="#9a3412" stroke-width="2" />
+      <text x="138" y="310" font-size="10.5" font-weight="900" fill="#ffffff" text-anchor="middle">CORRIGE</text>
+
+      <!-- CONFIRMA (Maior e com mais destaque) -->
+      <rect x="184" y="268" width="80" height="74" rx="10" fill="url(#greenBtn)" stroke="#14532d" stroke-width="2.5" />
+      <text x="224" y="312" font-size="11.5" font-weight="900" fill="#ffffff" text-anchor="middle">CONFIRMA</text>
+    </g>
+
+    <!-- ============================================================ -->
+    <!-- LEITOR BIOMÉTRICO DIGITAL (BASE INFERIOR DA URNA)            -->
+    <!-- ============================================================ -->
+    <g transform="translate(35, 490)">
+      <rect x="0" y="0" width="730" height="110" rx="14" fill="#0a1220" stroke="#334155" stroke-width="2" />
+      
+      <!-- Sensor de Impressão Digital -->
+      <g transform="translate(25, 15)">
+        <rect x="0" y="0" width="80" height="80" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="2.5" />
+        <!-- Desenho da digital -->
+        <path d="M40 18 C28 18 20 26 20 37 C20 46 25 54 29 62 C31 65 33 68 33 71" fill="none" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>
+        <path d="M48 24 C41 22 34 24 30 28 C26 33 26 41 28 49 C30 56 36 64 38 71" fill="none" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>
+        <path d="M55 31 C53 27 47 26 42 27 C37 28 34 32 34 37 C34 44 38 51 41 58" fill="none" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>
+        <path d="M60 42 C60 52 51 60 47 68" fill="none" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="40" cy="42" r="3.5" fill="#10b981" />
+      </g>
+
+      <!-- Texto Explicativo da Validação Oficial -->
+      <g transform="translate(130, 26)">
+        <text x="0" y="18" font-size="16" font-weight="900" fill="#34d399">IDENTIFICAÇÃO BIOMÉTRICA ELEITORAL HOMOLOGADA</text>
+        <text x="0" y="42" font-size="13" font-weight="700" fill="#f1f5f9">O comparecimento às urnas comprova a Prova de Vida anual no INSS</text>
+        <text x="0" y="62" font-size="11" font-weight="500" fill="#94a3b8">Integração direta entre Tribunal Superior Eleitoral (TSE) e Ministério da Previdência Social</text>
+      </g>
+
+      <!-- Selo de Verificação Homologada -->
+      <g transform="translate(635, 25)">
+        <circle cx="30" cy="30" r="28" fill="#064e3b" stroke="#34d399" stroke-width="2.5" />
+        <path d="M19 30 L26 37 L41 22" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+    </g>
+  </g>
+</svg>

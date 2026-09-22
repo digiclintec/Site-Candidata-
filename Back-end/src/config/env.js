@@ -89,6 +89,9 @@ const config = {
     },
     get contactsFile() {
       return path.join(this.dataDir, 'contatos.json');
+    },
+    get noticiasFile() {
+      return path.join(this.dataDir, 'noticias.json');
     }
   }
 };

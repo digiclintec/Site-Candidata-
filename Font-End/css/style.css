@@ -75,7 +75,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 85px;
+  scroll-padding-top: 100px;
   font-size: 16px;
   overflow-x: hidden;
   width: 100%;
@@ -84,7 +84,7 @@ html {
 
 section[id],
 footer[id] {
-  scroll-margin-top: 85px;
+  scroll-margin-top: 100px;
 }
 
 body {
@@ -213,48 +213,85 @@ button, input, textarea, select {
 }
 
 /* ==========================================================================
-   NAVBAR SUSPENSA (Glassmorphism)
+   NAVBAR SUSPENSA FLUTUANTE (Crystal Glassmorphism)
    ========================================================================== */
 .header-navbar {
-  position: sticky;
-  top: 0;
-  width: 100%;
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(100% - 32px);
+  max-width: 1240px;
   z-index: 1000;
-  background: rgba(4, 11, 23, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  transition: var(--transition-normal);
+  background: rgba(6, 17, 36, 0.62);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  box-shadow: 0 14px 40px -6px rgba(0, 0, 0, 0.55),
+              0 2px 10px rgba(0, 0, 0, 0.25),
+              inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
 }
 
 .header-navbar.scrolled {
-  background: rgba(3, 8, 18, 0.98);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  top: 10px;
+  background: rgba(4, 12, 26, 0.86);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 18px 45px -4px rgba(0, 0, 0, 0.75),
+              0 0 25px rgba(0, 82, 165, 0.22),
+              inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.header-navbar .container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 1.25rem 0 1rem;
 }
 
 .nav-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 66px;
+  gap: 1rem;
 }
 
 /* Logo Oficial */
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.75rem;
+  text-decoration: none;
+  padding: 0.2rem 0.4rem;
+  border-radius: 9999px;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.brand-logo:hover {
+  transform: scale(1.02);
+  opacity: 0.95;
 }
 
 .brand-badge {
-  width: 46px;
-  height: 50px;
-  border-radius: 12px;
+  width: 42px;
+  height: 44px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(0, 82, 165, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: 0 4px 14px rgba(0, 82, 165, 0.45);
-  transition: transform var(--transition-fast);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -280,24 +317,25 @@ button, input, textarea, select {
 
 .brand-name {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: var(--text-main);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
+  line-height: 1.15;
   white-space: nowrap;
 }
 
 .brand-tag {
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.68rem;
+  font-weight: 700;
   color: var(--gold);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-/* Menu de Navegação */
+/* Menu de Navegação em Pílulas */
 .nav-menu {
   display: flex;
   align-items: center;
@@ -307,26 +345,31 @@ button, input, textarea, select {
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 1.75rem;
+  gap: 0.35rem;
   margin: 0;
   padding: 0;
 }
 
 .nav-link {
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: rgba(241, 245, 249, 0.84);
   position: relative;
-  padding: 0.4rem 0;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-link-content {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .nav-icon {
@@ -342,24 +385,21 @@ button, input, textarea, select {
 }
 
 .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--gold);
-  transition: var(--transition-fast);
-  border-radius: 2px;
+  display: none;
 }
 
 .nav-link:hover {
-  color: var(--text-main);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
+.nav-link.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.24) 0%, rgba(212, 175, 55, 0.14) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  box-shadow: 0 2px 12px rgba(245, 158, 11, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .nav-actions {
@@ -474,7 +514,7 @@ button, input, textarea, select {
   min-height: 88vh;
   display: flex;
   align-items: center;
-  padding: 4rem 0 3rem;
+  padding: calc(75px + 3.5rem) 0 3rem;
   background: radial-gradient(circle at 75% 30%, rgba(18, 64, 144, 0.4) 0%, rgba(6, 14, 29, 0.98) 70%),
               url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.015"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
   overflow: hidden;
@@ -544,6 +584,520 @@ button, input, textarea, select {
   animation: pulse-ring 2s infinite;
 }
 
+/* Telão / Alerta Oficial de Notícia na Entrada do Site */
+/* ==========================================================================
+   MINITELA OFICIAL DE NOTÍCIAS ELEITORAIS & GOV.BR (ENTRADA DO SITE)
+/* ==========================================================================
+   BOTÃO REDONDO DE NOTÍCIAS COM FOTO DINÂMICA (ESTILO WHATSAPP)
+   Sem popup secundário fixo: a imagem da notícia fica dentro do botão redondo!
+   ========================================================================== */
+.news-fab-round-wrap {
+  position: fixed;
+  bottom: 97px; /* Perfeitamente empilhado acima do WhatsApp (25px bottom + 60px height + 12px gap) */
+  right: 25px;
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  font-family: var(--font-body);
+}
+
+/* Botão Redondo com a Foto da Notícia */
+.news-round-fab-btn {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #061427;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 16px rgba(245, 158, 11, 0.35);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+  z-index: 2;
+  user-select: none;
+}
+
+/* No hover: o botão cresce, a foto interna e o selinho giram, mas o anel de tempo e o popup permanecem estáveis! */
+.news-round-fab-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(245, 158, 11, 0.6);
+}
+
+.news-round-fab-btn:hover .news-avatar-frame {
+  transform: rotate(-8deg) scale(1.04);
+}
+
+.news-round-fab-btn:hover .news-avatar-subtag {
+  transform: rotate(16deg) scale(1.1);
+}
+
+.news-round-fab-btn:active {
+  transform: scale(0.95);
+}
+
+/* Anel SVG de Progresso Circular (Linha Visual do Tempo da Notícia) */
+.story-progress-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  height: 68px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Trilha Estática de Fundo */
+.story-progress-ring .ring-track {
+  fill: none;
+  stroke: rgba(245, 158, 11, 0.25);
+  stroke-width: 3.2px;
+  transition: stroke 0.35s ease;
+}
+
+/* Linha Dinâmica de Progresso (Cores dinâmicas dos portais: Verde, Azul, Roxo) */
+.story-progress-ring .ring-fill {
+  fill: none;
+  stroke: url(#ringGreenGradient);
+  stroke-width: 3.2px;
+  stroke-linecap: round;
+  stroke-dasharray: 192;
+  stroke-dashoffset: 192;
+  filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.85));
+  transition: filter 0.35s ease;
+}
+
+@keyframes ringProgressAnim {
+  0% {
+    stroke-dashoffset: 192;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ==========================================================================
+   CORES DINÂMICAS DOS PORTAIS (VERDE, AZUL, ROXO)
+   ========================================================================== */
+
+/* 1. VERDE: Portal Gov.br • INSS */
+.news-round-fab-btn.portal-govbr .ring-track {
+  stroke: rgba(16, 185, 129, 0.25);
+}
+.news-round-fab-btn.portal-govbr .ring-fill {
+  stroke: url(#ringGreenGradient);
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.85));
+}
+.news-round-fab-btn.portal-govbr .news-avatar-subtag {
+  background: #10b981;
+  color: #061427;
+}
+.news-round-fab-btn.portal-govbr .news-round-tooltip {
+  border-color: rgba(16, 185, 129, 0.55);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.82), 0 0 22px rgba(16, 185, 129, 0.22);
+}
+.news-round-fab-btn.portal-govbr .news-round-tooltip::after {
+  border-top-color: rgba(16, 185, 129, 0.55);
+  border-right-color: rgba(16, 185, 129, 0.55);
+}
+.news-round-fab-btn.portal-govbr .round-tooltip-tag {
+  color: #34d399;
+}
+.news-round-fab-btn.portal-govbr .round-tooltip-cta {
+  color: #34d399;
+}
+.news-round-fab-btn.portal-govbr:hover {
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(16, 185, 129, 0.6);
+}
+
+/* 2. AZUL: TSE Nacional */
+.news-round-fab-btn.portal-tse .ring-track {
+  stroke: rgba(59, 130, 246, 0.25);
+}
+.news-round-fab-btn.portal-tse .ring-fill {
+  stroke: url(#ringBlueGradient);
+  filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.85));
+}
+.news-round-fab-btn.portal-tse .news-avatar-subtag {
+  background: #3b82f6;
+  color: #ffffff;
+}
+.news-round-fab-btn.portal-tse .news-round-tooltip {
+  border-color: rgba(59, 130, 246, 0.55);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.82), 0 0 22px rgba(59, 130, 246, 0.22);
+}
+.news-round-fab-btn.portal-tse .news-round-tooltip::after {
+  border-top-color: rgba(59, 130, 246, 0.55);
+  border-right-color: rgba(59, 130, 246, 0.55);
+}
+.news-round-fab-btn.portal-tse .round-tooltip-tag {
+  color: #60a5fa;
+}
+.news-round-fab-btn.portal-tse .round-tooltip-cta {
+  color: #60a5fa;
+}
+.news-round-fab-btn.portal-tse:hover {
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(59, 130, 246, 0.6);
+}
+
+/* 3. ROXO: TRE-ES */
+.news-round-fab-btn.portal-tre-es .ring-track {
+  stroke: rgba(139, 92, 246, 0.25);
+}
+.news-round-fab-btn.portal-tre-es .ring-fill {
+  stroke: url(#ringPurpleGradient);
+  filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.85));
+}
+.news-round-fab-btn.portal-tre-es .news-avatar-subtag {
+  background: #8b5cf6;
+  color: #ffffff;
+}
+.news-round-fab-btn.portal-tre-es .news-round-tooltip {
+  border-color: rgba(139, 92, 246, 0.55);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.82), 0 0 22px rgba(139, 92, 246, 0.22);
+}
+.news-round-fab-btn.portal-tre-es .news-round-tooltip::after {
+  border-top-color: rgba(139, 92, 246, 0.55);
+  border-right-color: rgba(139, 92, 246, 0.55);
+}
+.news-round-fab-btn.portal-tre-es .round-tooltip-tag {
+  color: #c4b5fd;
+}
+.news-round-fab-btn.portal-tre-es .round-tooltip-cta {
+  color: #c4b5fd;
+}
+.news-round-fab-btn.portal-tre-es:hover {
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(139, 92, 246, 0.6);
+}
+
+/* Moldura e Imagem Redonda da Notícia */
+.news-avatar-frame {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background: #020713;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+}
+
+.news-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: opacity 0.3s ease, transform 0.35s ease;
+}
+
+.news-avatar-img.transitioning {
+  opacity: 0.2;
+  transform: scale(1.1);
+}
+
+.news-avatar-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+/* Badge Contador de Notícias (ex: 11) */
+.news-avatar-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 12px;
+  border: 2px solid #061427;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  line-height: 1;
+  letter-spacing: 0.3px;
+  z-index: 4;
+}
+
+/* Mini Subtag de Ícone de Notícias (Canto Inferior) */
+.news-avatar-subtag {
+  position: absolute;
+  bottom: -2px;
+  left: -2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f59e0b;
+  color: #061427;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.55rem;
+  border: 2px solid #061427;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 4;
+}
+
+/* Tooltip Discreto (100% RETO, sem rotação, perfeitamente centralizado com a bolinha) */
+.news-round-tooltip {
+  position: absolute;
+  right: 76px;
+  top: 50%;
+  transform: translateY(-50%) translateX(12px) scale(0.96);
+  width: 275px;
+  background: linear-gradient(135deg, rgba(8, 22, 45, 0.98) 0%, rgba(4, 13, 27, 0.99) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.55);
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.82), 0 0 22px rgba(245, 158, 11, 0.22);
+  backdrop-filter: blur(16px);
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* Setinha do Tooltip - Perfeitamente no centro vertical apontando para a bolinha */
+.news-round-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  margin-top: -6px;
+  width: 12px;
+  height: 12px;
+  background: rgba(6, 17, 34, 0.98);
+  border-top: 1px solid rgba(245, 158, 11, 0.55);
+  border-right: 1px solid rgba(245, 158, 11, 0.55);
+  transform: rotate(45deg);
+}
+
+.news-round-fab-btn:hover .news-round-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0) scale(1);
+}
+
+.round-tooltip-tag {
+  font-size: 0.60rem;
+  font-weight: 800;
+  color: #34d399;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 2px;
+}
+
+.round-tooltip-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.round-tooltip-cta {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #fbbf24;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Pausa automática quando o usuário descansar o mouse */
+.news-fab-round-wrap.is-paused .ring-fill,
+.news-fab-round-wrap:hover .ring-fill {
+  animation-play-state: paused !important;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 576px) {
+  .news-fab-round-wrap {
+    bottom: 96px;
+    right: 25px;
+  }
+  .news-round-fab-btn {
+    width: 60px;
+    height: 60px;
+  }
+  /* No celular, desativa o tooltip para não poluir nem tampar a tela ao toque */
+  .news-round-tooltip {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   IDENTIDADE VISUAL OFICIAL DO SANTINHO (ALEXSANDRA TOMAZ)
+   Fita verde/amarela no 'A', sub-barra verde/amarela, e TOMAZ entre linhas
+   ========================================================================== */
+.hero-santinho-wrapper {
+  margin-bottom: 1.5rem;
+  max-width: 620px;
+}
+
+.hero-santinho-brand {
+  font-family: var(--font-heading);
+  font-size: clamp(1.85rem, 5.8vw, 4.2rem);
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.65));
+}
+
+.santinho-brand-main {
+  display: inline-flex;
+  align-items: baseline;
+  position: relative;
+  line-height: 0.95;
+  padding-bottom: 10px;
+}
+
+.santinho-letter-a-wrap {
+  display: inline-flex;
+  align-items: flex-end;
+  height: 0.88em;
+  width: 0.88em;
+  margin-right: -0.04em;
+  transform: translateY(0.04em);
+  flex-shrink: 0;
+}
+
+.santinho-letter-a-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.santinho-text-rest {
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.03em;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 42%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Sub-barra Verde e Amarela (abaixo de 'ANDRA') */
+.santinho-accent-bars {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 53%;
+  height: 6px;
+  display: flex;
+  gap: 3px;
+  transform: skewX(-14deg);
+}
+
+.santinho-accent-bars .bar-green {
+  flex: 1.1;
+  background: #008b38;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0, 139, 56, 0.45);
+}
+
+.santinho-accent-bars .bar-yellow {
+  flex: 0.9;
+  background: #ffcc00;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.45);
+}
+
+/* Linha inferior: — TOMAZ — */
+.santinho-brand-sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 96%;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.santinho-taper-line {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.santinho-taper-line.left {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0) 0%, #f59e0b 100%);
+}
+
+.santinho-taper-line.right {
+  background: linear-gradient(90deg, #f59e0b 0%, rgba(245, 158, 11, 0) 100%);
+}
+
+.santinho-tomaz {
+  font-size: 0.44em;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.38em;
+  color: #f59e0b;
+  text-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+  padding-left: 0.38em;
+}
+
+/* Subtítulo: DEPUTADA FEDERAL */
+.santinho-tagline {
+  font-size: 0.22em;
+  font-weight: 800;
+  letter-spacing: 0.42em;
+  color: #94a3b8;
+  margin-top: 6px;
+  width: 100%;
+  text-align: center;
+  max-width: 96%;
+  padding-left: 0.42em;
+}
+
+@media (max-width: 768px) {
+  .hero-santinho-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.2rem;
+  }
+  .hero-santinho-brand {
+    align-items: center;
+  }
+  .santinho-brand-main {
+    justify-content: center;
+  }
+  .santinho-brand-sub {
+    justify-content: center;
+    max-width: 100%;
+  }
+  .santinho-tagline {
+    max-width: 100%;
+  }
+}
+
+/* Compatibilidade com .hero-title */
 .hero-title {
   font-family: var(--font-heading);
   font-size: 3.6rem;
@@ -628,11 +1182,13 @@ button, input, textarea, select {
   color: var(--text-muted);
 }
 
-/* Coluna da Imagem Hero */
+/* Coluna da Imagem Hero Oficial */
 .hero-media-wrapper {
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .hero-image-frame {
@@ -2419,3 +2975,1340 @@ section {
   background: #2ee071;
   box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
 }
+
+/* ==========================================================================
+   SEÇÃO DE NOTÍCIAS ELEITORAIS (JUSTIÇA ELEITORAL - TSE & TRE-ES)
+   ========================================================================== */
+.news-section {
+  position: relative;
+  padding: 65px 0 85px 0;
+  background: linear-gradient(180deg, var(--bg-main) 0%, #07162c 50%, var(--bg-main) 100%);
+  overflow: hidden;
+}
+
+.news-glow-1 {
+  position: absolute;
+  top: 15%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(30, 92, 209, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+.news-glow-2 {
+  position: absolute;
+  bottom: 10%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+/* Cabeçalho Institucional Sério e Autoritativo */
+.news-institutional-header {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.news-official-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #f59e0b;
+  background: rgba(10, 23, 46, 0.95);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 4px;
+  padding: 6px 18px;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.news-official-stamp i {
+  font-size: 0.95rem;
+  color: #f59e0b;
+}
+
+.news-institutional-title {
+  font-family: var(--font-heading) !important;
+  font-size: clamp(2rem, 3.4vw, 2.75rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.015em !important;
+  color: #ffffff !important;
+  margin-bottom: 0.45rem !important;
+}
+
+.news-title-sub {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.2vw, 1.12rem);
+  font-weight: 600;
+  color: #fbbf24;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.1rem;
+}
+
+.news-divider {
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f59e0b, transparent);
+  margin: 0 auto 1.25rem;
+}
+
+.news-institutional-desc {
+  max-width: 820px;
+  margin: 0 auto 1.5rem;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+/* Indicador de Status da Justiça Eleitoral - Linha Institucional */
+.electoral-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(7, 22, 44, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 20px;
+  border-radius: 6px;
+  margin-top: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.electoral-live-indicator.sober-indicator {
+  border-color: rgba(245, 158, 11, 0.25);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+.pulse-dot {
+  width: 9px;
+  height: 9px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10b981;
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.live-text {
+  font-size: 0.84rem;
+  color: #e2e8f0;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.live-badge {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10b981;
+  border-radius: 4px;
+  font-size: 0.74rem;
+  padding: 3px 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.live-badge.sober-badge {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.live-sync-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.4px;
+}
+
+/* ==========================================================================
+   HUB DE SERVIÇOS RÁPIDOS AO ELEITOR (CENTRAL DO CIDADÃO)
+   ========================================================================== */
+.electoral-quick-hub {
+  background: rgba(10, 24, 48, 0.65);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.hub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hub-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hub-title i {
+  color: var(--gold);
+}
+
+.hub-subtitle {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.hub-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(7, 20, 40, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.hub-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  background: rgba(18, 42, 82, 0.85);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.22);
+}
+
+.hub-card.hub-card-alert:hover {
+  border-color: #ef4444;
+  background: rgba(45, 15, 25, 0.85);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.25);
+}
+
+.hub-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(30, 92, 209, 0.2) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--gold);
+  transition: all var(--transition-fast);
+}
+
+.hub-card:hover .hub-icon {
+  background: var(--gold);
+  color: #040d1b;
+  transform: scale(1.08);
+}
+
+.hub-card.hub-card-alert .hub-icon {
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #ef4444;
+}
+
+.hub-card.hub-card-alert:hover .hub-icon {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.hub-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.hub-info h4 {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hub-info p {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hub-arrow {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  transition: all var(--transition-fast);
+}
+
+.hub-card:hover .hub-arrow {
+  color: var(--gold);
+  transform: translate(2px, -2px);
+}
+
+/* ==========================================================================
+   BARRA DE CONTROLE: FILTROS POR CATEGORIA, PORTAL E BUSCA INSTANTÂNEA
+   ========================================================================== */
+.news-control-bar {
+  background: rgba(10, 24, 48, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-lg);
+  padding: 22px 26px;
+  margin-bottom: 35px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.news-category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.news-filter-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  border-radius: var(--radius-full);
+  padding: 8px 18px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+  font-family: var(--font-body);
+}
+
+.news-filter-btn:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: var(--gold);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.news-filter-btn.active {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #040d1b;
+  border-color: #f59e0b;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+  font-weight: 700;
+}
+
+/* Linha de Chips de Portal */
+.news-portal-chips-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.portal-chips-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.portal-chips-label i {
+  color: var(--gold);
+}
+
+.news-portal-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.news-portal-chip {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+  font-family: var(--font-body);
+}
+
+.news-portal-chip:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.news-portal-chip.active {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: var(--gold);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.25);
+}
+
+.news-portal-chip.chip-govbr.active {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);
+}
+
+.news-portal-chip.chip-tse.active {
+  background: rgba(37, 99, 235, 0.2);
+  border-color: #3b82f6;
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.25);
+}
+
+.news-portal-chip.chip-trees.active {
+  background: rgba(2, 132, 199, 0.2);
+  border-color: #0284c7;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.25);
+}
+
+.portal-chip-count {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.news-portal-chip.active .portal-chip-count {
+  background: var(--gold);
+  color: #040d1b;
+}
+
+.news-portal-chip.chip-govbr.active .portal-chip-count {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.news-portal-chip.chip-tse.active .portal-chip-count {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.news-portal-chip.chip-trees.active .portal-chip-count {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+/* Toolbar de Busca e Ações */
+.news-search-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.news-search-box {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+}
+
+.news-search-box .search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.news-search-box input {
+  width: 100%;
+  background: rgba(7, 20, 40, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  padding: 10px 42px 10px 42px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  transition: all var(--transition-fast);
+}
+
+.news-search-box input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.3);
+  background: rgba(12, 28, 56, 0.95);
+}
+
+.news-search-box input::placeholder {
+  color: var(--text-dim);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text-muted);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all var(--transition-fast);
+}
+
+.search-clear-btn:hover {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.news-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.news-counter-pill {
+  font-size: 0.82rem;
+  color: var(--gold);
+  background: rgba(245, 158, 11, 0.1);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn-refresh-news {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-refresh-news:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.services-row-header {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.services-row-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 992px) {
+  .services-row-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .services-row-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.service-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.service-pill:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.service-pill i:first-child {
+  color: var(--gold);
+  font-size: 1.1rem;
+}
+
+.service-pill.service-pill-alert:hover {
+  border-color: #ef4444;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.service-pill.service-pill-alert i:first-child {
+  color: #ef4444;
+}
+
+.pill-arrow {
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+/* Grid de Notícias */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  min-height: 200px;
+}
+
+.news-card {
+  background: rgba(15, 34, 68, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(10px);
+  position: relative;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.news-card:hover {
+  transform: translateY(-8px) !important;
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+.news-card-media {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  background: #040d1b;
+}
+
+.news-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.news-card:hover .news-thumb {
+  transform: scale(1.08);
+}
+
+.news-card-badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  z-index: 2;
+}
+
+.news-badge-category {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  backdrop-filter: blur(8px);
+  letter-spacing: 0.5px;
+}
+
+.news-badge-category.calendario {
+  background: rgba(30, 92, 209, 0.9);
+  color: #ffffff;
+}
+
+.news-badge-category.resolucoes {
+  background: rgba(245, 158, 11, 0.95);
+  color: #040d1b;
+}
+
+.news-badge-category.servicos {
+  background: rgba(16, 185, 129, 0.9);
+  color: #ffffff;
+}
+
+.news-badge-category.desinformacao {
+  background: rgba(239, 68, 68, 0.9);
+  color: #ffffff;
+}
+
+.news-badge-category.prestacao_contas {
+  background: rgba(147, 51, 234, 0.9);
+  color: #ffffff;
+}
+
+.news-badge-highlight {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #040d1b;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.news-card-source {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  max-width: calc(100% - 24px);
+  font-size: 0.72rem;
+  color: #e2e8f0;
+  background: rgba(4, 13, 27, 0.88);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(6px);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.news-card-source span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.news-card-source i {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.news-card-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.news-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.news-card-meta i {
+  color: var(--gold);
+}
+
+.news-card-title {
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #ffffff;
+  margin-bottom: 12px;
+  font-family: var(--font-heading);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-card-excerpt {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-open-news {
+  flex: 1;
+  justify-content: center;
+  font-size: 0.84rem;
+}
+
+.news-btn-zap {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.15);
+  border: 1px solid rgba(37, 211, 102, 0.4);
+  color: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.news-btn-zap:hover {
+  background: #25d366;
+  color: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+/* Empty State & Skeleton Loading */
+.news-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 20px;
+  background: rgba(15, 34, 68, 0.4);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+}
+
+.empty-icon {
+  font-size: 2.8rem;
+  color: var(--text-dim);
+  margin-bottom: 15px;
+}
+
+.news-empty-state h3 {
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.news-empty-state p {
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto 20px;
+  font-size: 0.92rem;
+}
+
+.news-loading-skeleton {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.news-loading-skeleton i {
+  font-size: 2.2rem;
+  color: var(--gold);
+}
+
+/* Caixa de Transparência Eleitoral */
+.electoral-disclaimer-box {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  background: rgba(7, 22, 44, 0.85);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-top: 45px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.disclaimer-icon {
+  font-size: 2.4rem;
+  color: var(--gold);
+  min-width: 50px;
+  text-align: center;
+}
+
+.disclaimer-content {
+  flex: 1;
+}
+
+.disclaimer-content h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.disclaimer-content p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.disclaimer-action {
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   MODAL DE NOTÍCIA ELEITORAL (LEITURA COMPLETA)
+   ========================================================================== */
+.news-modal-backdrop {
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 10, 22, 0.9);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.news-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Modal de Leitura Completa de Notícia (Primeira Versão Oficial) */
+.modal-news-dialog {
+  width: 100%;
+  max-width: 820px;
+  max-height: 88vh;
+  background: #07162c;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(245, 158, 11, 0.15);
+  transform: translateY(20px) scale(0.98);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.news-modal-backdrop.active .modal-news-dialog {
+  transform: translateY(0) scale(1);
+}
+
+.modal-news-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #040d1b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-news-header .modal-close-btn {
+  position: static;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+}
+
+.modal-news-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.news-modal-badge {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(30, 92, 209, 0.2));
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--gold);
+  border-radius: 4px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  letter-spacing: 0.5px;
+}
+
+.news-modal-verified {
+  font-size: 0.78rem;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.modal-news-scroll-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 0;
+}
+
+.modal-news-hero-media {
+  width: 100%;
+  position: relative;
+  background: radial-gradient(circle at center, #0f274a 0%, #040e1e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 260px;
+}
+
+.modal-news-hero-media img {
+  max-width: 100%;
+  max-height: 380px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.modal-news-credit {
+  position: absolute;
+  bottom: 10px;
+  right: 16px;
+  background: rgba(4, 13, 27, 0.88);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  z-index: 2;
+}
+
+.modal-news-content {
+  padding: 28px 32px;
+}
+
+.news-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.news-meta-row strong {
+  color: var(--text-secondary);
+}
+
+.modal-news-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.35;
+  margin-bottom: 16px;
+  font-family: var(--font-heading);
+}
+
+.modal-news-lead {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.modal-news-points-box {
+  background: rgba(245, 158, 11, 0.08);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+}
+
+.modal-news-points-box h4 {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-news-points-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-news-points-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #f1f5f9;
+  line-height: 1.5;
+}
+
+.modal-news-points-list li i {
+  color: var(--gold);
+  margin-top: 3px;
+  font-size: 0.85rem;
+}
+
+.modal-news-body-paragraphs p {
+  font-size: 0.96rem;
+  line-height: 1.8;
+  color: #94a3b8;
+  margin-bottom: 16px;
+}
+
+.modal-news-footer-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Toast de Atualização */
+.news-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(50px);
+  background: #040d1b;
+  border: 1px solid #10b981;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(16, 185, 129, 0.3);
+  z-index: 10001;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.news-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.news-toast i {
+  color: #10b981;
+  font-size: 1.1rem;
+}
+
+/* Responsividade da Seção de Notícias */
+@media (max-width: 1024px) {
+  .hub-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .news-portal-tabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .carousel-container {
+    height: 400px;
+  }
+  .carousel-slide-content {
+    max-width: 540px;
+    padding: 30px 36px;
+  }
+  .carousel-title {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .news-section {
+    padding: 70px 0;
+  }
+  .news-ticker-wrapper {
+    flex-direction: column;
+  }
+  .news-ticker-label {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+  .news-ticker-container {
+    padding: 8px 12px;
+  }
+  .carousel-container {
+    height: 440px;
+  }
+  .carousel-nav-btn {
+    display: none;
+  }
+  .carousel-slide-content {
+    max-width: 100%;
+    padding: 24px 20px;
+  }
+  .carousel-title {
+    font-size: 1.18rem;
+  }
+  .carousel-excerpt {
+    display: none;
+  }
+  .news-portal-tabs {
+    grid-template-columns: 1fr;
+  }
+  .hub-grid {
+    grid-template-columns: 1fr;
+  }
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+  .news-control-bar {
+    padding: 16px;
+  }
+  .news-search-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .news-search-box {
+    width: 100%;
+    min-width: 100%;
+  }
+  .news-toolbar-actions {
+    justify-content: space-between;
+    width: 100%;
+  }
+  .electoral-disclaimer-box {
+    flex-direction: column;
+    text-align: center;
+  }
+  .disclaimer-action {
+    width: 100%;
+  }
+  .disclaimer-action a {
+    width: 100%;
+    justify-content: center;
+  }
+  .modal-news-content {
+    padding: 20px 18px;
+  }
+  .modal-news-hero-media {
+    min-height: 180px;
+    padding: 14px 16px;
+  }
+  .modal-news-hero-media img {
+    max-height: 220px;
+    border-radius: 10px;
+  }
+  .modal-news-title {
+    font-size: 1.25rem;
+  }
+  .modal-news-footer-actions {
+    flex-direction: column;
+  }
+  .modal-news-footer-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

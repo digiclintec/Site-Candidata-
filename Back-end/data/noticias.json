@@ -1,0 +1,345 @@
+[
+  {
+    "id": "govbr-inss-prova-de-vida",
+    "portal": "govbr",
+    "portalNome": "Portal Gov.br • INSS",
+    "titulo": "Comparecimento às urnas vale como Prova de Vida automática no INSS",
+    "slug": "comparecimento-as-urnas-vale-como-prova-de-vida-automatica-no-inss",
+    "categoria": "servicos",
+    "categoriaNome": "Gov.br • INSS & TSE",
+    "data": "2026-09-22",
+    "dataFormatada": "22 de Setembro de 2026",
+    "tempoLeitura": "3 min",
+    "autor": "Ministério da Previdência Social & INSS",
+    "fonte": "Portal Gov.br • Instituto Nacional do Seguro Social (INSS)",
+    "fonteUrl": "https://www.gov.br/inss/pt-br/assuntos/noticias/comparecimento-as-urnas-vale-como-prova-de-vida-automatica-no-inss",
+    "destaque": true,
+    "resumo": "Voto garante a manutenção de benefícios previdenciários e assistenciais de forma automática para mais de 40 milhões de beneficiários, dispensando aposentados de deslocamentos e filas em bancos.",
+    "imagem": "assets/images/noticias/inss-prova-vida.svg",
+    "imagemFallback": "assets/images/noticias/inss-prova-vida.svg",
+    "fotoCredito": "Foto: Tribunal Superior Eleitoral / TSE / Arquivo (Portal Gov.br)",
+    "conteudo": [
+      "O comparecimento eleitoral é válido para a verificação no processo de Prova de Vida no INSS. O procedimento de revisão anual, focado em identificar se o titular do benefício previdenciário ou assistencial continua vivo para garantir a manutenção de pagamentos, abrange atualmente cerca de 40 milhões de beneficiários ativos, entre aposentadorias, pensões e auxílios.",
+      "“A Prova de Vida pode se dar por meio do comparecimento eleitoral. Então, se você for votar no dia das eleições, você já terá a prova de vida realizada. O INSS recebe esses dados e já computa como prova de vida”, explica o ministro da Previdência Social, destacando a praticidade da medida para idosos e cidadãos de todo o país.",
+      "A partir da Lei nº 13.846/2019, o comparecimento presencial deixou de ser a regra, estabelecendo que o próprio Estado deve buscar, de forma proativa, dados que confirmem a vivacidade do cidadão. A Portaria INSS nº 1.408/2022 regulamenta a votação nas eleições como um dos critérios legais de comprovação de vida.",
+      "Segundo dados oficiais consolidados, o cruzamento com a base de dados do Tribunal Superior Eleitoral (TSE) já resultou na atualização automática de mais de 5 milhões de Provas de Vida no Brasil, trazendo segurança jurídica e comodidade aos segurados capixabas e brasileiros."
+    ],
+    "pontosChave": [
+      "Validade automática: o exercício do voto no dia do pleito (1º ou 2º turno) atende à diretriz da Prova de Vida anual.",
+      "Dispensa de deslocamento: o beneficiário que vota fica dispensado de realizar qualquer outra forma de comprovação presencial ou bancária.",
+      "Amparo legal: fundamentado na Lei Federal nº 13.846/2019 e na Portaria INSS nº 1.408/2022.",
+      "Cruzamento tecnológico seguro: dados de comparecimento do TSE são recepcionados diretamente pelos sistemas do INSS.",
+      "Consulta simples: o segurado pode acompanhar a confirmação no aplicativo Meu INSS ou pela Central Telefônica 135."
+    ]
+  },
+  {
+    "id": "govbr-inss-meu-inss",
+    "portal": "govbr",
+    "portalNome": "Portal Gov.br • INSS",
+    "titulo": "Meu INSS e Gov.br: Como consultar se a sua Prova de Vida foi confirmada após o voto",
+    "slug": "meu-inss-como-consultar-prova-de-vida-apos-voto",
+    "categoria": "servicos",
+    "categoriaNome": "Serviços Gov.br",
+    "data": "2026-09-20",
+    "dataFormatada": "20 de Setembro de 2026",
+    "tempoLeitura": "3 min",
+    "autor": "Assessoria de Tecnologia da Previdência Social",
+    "fonte": "Portal Gov.br • Previdência Social",
+    "fonteUrl": "https://www.gov.br/inss/pt-br/assuntos/noticias/comparecimento-as-urnas-vale-como-prova-de-vida-automatica-no-inss",
+    "destaque": false,
+    "resumo": "Passo a passo simples para aposentados e pensionistas verificarem o status da Prova de Vida diretamente na tela do aplicativo Meu INSS utilizando a conta Gov.br prata ou ouro.",
+    "imagem": "assets/images/noticias/inss-prova-vida.svg",
+    "imagemFallback": "assets/images/noticias/inss-prova-vida.svg",
+    "fotoCredito": "Foto: Agência Gov.br / INSS Digital",
+    "conteudo": [
+      "Após o dia da eleição, os dados de comparecimento biométrico e votação transmitidos pelo TSE são integrados gradualmente à base do sistema SIRIS da Previdência Social.",
+      "O segurado pode acompanhar a validação entrando no aplicativo 'Meu INSS' ou pelo site oficial gov.br/meuinss, clicando no menu 'Prova de Vida'.",
+      "O sistema informará a data da última confirmação registrada e a fonte de dados ('Presença Eleitoral / TSE'). Enquanto o status estiver ativo, nenhum pagamento pode ser bloqueado."
+    ],
+    "pontosChave": [
+      "Acesso com CPF e senha da conta Gov.br (níveis Prata ou Ouro).",
+      "Confirmação exibida com carimbo de procedência da Justiça Eleitoral.",
+      "Sem necessidade de agendamento bancário se a validação constar no app.",
+      "Dúvidas podem ser esclarecidas gratuitamente ligando para o telefone 135."
+    ]
+  },
+  {
+    "id": "govbr-inss-alerta-golpes",
+    "portal": "govbr",
+    "portalNome": "Portal Gov.br • INSS",
+    "titulo": "Previdência Social alerta contra golpes da falsa Prova de Vida por ligação e WhatsApp",
+    "slug": "previdencia-alerta-golpes-falsa-prova-de-vida",
+    "categoria": "desinformacao",
+    "categoriaNome": "Alerta de Segurança",
+    "data": "2026-09-17",
+    "dataFormatada": "17 de Setembro de 2026",
+    "tempoLeitura": "3 min",
+    "autor": "Ouvidoria Geral do INSS & Polícia Federal",
+    "fonte": "Portal Gov.br • Ministério da Previdência Social",
+    "fonteUrl": "https://www.gov.br/inss/pt-br",
+    "destaque": false,
+    "resumo": "Criminosos usam pretexto das eleições para pedir fotos de documentos e selfies por mensagem; INSS reitera que nunca solicita fotos ou senhas por canais não oficiais.",
+    "imagem": "assets/images/noticias/tse-fato-boato.svg",
+    "imagemFallback": "assets/images/noticias/tse-fato-boato.svg",
+    "fotoCredito": "Foto: Coordenação de Segurança da Informação Gov.br",
+    "conteudo": [
+      "O INSS e o Ministério da Previdência Social emitiram comunicado público de alerta para toda a população idosa contra tentativas de fraude via aplicativos de mensagens e chamadas telefônicas.",
+      "Estelionatários entram em contato fingindo ser funcionários do INSS ou da Justiça Eleitoral, alegando urgência para 'regularizar a prova de vida eleitoral' e pedindo fotos de documentos, biometria facial e códigos de SMS.",
+      "O Instituto esclarece categoricamente que a comprovação por comparecimento às urnas é 100% automática e direta entre os órgãos públicos: o INSS nunca liga pedindo senhas, fotos ou confirmações por WhatsApp."
+    ],
+    "pontosChave": [
+      "O INSS não envia links de WhatsApp pedindo dados pessoais ou biometria facial.",
+      "A prova de vida pelas urnas é automática: o eleitor não precisa enviar nada ao governo.",
+      "Nunca compartilhe códigos SMS, senhas de banco ou da conta Gov.br.",
+      "Em caso de tentativa de golpe, denuncie pelo Fala.BR ou ligue para a Central 135."
+    ]
+  },
+  {
+    "id": "tse-01",
+    "portal": "tse",
+    "portalNome": "Tribunal Superior Eleitoral",
+    "titulo": "TSE divulga regras e datas principais do Calendário Eleitoral 2026",
+    "slug": "calendario-eleitoral-2026-regras-tse",
+    "categoria": "calendario",
+    "categoriaNome": "Calendário Eleitoral",
+    "data": "2026-09-18",
+    "dataFormatada": "18 de Setembro de 2026",
+    "tempoLeitura": "4 min",
+    "autor": "Secretaria de Comunicação do TSE",
+    "fonte": "Tribunal Superior Eleitoral (TSE)",
+    "fonteUrl": "https://www.tse.jus.br",
+    "destaque": true,
+    "resumo": "Plenário do Tribunal Superior Eleitoral consolida as principais diretrizes, prazos de registro de candidatura, início da propaganda eleitoral e datas de votação em todo o território nacional.",
+    "imagem": "assets/images/noticias/tse-plenario.svg",
+    "imagemFallback": "assets/images/noticias/tse-plenario.svg",
+    "fotoCredito": "Foto: Tribunal Superior Eleitoral / Comunicação Social TSE",
+    "conteudo": [
+      "O Tribunal Superior Eleitoral (TSE) aprovou por unanimidade as resoluções que balizam todo o calendário e os procedimentos das Eleições 2026.",
+      "As normas trazem prazos detalhados para partidos e federações realizarem convenções partidárias, efetuarem o registro de candidaturas e iniciarem suas campanhas de forma presencial e digital.",
+      "O presidente da Corte destacou que a consolidação prévia das regras garante segurança jurídica para candidatos, partidos políticos e para os mais de 150 milhões de eleitores aptos a votar em todo o Brasil."
+    ],
+    "pontosChave": [
+      "Convenções partidárias: período oficial para escolha de candidatos e formação de coligações.",
+      "Propaganda eleitoral: início das atividades de rua e na internet dentro dos limites legais.",
+      "Datas de votação: 1º turno no primeiro domingo de outubro e 2º turno no último domingo de outubro.",
+      "Canal oficial do TSE para consulta do caderno de resoluções completas."
+    ]
+  },
+  {
+    "id": "tse-02",
+    "portal": "tse",
+    "portalNome": "Tribunal Superior Eleitoral",
+    "titulo": "e-Título: Justiça Eleitoral orienta como baixar e emitir a via digital do título",
+    "slug": "e-titulo-como-baixar-orientacoes-tse",
+    "categoria": "servicos",
+    "categoriaNome": "e-Título & Biometria",
+    "data": "2026-09-16",
+    "dataFormatada": "16 de Setembro de 2026",
+    "tempoLeitura": "3 min",
+    "autor": "Assessoria Técnica do TSE",
+    "fonte": "Justiça Eleitoral • TSE",
+    "fonteUrl": "https://www.tse.jus.br/servicos-eleitorais/autoatendimento-eleitoral",
+    "destaque": true,
+    "resumo": "Aplicativo oficial e-Título permite consultar local de votação, seção eleitoral, emitir certidão de quitação e justificar ausência com praticidade e segurança.",
+    "imagem": "assets/images/noticias/etitulo-app.svg",
+    "imagemFallback": "assets/images/noticias/etitulo-app.svg",
+    "fotoCredito": "Foto: Assessoria de Comunicação TSE",
+    "conteudo": [
+      "A Justiça Eleitoral reforça aos cidadãos que o aplicativo oficial e-Título é a forma mais rápida e segura de consultar dados do cadastro eleitoral diretamente pelo smartphone.",
+      "Com o e-Título atualizado, quem já coletou a biometria pode utilizá-lo como documento oficial de identificação na hora do voto, sem necessidade de portar o título em papel.",
+      "O aplicativo está disponível gratuitamente nas lojas oficiais Google Play (Android) e App Store (iOS). O TSE orienta o download antecipado para evitar sobrecarga no dia da eleição."
+    ],
+    "pontosChave": [
+      "Disponível gratuitamente para iOS e Android nas lojas oficiais.",
+      "Eleitores com biometria cadastrada podem votar apresentando somente o e-Título com foto.",
+      "Consulta fácil do local de votação, zona e número da seção.",
+      "Emissão imediata de certidão de quitação eleitoral e declarações."
+    ]
+  },
+  {
+    "id": "tse-03",
+    "portal": "tse",
+    "portalNome": "Tribunal Superior Eleitoral",
+    "titulo": "TSE intensifica campanha 'Fato ou Boato' no combate à desinformação eleitoral",
+    "slug": "fato-ou-boato-combate-desinformacao-tse",
+    "categoria": "desinformacao",
+    "categoriaNome": "Combate à Desinformação",
+    "data": "2026-09-14",
+    "dataFormatada": "14 de Setembro de 2026",
+    "tempoLeitura": "3 min",
+    "autor": "Coalizão de Checagem TSE",
+    "fonte": "Tribunal Superior Eleitoral",
+    "fonteUrl": "https://www.tse.jus.br/fato-ou-boato",
+    "destaque": false,
+    "resumo": "Iniciativa conjunta com agências de fact-checking e plataformas digitais monitora e esclarece boatos sobre o processo eleitoral e as urnas eletrônicas.",
+    "imagem": "assets/images/noticias/tse-fato-boato.svg",
+    "imagemFallback": "assets/images/noticias/tse-fato-boato.svg",
+    "fotoCredito": "Foto: Núcleo de Combate à Desinformação TSE",
+    "conteudo": [
+      "A página 'Fato ou Boato' do TSE permanece em constante atualização para desmentir narrativas fraudulentas que circulam em redes sociais e aplicativos de mensagens.",
+      "O projeto reúne conteúdos produzidos pelas principais agências de checagem do Brasil, explicando em linguagem simples como funciona a segurança das urnas eletrônicas e a transparência do escrutínio.",
+      "O tribunal lembra que compartilhar notícias falsas pode configurar crime eleitoral e pede que todo cidadão verifique antes de repassar qualquer informação duvidosa."
+    ],
+    "pontosChave": [
+      "Canal permanente no portal do TSE para consulta de boatos desmentidos.",
+      "Parceria com plataformas como WhatsApp, Meta, Google e TikTok para contenção de notícias falsas.",
+      "Urnas eletrônicas operam sem conexão com a internet, garantindo integridade e inviolabilidade.",
+      "Orientações para o cidadão checar fontes e desconfiar de manchetes sensacionalistas."
+    ]
+  },
+  {
+    "id": "tse-04",
+    "portal": "tse",
+    "portalNome": "Tribunal Superior Eleitoral",
+    "titulo": "Resolução do TSE regulamenta uso de Inteligência Artificial e propaganda na internet",
+    "slug": "resolucao-ia-propaganda-eleitoral-internet",
+    "categoria": "resolucoes",
+    "categoriaNome": "Resoluções & Regras",
+    "data": "2026-09-10",
+    "dataFormatada": "10 de Setembro de 2026",
+    "tempoLeitura": "5 min",
+    "autor": "Plenário do TSE",
+    "fonte": "Tribunal Superior Eleitoral",
+    "fonteUrl": "https://www.tse.jus.br",
+    "destaque": false,
+    "resumo": "Novas diretrizes exigem aviso explícito sobre conteúdo gerado por IA e proíbem o uso de deepfakes contra candidatos e o processo de votação.",
+    "imagem": "assets/images/noticias/tse-ia-regras.svg",
+    "imagemFallback": "assets/images/noticias/tse-ia-regras.svg",
+    "fotoCredito": "Foto: Plenário do Tribunal Superior Eleitoral",
+    "conteudo": [
+      "Em decisão histórica, o TSE definiu regras claras para a utilização de ferramentas de inteligência artificial em materiais de campanha e publicidade partidária.",
+      "Qualquer peça eleitoral que empregue conteúdo sonoro ou visual sintetizado por IA deve conter aviso explícito, visível e sonoro sobre tal uso.",
+      "O uso de manipulações digitais (deepfakes) para distorcer falas de adversários ou simular eventos inverídicos acarreta cassação do registro e responsabilização criminal imediata."
+    ],
+    "pontosChave": [
+      "Obrigatoriedade de rótulo informando 'conteúdo gerado/alterado por IA'.",
+      "Proibição absoluta de deepfakes para prejudicar ou favorecer candidaturas.",
+      "Regras mais rígidas para impulsionamento de posts e transparência de gastos nas redes.",
+      "Garantia de equidade na disputa e proteção ao livre discernimento do eleitor."
+    ]
+  },
+  {
+    "id": "tse-06",
+    "portal": "tse",
+    "portalNome": "Tribunal Superior Eleitoral",
+    "titulo": "Prestação de Contas: Sistema SPCE e exigências de transparência eleitoral",
+    "slug": "prestacao-de-contas-sistema-spce-regras-tse",
+    "categoria": "prestacao_contas",
+    "categoriaNome": "Prestação de Contas",
+    "data": "2026-09-05",
+    "dataFormatada": "05 de Setembro de 2026",
+    "tempoLeitura": "4 min",
+    "autor": "Assessoria de Exame de Contas Eleitorais",
+    "fonte": "Tribunal Superior Eleitoral",
+    "fonteUrl": "https://www.tse.jus.br",
+    "destaque": false,
+    "resumo": "Prazos de envio dos relatórios parciais e final de arrecadação e gastos de campanha são obrigatórios para candidatos e partidos políticos.",
+    "imagem": "assets/images/noticias/tse-spce-contas.svg",
+    "imagemFallback": "assets/images/noticias/tse-spce-contas.svg",
+    "fotoCredito": "Foto: Coordenadoria de Auditoria Eleitoral TSE",
+    "conteudo": [
+      "A transparência na arrecadação de recursos e gastos eleitorais é um dos pilares de fiscalização da Justiça Eleitoral.",
+      "Por meio do Sistema de Prestação de Contas Eleitorais (SPCE), todas as candidaturas devem declarar doações recebidas via Pix, cartão de crédito, doações estimáveis em dinheiro e recursos do Fundo Partidário/FEFC dentro de 72 horas.",
+      "O portal DivulgaCandContas do TSE disponibiliza todos os dados para consulta pública de qualquer cidadão, assegurando total transparência democrática."
+    ],
+    "pontosChave": [
+      "Envio de dados de doações financeiras no prazo estrito de 72 horas.",
+      "Uso obrigatório de chave Pix identificada pelo CNPJ da campanha.",
+      "Apresentação de relatório parcial no prazo fixado pelo calendário eleitoral.",
+      "Acesso público pelo portal oficial DivulgaCandContas."
+    ]
+  },
+  {
+    "id": "tre-es-01",
+    "portal": "tre-es",
+    "portalNome": "TRE Espírito Santo",
+    "titulo": "TRE-ES reforça cadastro de mesários voluntários e treinamento digital no Espírito Santo",
+    "slug": "tre-es-mesarios-voluntarios-treinamento-digital",
+    "categoria": "servicos",
+    "categoriaNome": "TRE-ES • Capixabas",
+    "data": "2026-09-08",
+    "dataFormatada": "08 de Setembro de 2026",
+    "tempoLeitura": "3 min",
+    "autor": "Comunicação Social TRE-ES",
+    "fonte": "Tribunal Regional Eleitoral do Espírito Santo (TRE-ES)",
+    "fonteUrl": "https://www.tre-es.jus.br",
+    "destaque": true,
+    "resumo": "Tribunal capixaba incentiva adesão ao programa Mesário Voluntário, oferecendo horas complementares para universitários e dispensa em dobro de dias de serviço.",
+    "imagem": "assets/images/noticias/mesarios-tre-es.svg",
+    "imagemFallback": "assets/images/noticias/mesarios-tre-es.svg",
+    "fotoCredito": "Foto: Assessoria de Comunicação TRE-ES",
+    "conteudo": [
+      "O Tribunal Regional Eleitoral do Espírito Santo (TRE-ES) convoca os cidadãos capixabas a se cadastrarem como mesários voluntários para atuar nas seções eleitorais de Vitória, Vila Velha, Serra, Cariacica, Itapemirim e demais municípios do Estado.",
+      "Os mesários selecionados passam por capacitação 100% online por meio do aplicativo Mesários, com instruções práticas sobre fluxo de votação, acessibilidade e operação da urna.",
+      "Entre as vantagens estão dois dias de folga do trabalho (público ou privado) para cada dia trabalhado ou de treinamento, além de certificado de horas extracurriculares para estudantes de ensino superior."
+    ],
+    "pontosChave": [
+      "Inscrição rápida pelo portal do TRE-ES ou pelo app e-Título.",
+      "Treinamento online com simulador da urna eletrônica.",
+      "Dois dias de folga no trabalho para cada dia de serviço prestado.",
+      "Critério de desempate em diversos concursos públicos estaduais e federais."
+    ]
+  },
+  {
+    "id": "tre-es-02",
+    "portal": "tre-es",
+    "portalNome": "TRE Espírito Santo",
+    "titulo": "TRE-ES realiza atendimento biométrico itinerante em municípios do interior capixaba e litoral sul",
+    "slug": "tre-es-atendimento-itinerante-interior-litoral-sul",
+    "categoria": "servicos",
+    "categoriaNome": "TRE-ES • Interior & Litoral",
+    "data": "2026-09-06",
+    "dataFormatada": "06 de Setembro de 2026",
+    "tempoLeitura": "3 min",
+    "autor": "Coordenadoria de Zonas Eleitorais TRE-ES",
+    "fonte": "Tribunal Regional Eleitoral do Espírito Santo",
+    "fonteUrl": "https://www.tre-es.jus.br",
+    "destaque": false,
+    "resumo": "Equipes móveis do tribunal regional facilitam regularização cadastral, coleta de biometria e transferência de domicílio eleitoral para moradores de áreas rurais e litorâneas.",
+    "imagem": "assets/images/noticias/mesarios-tre-es.svg",
+    "imagemFallback": "assets/images/noticias/mesarios-tre-es.svg",
+    "fotoCredito": "Foto: Núcleo de Atendimento Itinerante TRE-ES",
+    "conteudo": [
+      "Para garantir que todo cidadão capixaba exerça sua cidadania sem entraves geográficos, o TRE-ES intensifica os plantões de atendimento itinerante no interior do Estado e no litoral sul.",
+      "As unidades volantes oferecem coleta de dados biométricos, emissão de certidões, regularização de títulos cancelados e orientações gerais.",
+      "O atendimento prioritário para idosos, gestantes e moradores de comunidades pesqueiras e rurais garante inclusão e proximidade da Justiça Eleitoral."
+    ],
+    "pontosChave": [
+      "Atendimento móvel sem agendamento prévio com triagem imediata.",
+      "Emissão de certidões e regularização para beneficiários do INSS e programas sociais.",
+      "Apoio direto às zonas eleitorais de Itapemirim, Marataízes, Anchieta e Piúma.",
+      "Documentos necessários: documento oficial com foto e comprovante de residência atualizado."
+    ]
+  },
+  {
+    "id": "tre-es-03",
+    "portal": "tre-es",
+    "portalNome": "TRE Espírito Santo",
+    "titulo": "Acessibilidade no Voto: TRE-ES garante transporte adaptado e voto prioritário para pessoas com deficiência",
+    "slug": "tre-es-acessibilidade-voto-prioritario-pcd",
+    "categoria": "servicos",
+    "categoriaNome": "Acessibilidade Capixaba",
+    "data": "2026-09-02",
+    "dataFormatada": "02 de Setembro de 2026",
+    "tempoLeitura": "3 min",
+    "autor": "Comissão de Acessibilidade e Inclusão TRE-ES",
+    "fonte": "Tribunal Regional Eleitoral do Espírito Santo",
+    "fonteUrl": "https://www.tre-es.jus.br",
+    "destaque": false,
+    "resumo": "Seções eleitorais de fácil acesso, fones de ouvido em todas as urnas com sintetizador de voz e auxílio de acompanhante garantem inclusão plena aos eleitores capixabas.",
+    "imagem": "assets/images/noticias/inss-prova-vida.svg",
+    "imagemFallback": "assets/images/noticias/inss-prova-vida.svg",
+    "fotoCredito": "Foto: Comissão de Inclusão TRE-ES",
+    "conteudo": [
+      "A Comissão de Acessibilidade do TRE-ES concluiu o mapeamento das seções eleitorais adaptadas em todos os 78 municípios do Espírito Santo.",
+      "As urnas eletrônicas contam com recursos de acessibilidade aprimorados: teclas com inscrição em braille, fones de ouvido com áudio descritivo para pessoas com deficiência visual e intérprete de Libras na tela para pessoas com deficiência auditiva.",
+      "O eleitor com mobilidade reduzida tem prioridade absoluta na fila e pode ser auxiliado na cabine de votação por pessoa de sua estrita confiança."
+    ],
+    "pontosChave": [
+      "Urnas com sintetizador de voz e Libras em vídeo na tela.",
+      "Prioridade legal para eleitores PCD, idosos e acompanhantes.",
+      "Possibilidade de assistência presencial na cabine de votação.",
+      "Canal de apoio ao eleitor PCD disponível no portal do TRE-ES."
+    ]
+  }
+]

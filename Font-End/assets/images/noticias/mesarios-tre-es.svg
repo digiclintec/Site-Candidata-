@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" style="background:#071426; font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <linearGradient id="bgGradTRE" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#071d2b" />
+      <stop offset="50%" stop-color="#0c324c" />
+      <stop offset="100%" stop-color="#061824" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bgGradTRE)" />
+
+  <!-- Faixas das cores do Espírito Santo (Azul, Branco, Rosa) -->
+  <g opacity="0.3" transform="rotate(-15 600 337)">
+    <rect x="-200" y="200" width="1600" height="40" fill="#38bdf8" />
+    <rect x="-200" y="240" width="1600" height="40" fill="#ffffff" />
+    <rect x="-200" y="280" width="1600" height="40" fill="#f472b6" />
+  </g>
+
+  <g transform="translate(600, 220)">
+    <circle cx="0" cy="0" r="95" fill="#0f2942" stroke="#38bdf8" stroke-width="3" />
+    <!-- Distintivo de Mesário Voluntário -->
+    <circle cx="0" cy="-20" r="28" fill="#38bdf8" />
+    <path d="M-40 45 C-40 18 -15 10 0 10 C15 10 40 18 40 45 Z" fill="#38bdf8" />
+    <!-- Estrela Capixaba -->
+    <path d="M0 -30 L4 -20 L14 -20 L6 -14 L9 -4 L0 -10 L-9 -4 L-6 -14 L-14 -20 L-4 -20 Z" fill="#ffffff" />
+  </g>
+
+  <g transform="translate(600, 380)" text-anchor="middle">
+    <rect x="-190" y="-30" width="380" height="34" rx="17" fill="#0369a1" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="0" y="-8" font-size="12.5" font-weight="800" fill="#ffffff" letter-spacing="2">TRE ESPÍRITO SANTO • EDITAL OFICIAL</text>
+
+    <text x="0" y="45" font-size="36" font-weight="900" fill="#ffffff" letter-spacing="-0.5">Mesários Voluntários no ES</text>
+    <text x="0" y="85" font-size="20" font-weight="700" fill="#38bdf8">BENEFÍCIOS, FOLGAS E CAPACITAÇÃO DIGITAL</text>
+
+    <line x1="-160" y1="110" x2="160" y2="110" stroke="#0284c7" stroke-width="1.5" />
+
+    <text x="0" y="145" font-size="16" font-weight="500" fill="#e0f2fe">Inscrições abertas nos cartórios eleitorais do Espírito Santo e app e-Título.</text>
+    <text x="0" y="175" font-size="13.5" font-weight="600" fill="#bae6fd">Cidadania ativa a serviço da democracia capixaba.</text>
+  </g>
+</svg>
