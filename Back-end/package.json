@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
+    "build": "node ../scripts/build.js",
+    "build:prd": "node ../scripts/build.js",
     "sync-assets": "node -e \"require('./src/utils/fileStorage').syncCampaignAssets()\"",
     "check": "node -e \"require('./src/config/env'); console.log('Configuracoes validadas com sucesso!')\""
   },

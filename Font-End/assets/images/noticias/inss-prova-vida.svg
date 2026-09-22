@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720" style="background:#051122; font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', 'Segoe UI', Roboto, sans-serif;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720" preserveAspectRatio="xMidYMid meet" style="background:#051122; font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', 'Segoe UI', Roboto, sans-serif;">
   <defs>
     <!-- Gradientes de Fundo e Moldura -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">

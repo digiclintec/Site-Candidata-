@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "name": "portal-alexsandra-tomaz",
+  "cleanUrls": true,
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/Back-end/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/Font-End/$1"
+    }
+  ]
+}

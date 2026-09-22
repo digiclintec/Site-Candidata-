@@ -2,26 +2,43 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <noscript>
-    <meta http-equiv="refresh" content="0; url=Font-End/index.html">
-  </noscript>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alexsandra Tomaz 2223 • Deputada Federal • PL Espírito Santo</title>
   <script>
     (function() {
+      // 1. Prevenção absoluta contra loop infinito
+      var loopKey = 'redirect_loop_guard';
+      var attempts = parseInt(sessionStorage.getItem(loopKey) || '0', 10);
+      var currentPath = window.location.pathname || '';
+
+      // Se a URL já estiver dentro de Font-End ou se já tentou redirecionar, aborta para não criar loop
+      if (currentPath.indexOf('Font-End') !== -1 || attempts >= 2) {
+        sessionStorage.removeItem(loopKey);
+        return;
+      }
+
+      sessionStorage.setItem(loopKey, String(attempts + 1));
+
+      // 2. Constrói o destino com caminho absoluto canônico
       var search = window.location.search || '';
       var hash = window.location.hash || '';
-      var target = 'Font-End/index.html' + search + hash;
+      var origin = window.location.origin || '';
+
+      // Limpa repetições de /index do caminho
+      var cleanPath = currentPath.replace(/\/index(\.html)?$/i, '').replace(/\/+$/, '');
+      var target;
+
+      if (window.location.protocol === 'file:') {
+        target = 'Font-End/index.html' + search + hash;
+      } else {
+        target = origin + cleanPath + '/Font-End/index.html' + search + hash;
+      }
+
       try {
         window.location.replace(target);
       } catch (e) {
         window.location.href = target;
       }
-      setTimeout(function() {
-        if (window.location.href.indexOf('Font-End') === -1) {
-          window.location.href = target;
-        }
-      }, 300);
     })();
   </script>
   <style>
@@ -35,44 +52,52 @@
       min-height: 100vh;
       margin: 0;
       text-align: center;
-      padding: 1rem;
+      padding: 1.5rem;
     }
     .redirect-card {
-      background: rgba(7, 22, 44, 0.85);
-      border: 1px solid rgba(212, 175, 55, 0.4);
+      background: rgba(7, 22, 44, 0.95);
+      border: 1px solid rgba(245, 158, 11, 0.45);
       padding: 2.5rem 2rem;
       border-radius: 20px;
       max-width: 480px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       color: #fbbf24;
       margin-bottom: 0.5rem;
+      font-weight: 800;
     }
     p {
-      color: #94a3b8;
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
+      color: #cbd5e1;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
     }
-    a {
+    a.btn-access {
       display: inline-block;
       background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
       color: #040d1b;
-      font-weight: 700;
+      font-weight: 800;
       text-decoration: none;
-      padding: 0.75rem 1.75rem;
+      padding: 0.85rem 2rem;
       border-radius: 9999px;
       text-transform: uppercase;
-      font-size: 0.88rem;
+      font-size: 0.92rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+      transition: transform 0.2s ease;
+    }
+    a.btn-access:hover {
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
   <div class="redirect-card">
     <h1>Alexsandra Tomaz 2223</h1>
-    <p>Redirecionando para o portal oficial...</p>
-    <a href="Font-End/index.html">Acessar Site Oficial</a>
+    <p>Clique abaixo para acessar o Portal Oficial e Notícias Eleitorais:</p>
+    <a href="Font-End/index.html" class="btn-access">Acessar Site Oficial</a>
   </div>
 </body>
 </html>

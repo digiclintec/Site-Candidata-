@@ -888,10 +888,15 @@
 
     // Atualiza o contador de matérias exibidas (janela dinâmica de 7 dias)
     if (countDisplayEl) {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
       if (filtered.length === allNews.length) {
-        countDisplayEl.textContent = `${allNews.length} informativos oficiais • Últimos 7 dias`;
+        countDisplayEl.textContent = isMobile
+          ? `${allNews.length} informativos • 7 dias`
+          : `${allNews.length} informativos oficiais • Últimos 7 dias`;
       } else {
-        countDisplayEl.textContent = `Exibindo ${filtered.length} de ${allNews.length} informativos`;
+        countDisplayEl.textContent = isMobile
+          ? `${filtered.length} de ${allNews.length} matérias`
+          : `Exibindo ${filtered.length} de ${allNews.length} informativos`;
       }
     }
 

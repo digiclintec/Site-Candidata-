@@ -1,0 +1,19 @@
+{
+  "name": "portal-alexsandra-tomaz",
+  "version": "1.1.0",
+  "description": "Portal Oficial e Sistema de Notícias Eleitorais Alexsandra Tomaz 2223",
+  "scripts": {
+    "start": "node Back-end/server.js",
+    "dev": "node --watch Back-end/server.js",
+    "build": "node scripts/build.js",
+    "build:prd": "node scripts/build.js"
+  },
+  "keywords": [
+    "eleicoes",
+    "pl-es",
+    "campanha",
+    "portal"
+  ],
+  "author": "Equipe Alexsandra Tomaz",
+  "license": "ISC"
+}

@@ -946,7 +946,7 @@
           </div>
 
           <div class="news-toolbar-actions">
-            <span id="newsCountDisplay" class="news-counter-pill">10 informativos disponíveis • Últimos 7 dias</span>
+            <span id="newsCountDisplay" class="news-counter-pill">10 informativos • Últimos 7 dias</span>
             <button id="newsRefreshBtn" class="btn btn-outline btn-sm btn-refresh-news" title="Verificar atualizações oficiais" aria-label="Verificar atualizações">
               <i class="fas fa-rotate"></i> <span>Atualizar</span>
             </button>
@@ -1147,10 +1147,13 @@
   <div id="newsModal" class="modal-backdrop news-modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="modalNewsTitle">
     <div class="modal-news-dialog">
       <div class="modal-news-header">
-        <div class="modal-news-header-meta">
+        <div class="modal-news-header-top">
           <span id="modalNewsBadge" class="news-modal-badge">
             <i class="fas fa-balance-scale"></i> Justiça Eleitoral
           </span>
+          <button id="newsModalClose" class="modal-close-btn" aria-label="Fechar Notícia">&times;</button>
+        </div>
+        <div class="modal-news-header-sub">
           <span class="news-modal-verified"><i class="fas fa-shield-alt"></i> Publicação Oficial Verificada</span>
           
           <!-- Controles de Acessibilidade / Tamanho da Fonte -->
@@ -1160,7 +1163,6 @@
             <button type="button" id="btnFontLarger" class="btn-font-size" title="Aumentar tamanho da fonte para leitura confortável" aria-label="Aumentar tamanho do texto">A+</button>
           </div>
         </div>
-        <button id="newsModalClose" class="modal-close-btn" aria-label="Fechar Notícia">&times;</button>
       </div>
 
       <div class="modal-news-scroll-body">
