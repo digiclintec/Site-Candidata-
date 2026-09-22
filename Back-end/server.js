@@ -10,9 +10,11 @@ const config = require('./src/config/env');
 const { initializeStorage } = require('./src/utils/fileStorage');
 const { handleCors } = require('./src/middlewares/cors');
 const { handleRequest } = require('./src/routes/router');
+const { startNewsScheduler } = require('./src/services/newsScheduler');
 
-// 1. Inicializar estrutura de persistência local
+// 1. Inicializar estrutura de persistência local e agendador diário
 initializeStorage();
+startNewsScheduler();
 
 // 2. Criar servidor HTTP principal
 const server = http.createServer((req, res) => {

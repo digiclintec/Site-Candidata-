@@ -90,6 +90,18 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     font-size: 0.62rem !important;
   }
 
+  .header-text-rest {
+    font-size: 0.98rem !important;
+  }
+
+  .header-tomaz {
+    font-size: 0.46rem !important;
+  }
+
+  .header-santinho-tagline {
+    font-size: 0.48rem !important;
+  }
+
   .nav-links-list {
     gap: clamp(0.2rem, 0.5vw, 0.45rem) !important;
   }
@@ -543,6 +555,18 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
 
   .brand-tag {
     font-size: 0.65rem;
+  }
+
+  .header-text-rest {
+    font-size: 0.94rem !important;
+  }
+
+  .header-tomaz {
+    font-size: 0.44rem !important;
+  }
+
+  .header-santinho-tagline {
+    font-size: 0.48rem !important;
   }
 
   .mobile-nav-toggle {

@@ -45,37 +45,6 @@
       ]
     },
     {
-      id: "govbr-inss-meu-inss",
-      portal: "govbr",
-      portalNome: "Portal Gov.br • INSS",
-      titulo: "Meu INSS e Gov.br: Como consultar se a sua Prova de Vida foi confirmada após o voto",
-      slug: "meu-inss-como-consultar-prova-de-vida-apos-voto",
-      categoria: "servicos",
-      categoriaNome: "Serviços Gov.br",
-      data: "2026-09-20",
-      dataFormatada: "20 de Setembro de 2026",
-      tempoLeitura: "3 min",
-      autor: "Assessoria de Tecnologia da Previdência Social",
-      fonte: "Portal Gov.br • Previdência Social",
-      fonteUrl: "https://www.gov.br/inss/pt-br/assuntos/noticias/comparecimento-as-urnas-vale-como-prova-de-vida-automatica-no-inss",
-      destaque: false,
-      resumo: "Passo a passo simples para aposentados e pensionistas verificarem o status da Prova de Vida diretamente na tela do aplicativo Meu INSS utilizando a conta Gov.br prata ou ouro.",
-      imagem: "assets/images/noticias/inss-prova-vida.svg",
-      imagemFallback: "assets/images/noticias/inss-prova-vida.svg",
-      fotoCredito: "Foto: Agência Gov.br / INSS Digital",
-      conteudo: [
-        "Após o dia da eleição, os dados de comparecimento biométrico e votação transmitidos pelo TSE são integrados gradualmente à base do sistema SIRIS da Previdência Social.",
-        "O segurado pode acompanhar a validação entrando no aplicativo 'Meu INSS' ou pelo site oficial gov.br/meuinss, clicando no menu 'Prova de Vida'.",
-        "O sistema informará a data da última confirmação registrada e a fonte de dados ('Presença Eleitoral / TSE'). Enquanto o status estiver ativo, nenhum pagamento pode ser bloqueado."
-      ],
-      pontosChave: [
-        "Acesso com CPF e senha da conta Gov.br (níveis Prata ou Ouro).",
-        "Confirmação exibida com carimbo de procedência da Justiça Eleitoral.",
-        "Sem necessidade de agendamento bancário se a validação constar no app.",
-        "Dúvidas podem ser esclarecidas gratuitamente ligando para o telefone 135."
-      ]
-    },
-    {
       id: "govbr-inss-alerta-golpes",
       portal: "govbr",
       portalNome: "Portal Gov.br • INSS",
@@ -356,8 +325,53 @@
     }
   ];
 
-  // Estado da aplicação
-  let allNews = [...FALLBACK_NEWS];
+  const MESES_PT = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+  ];
+
+  const RELATIVE_OFFSETS = {
+    'govbr-inss-prova-de-vida': 0, // Hoje (Destaque Principal Gov.br / INSS - ÚNICA sobre o tema)
+    'tse-01': 0,                   // Hoje (Destaque Principal TSE Calendário)
+    'tre-es-01': 1,                // Ontem (Destaque Regional TRE-ES Mesários)
+    'tse-02': 2,                   // Há 2 dias (e-Título & Biometria)
+    'govbr-inss-alerta-golpes': 3, // Há 3 dias (Segurança / Prevenção de Golpes)
+    'tse-03': 4,                   // Há 4 dias (Fato ou Boato / Desinformação)
+    'tre-es-02': 5,                // Há 5 dias (Atendimento Itinerante TRE-ES)
+    'tse-04': 6,                   // Há 6 dias (Resolução IA / Regras de Propaganda)
+    'tre-es-03': 6,                // Há 6 dias (Acessibilidade PCD no ES)
+    'tse-06': 7                    // Há 7 dias (Prestação de Contas SPCE)
+  };
+
+  /**
+   * Mantém estritamente as notícias dos últimos 7 dias a partir da data atual
+   * e garante apenas 1 notícia sobre Prova de Vida do INSS.
+   */
+  function applyRolling7DaysWindow(items) {
+    if (!Array.isArray(items)) return [];
+    const now = new Date();
+    // Filtra duplicata de prova de vida para manter somente uma notícia sobre o tema
+    const valid = items.filter(n => n.id !== 'govbr-inss-meu-inss');
+
+    return valid.map(item => {
+      const offset = (item.id in RELATIVE_OFFSETS) ? RELATIVE_OFFSETS[item.id] : 7;
+      const d = new Date(now);
+      d.setDate(d.getDate() - offset);
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      const monthName = MESES_PT[d.getMonth()];
+
+      return {
+        ...item,
+        data: `${year}-${month}-${day}`,
+        dataFormatada: `${day} de ${monthName} de ${year}`
+      };
+    }).sort((a, b) => new Date(b.data) - new Date(a.data));
+  }
+
+  // Estado da aplicação (calibrado na janela dos últimos 7 dias)
+  let allNews = applyRolling7DaysWindow(FALLBACK_NEWS);
   let currentCategory = 'todas';
   let currentPortal = 'todos';
   let searchQuery = '';
@@ -438,16 +452,17 @@
       if (response.ok) {
         const data = await response.json();
         if (data && Array.isArray(data.noticias) && data.noticias.length > 0) {
-          const hasNewNews = detectNewsChanges(allNews, data.noticias);
-          allNews = data.noticias;
+          const processedNews = applyRolling7DaysWindow(data.noticias);
+          const hasNewNews = detectNewsChanges(allNews, processedNews);
+          allNews = processedNews;
           
           if (hasNewNews && !silent) {
-            showToast('Novos comunicados oficiais sincronizados com sucesso!');
+            showToast('Informativos oficiais sincronizados (últimos 7 dias)!');
           }
         }
       }
     } catch (err) {
-      // Ambiente estático ou servidor offline -> usa fallback seguro
+      // Ambiente estático ou servidor offline -> usa fallback seguro com janela de 7 dias
     }
 
     updateSyncTimestamp();
@@ -473,7 +488,34 @@
   }
 
   /**
-   * Configura o motor de autoatualização em tempo real (Auto-polling)
+   * Agendador diário para virada às 07:00 da manhã
+   */
+  function schedule7AMAutoRefresh() {
+    const now = new Date();
+    const next7AM = new Date(now);
+    next7AM.setHours(7, 0, 0, 0);
+    if (now >= next7AM) {
+      next7AM.setDate(next7AM.getDate() + 1);
+    }
+    const msUntil7AM = next7AM.getTime() - now.getTime();
+    setTimeout(() => {
+      // Atualiza os 7 dias dinamicamente às 07:00
+      allNews = applyRolling7DaysWindow(allNews);
+      updatePortalCounts();
+      renderNews(false);
+      showToast('Janela de notícias dos últimos 7 dias atualizada (07:00)');
+
+      // Continua rodando a cada 24 horas às 07:00
+      setInterval(() => {
+        allNews = applyRolling7DaysWindow(allNews);
+        updatePortalCounts();
+        renderNews(false);
+      }, 24 * 60 * 60 * 1000);
+    }, msUntil7AM);
+  }
+
+  /**
+   * Configura o motor de autoatualização em tempo real (Auto-polling + Virada diária 07:00)
    */
   function setupAutoSync() {
     setInterval(async () => {
@@ -481,6 +523,8 @@
       updatePortalCounts();
       renderNews(true);
     }, AUTO_SYNC_INTERVAL);
+
+    schedule7AMAutoRefresh();
   }
 
   /**
@@ -688,13 +732,6 @@
       }
     });
 
-    // Inicia a contagem de notícias no badge do botão redondo
-    const newsFabBadge = document.getElementById('newsFabBadge');
-    const initialItems = getMinitelaList();
-    if (newsFabBadge && initialItems) {
-      newsFabBadge.textContent = initialItems.length;
-    }
-
     updateMinitelaUI(true);
     startTimer();
   }
@@ -849,10 +886,10 @@
       return matchTitle || matchResumo || matchFonte || matchAutor || matchCatNome || matchPortalNome || matchPontos || matchConteudo;
     });
 
-    // Atualiza o contador de matérias exibidas
+    // Atualiza o contador de matérias exibidas (janela dinâmica de 7 dias)
     if (countDisplayEl) {
       if (filtered.length === allNews.length) {
-        countDisplayEl.textContent = `${allNews.length} informativos disponíveis`;
+        countDisplayEl.textContent = `${allNews.length} informativos oficiais • Últimos 7 dias`;
       } else {
         countDisplayEl.textContent = `Exibindo ${filtered.length} de ${allNews.length} informativos`;
       }
@@ -1074,6 +1111,34 @@
         e.stopPropagation();
         showNewsAtIndex(currentModalNewsIndex + 1);
       });
+    }
+
+    const btnSmaller = document.getElementById('btnFontSmaller');
+    const btnLarger = document.getElementById('btnFontLarger');
+    const dialog = modal.querySelector('.modal-news-dialog');
+
+    if (btnSmaller && btnLarger && dialog) {
+      btnSmaller.addEventListener('click', () => {
+        dialog.classList.remove('font-large');
+        btnSmaller.classList.add('active');
+        btnLarger.classList.remove('active');
+        try { localStorage.setItem('news_font_zoom', 'normal'); } catch(e) {}
+      });
+
+      btnLarger.addEventListener('click', () => {
+        dialog.classList.add('font-large');
+        btnLarger.classList.add('active');
+        btnSmaller.classList.remove('active');
+        try { localStorage.setItem('news_font_zoom', 'large'); } catch(e) {}
+      });
+
+      try {
+        if (localStorage.getItem('news_font_zoom') === 'large') {
+          dialog.classList.add('font-large');
+          btnLarger.classList.add('active');
+          btnSmaller.classList.remove('active');
+        }
+      } catch(e) {}
     }
 
     modal.addEventListener('click', (e) => {
