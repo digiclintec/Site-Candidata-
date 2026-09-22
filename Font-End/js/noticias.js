@@ -853,6 +853,47 @@
   }
 
   /**
+   * Obtém a URL base limpa do site para compartilhamento oficial
+   */
+  function getNewsShareBaseUrl() {
+    const isOnline = window.location.protocol.startsWith('http') &&
+                     !window.location.hostname.includes('localhost') &&
+                     !window.location.hostname.includes('127.0.0.1');
+    if (isOnline) {
+      const origin = window.location.origin;
+      const path = window.location.pathname.replace(/\/index\.html$/i, '').replace(/\/+$/, '');
+      return origin + (path ? path : '');
+    }
+    return 'https://alexsandratomaz.com.br';
+  }
+
+  /**
+   * Constrói link de compartilhamento do WhatsApp direto (api.whatsapp.com)
+   * sem caracteres frágeis/emojis que causam o caractere corrompido () em navegadores/desktops
+   */
+  function buildWhatsAppNewsShareUrl(news) {
+    if (!news) return 'https://api.whatsapp.com/send?text=';
+    const portal = (news.portalNome || news.fonte || 'Justiça Eleitoral').trim();
+    const title = (news.titulo || '').trim();
+    const lead = (news.resumo || '').trim();
+    const baseUrl = getNewsShareBaseUrl();
+    const newsLink = `${baseUrl}/#noticia-${news.id}`;
+
+    const text = [
+      `*INFORMATIVO OFICIAL* - ${portal}`,
+      ``,
+      `*${title}*`,
+      ``,
+      lead,
+      ``,
+      `Confira o comunicado oficial completo no portal:`,
+      newsLink
+    ].join('\n');
+
+    return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  }
+
+  /**
    * ==========================================================================
    * RENDERIZAÇÃO DO GRID DE NOTÍCIAS COMPLETO, ORGANIZADO E SIMÉTRICO
    * Todos os informativos com visualização clara da fonte, categoria e busca
@@ -952,8 +993,7 @@
     // Renderiza todas as notícias no grid organizado
     let html = '';
     filtered.forEach((news, idx) => {
-      const shareText = encodeURIComponent(`🏛️ *Informativo Oficial - ${news.portalNome || 'Justiça Eleitoral'}*\n\n📰 *${news.titulo}*\n\n${news.resumo}\n\nConfira o comunicado oficial:\n${window.location.origin}${window.location.pathname}#noticia-${news.id}`);
-      const shareUrl = `https://wa.me/?text=${shareText}`;
+      const shareUrl = buildWhatsAppNewsShareUrl(news);
       const delayClass = `delay-${(idx % 4) + 1}`;
       const svgFallback = getNewsImageFallback(news.categoria, news.portal);
       const fallbackSrc = news.imagemFallback || svgFallback;
@@ -1250,8 +1290,7 @@
     }
 
     if (modalShareZap) {
-      const shareText = encodeURIComponent(`📰 *${news.titulo}*\n\n${news.resumo}\n\nConfira as diretrizes e atos oficiais completos no portal oficial de Alexsandra Tomaz 2223:\n${window.location.origin}${window.location.pathname}#noticia-${news.id}`);
-      modalShareZap.href = `https://wa.me/?text=${shareText}`;
+      modalShareZap.href = buildWhatsAppNewsShareUrl(news);
     }
 
     // Reseta rolagem do corpo da notícia ao topo

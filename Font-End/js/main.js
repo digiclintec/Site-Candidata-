@@ -566,7 +566,7 @@ function getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote) {
   const quoteSnippet = cardQuote ? `\n"${cardQuote}"` : '';
   return encodeURIComponent(
     `Confira o que Alexsandra Tomaz 2223 defende para o Espírito Santo!\n\n` +
-    `📌 *${titleText}*${quoteSnippet}\n\n` +
+    `*${titleText}*${quoteSnippet}\n\n` +
     `Acesse a proposta completa no portal oficial:\n${shareUrl}`
   );
 }

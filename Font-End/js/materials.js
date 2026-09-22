@@ -13,7 +13,7 @@ function initShareButtons() {
 
   const pageUrl = window.location.href;
   const shareText = encodeURIComponent(
-    `Conheça o site oficial de Alexsandra Tomaz! 🇧🇷\n` +
+    `Conheça o site oficial de Alexsandra Tomaz 2223!\n` +
     `Veja as propostas para saúde, educação, segurança e o futuro da nossa gente:\n` +
     `${pageUrl}`
   );
