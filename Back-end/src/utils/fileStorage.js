@@ -65,77 +65,11 @@ function syncCampaignAssets() {
   return true;
 }
 
-/**
- * Sincroniza as fotos oficiais e fidedignas da Justiça Eleitoral e do Gov.br
- * para "Font-End/assets/images/noticias/"
- */
-function syncNewsAssets() {
-  const brainDir = '/Users/rodrigo/.gemini/antigravity-ide/brain/d8aafe0c-18ae-47e3-a2c6-3ec1d80dbc45';
-  const targetDir = path.join(config.paths.frontendDir, 'assets', 'images', 'noticias');
-
-  if (!fs.existsSync(targetDir)) {
-    fs.mkdirSync(targetDir, { recursive: true });
-  }
-
-  const newsMapping = [
-    { src: 'urna_tela_branca_1790075616127.jpg', dest: 'inss-prova-vida.jpg' },
-    { src: 'tse_plenario_1790074134317.jpg', dest: 'tse-plenario.jpg' },
-    { src: 'etitulo_app_oficial_1790074162191.jpg', dest: 'etitulo-app.jpg' },
-    { src: 'tse_fato_boato_1790074192576.jpg', dest: 'tse-fato-boato.jpg' },
-    { src: 'tse_ia_regras_1790074227249.jpg', dest: 'tse-ia-regras.jpg' },
-    { src: 'mesarios_tre_es_1790074264536.jpg', dest: 'mesarios-tre-es.jpg' },
-    { src: 'tse_spce_contas_1790074307411.jpg', dest: 'tse-spce-contas.jpg' }
-  ];
-
-  let synced = 0;
-  for (const item of newsMapping) {
-    const srcPath = path.join(brainDir, item.src);
-    const destPath = path.join(targetDir, item.dest);
-    if (fs.existsSync(srcPath)) {
-      fs.copyFileSync(srcPath, destPath);
-      synced++;
-    }
-  }
-
-  if (synced > 0) {
-    console.log(`[NEWS-ASSETS] 🏛️ ${synced} fotos oficiais de notícias (TSE, TRE-ES e Gov.br) sincronizadas com sucesso!`);
-  }
-}
-
-/**
- * Garante que a pasta de dados e os arquivos essenciais existam
- */
-function initializeStorage() {
-  const { dataDir, supportersFile, contactsFile, noticiasFile } = config.paths;
-
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-  }
-
-  if (!fs.existsSync(supportersFile)) {
-    fs.writeFileSync(supportersFile, JSON.stringify([], null, 2), 'utf8');
-  }
-
-  if (!fs.existsSync(contactsFile)) {
-    fs.writeFileSync(contactsFile, JSON.stringify([], null, 2), 'utf8');
-  }
-
-  if (noticiasFile && !fs.existsSync(noticiasFile)) {
-    fs.writeFileSync(noticiasFile, JSON.stringify([], null, 2), 'utf8');
-  }
-
   // Sincronizar imagens reais de material de campanha
   try {
     syncCampaignAssets();
   } catch (err) {
     console.warn('[ASSETS] Erro ao sincronizar imagens de campanha:', err.message);
-  }
-
-  // Sincronizar fotos oficiais da Justiça Eleitoral e Gov.br
-  try {
-    syncNewsAssets();
-  } catch (err) {
-    console.warn('[NEWS-ASSETS] Erro ao sincronizar imagens de notícias:', err.message);
   }
 }
 
