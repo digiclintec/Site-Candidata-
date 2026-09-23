@@ -75,7 +75,9 @@ function generateNewsPage(news) {
   <script>
     (function() {
       var isLocal = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
-      var target = isLocal ? '/Font-End/index.html#noticia-${id}' : '/#noticia-${id}';
+      var path = window.location.pathname || '';
+      var hasFontEnd = path.indexOf('/Font-End/') !== -1;
+      var target = (isLocal && hasFontEnd) ? '/Font-End/index.html#noticia-${id}' : '/#noticia-${id}';
       try {
         window.location.replace(target);
       } catch (e) {

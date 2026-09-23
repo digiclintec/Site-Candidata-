@@ -392,15 +392,19 @@
   let currentModalNewsIndex = -1;
   let liveSyncStatusEl;
 
-  // Elementos do Modal de Compartilhamento Inteligente
+  // Elementos do Modal de Compartilhamento Inteligente Multiplataforma
   let shareModal;
   let shareModalCloseBtn;
   let shareModalThumb;
   let shareModalPortal;
   let shareModalNewsTitle;
   let btnShareZapRegular;
-  let btnShareZapBusiness;
-  let btnShareStories;
+  let btnShareTelegram;
+  let btnShareTwitter;
+  let btnShareLinkedIn;
+  let btnShareFacebook;
+  let btnShareEmail;
+  let btnShareNative;
   let btnShareCopyLink;
   let activeShareNews = null;
 
@@ -446,15 +450,19 @@
     newsModalNextBtn = document.getElementById('newsModalNext');
     liveSyncStatusEl = document.getElementById('newsLiveSyncStatus');
 
-    // Mapeamento do Compartilhador Inteligente
+    // Mapeamento do Compartilhador Inteligente Multiplataforma
     shareModal = document.getElementById('newsShareModal');
     shareModalCloseBtn = document.getElementById('newsShareModalClose');
     shareModalThumb = document.getElementById('shareModalThumb');
     shareModalPortal = document.getElementById('shareModalPortal');
     shareModalNewsTitle = document.getElementById('shareModalNewsTitle');
     btnShareZapRegular = document.getElementById('btnShareZapRegular');
-    btnShareZapBusiness = document.getElementById('btnShareZapBusiness');
-    btnShareStories = document.getElementById('btnShareStories');
+    btnShareTelegram = document.getElementById('btnShareTelegram');
+    btnShareTwitter = document.getElementById('btnShareTwitter');
+    btnShareLinkedIn = document.getElementById('btnShareLinkedIn');
+    btnShareFacebook = document.getElementById('btnShareFacebook');
+    btnShareEmail = document.getElementById('btnShareEmail');
+    btnShareNative = document.getElementById('btnShareNative');
     btnShareCopyLink = document.getElementById('btnShareCopyLink');
   }
 
@@ -880,14 +888,18 @@
    * Obtém a URL base limpa do site para compartilhamento oficial
    */
   function getNewsShareBaseUrl() {
-    if (typeof window !== 'undefined' && window.location && window.location.protocol.startsWith('http')) {
-      if (window.location.hostname.includes('alexsandratomaz.com.br')) {
+    if (typeof window !== 'undefined' && window.location) {
+      const hostname = window.location.hostname || '';
+      const origin = window.location.origin || '';
+
+      // Domínio canônico de produção
+      if (hostname.includes('alexsandratomaz.com.br')) {
         return 'https://alexsandratomaz.com.br';
       }
-      if (!window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
-        const origin = window.location.origin;
-        const path = window.location.pathname.replace(/\/index\.html$/i, '').replace(/\/+$/, '');
-        return origin + (path ? path : '');
+
+      // Se executado em domínio público HTTP/HTTPS (Netlify, Vercel, etc.)
+      if (origin && origin.startsWith('http') && !hostname.includes('localhost') && !hostname.includes('127.0.0.1')) {
+        return origin;
       }
     }
     return 'https://alexsandratomaz.com.br';
@@ -935,7 +947,7 @@
   }
 
   /**
-   * Abre o modal inteligente de compartilhamento (WhatsApp Comum, Business, Stories ou Link)
+   * Abre o modal oficial de compartilhamento multiplataforma
    */
   function openNewsShareModal(news) {
     if (!news || !shareModal) return;
@@ -974,140 +986,198 @@
   }
 
   /**
-   * Compartilha via WhatsApp Tradicional / Comum
+   * 1. Compartilha via WhatsApp (Universal e Confiável)
    */
-  function shareToWhatsAppRegular(news) {
+  function shareToWhatsApp(news) {
     if (!news) return;
     const shareUrl = getNewsSharePageUrl(news);
     const text = buildShareMessage(news, shareUrl);
     const encoded = encodeURIComponent(text);
-
-    const isAndroid = /Android/i.test(navigator.userAgent);
-    if (isAndroid) {
-      // Dispara Intent para o pacote padrão do WhatsApp no Android
-      const intentUrl = `intent://send?text=${encoded}#Intent;package=com.whatsapp;scheme=whatsapp;end`;
-      window.location.href = intentUrl;
-      setTimeout(() => {
-        window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
-      }, 600);
-    } else {
-      window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
-    }
+    window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank', 'noopener,noreferrer');
     closeNewsShareModal();
+    showToast('Abrindo WhatsApp oficial...');
   }
 
   /**
-   * Compartilha especificamente via WhatsApp Business
+   * 2. Compartilha via Telegram (Oficial)
    */
-  function shareToWhatsAppBusiness(news) {
+  function shareToTelegram(news) {
     if (!news) return;
     const shareUrl = getNewsSharePageUrl(news);
-    const text = buildShareMessage(news, shareUrl);
-    const encoded = encodeURIComponent(text);
-
-    const isAndroid = /Android/i.test(navigator.userAgent);
-    if (isAndroid) {
-      // Dispara Intent direcionado para o pacote com.whatsapp.w4b (WhatsApp Business)
-      const intentUrl = `intent://send?text=${encoded}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;end`;
-      window.location.href = intentUrl;
-      setTimeout(() => {
-        window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
-      }, 600);
-    } else {
-      // No desktop / iOS: abre no WhatsApp Web / Desktop onde o usuário utiliza sua conta comercial
-      window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
-    }
+    const portal = (news.portalNome || news.fonte || 'Justiça Eleitoral').trim();
+    const title = (news.titulo || '').trim();
+    const lead = (news.resumo || '').trim();
+    const telegramText = `*INFORMATIVO OFICIAL • ${portal}*\n\n*${title}*\n\n${lead}`;
+    const url = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(telegramText)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
     closeNewsShareModal();
+    showToast('Abrindo Telegram oficial...');
   }
 
   /**
-   * Compartilha nos Stories (Instagram & Status) com imagem oficial e link
+   * 3. Compartilha via X / Twitter (Oficial com limite de caracteres e hashtags)
    */
-  async function shareToStories(news) {
+  function shareToTwitter(news) {
     if (!news) return;
     const shareUrl = getNewsSharePageUrl(news);
-    const baseUrl = getNewsShareBaseUrl();
-    const fullImgUrl = news.imagem.startsWith('http') ? news.imagem : `${baseUrl}/${news.imagem}`;
+    const portal = (news.portalNome || news.fonte || 'Justiça Eleitoral').trim();
+    let title = (news.titulo || '').trim();
+    if (title.length > 140) {
+      title = title.substring(0, 137) + '...';
+    }
+    const tweetText = `Informativo Oficial (${portal}): ${title}\n\n#Eleicoes2026 #AlexsandraTomaz2223 #ES`;
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(shareUrl)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+    closeNewsShareModal();
+    showToast('Abrindo X (Twitter)...');
+  }
 
-    // 1. Tentar Web Share API caso suporte compartilhamento de arquivos de imagem no mobile
-    if (typeof navigator !== 'undefined' && navigator.canShare && typeof File !== 'undefined') {
+  /**
+   * 4. Compartilha via LinkedIn (Rede Profissional / Institucional)
+   */
+  function shareToLinkedIn(news) {
+    if (!news) return;
+    const shareUrl = getNewsSharePageUrl(news);
+    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+    closeNewsShareModal();
+    showToast('Abrindo LinkedIn oficial...');
+  }
+
+  /**
+   * 5. Compartilha via Facebook (Feed e Comunidades)
+   */
+  function shareToFacebook(news) {
+    if (!news) return;
+    const shareUrl = getNewsSharePageUrl(news);
+    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+    closeNewsShareModal();
+    showToast('Abrindo Facebook oficial...');
+  }
+
+  /**
+   * 6. Compartilha via E-mail Oficial
+   */
+  function shareToEmail(news) {
+    if (!news) return;
+    const shareUrl = getNewsSharePageUrl(news);
+    const portal = (news.portalNome || news.fonte || 'Justiça Eleitoral').trim();
+    const title = (news.titulo || '').trim();
+    const lead = (news.resumo || '').trim();
+    const subject = `Informativo Oficial • ${portal}: ${title}`;
+    const body = [
+      `Olá! Compartilho este comunicado oficial relevante do portal Alexsandra Tomaz 2223:`,
+      ``,
+      `${title}`,
+      ``,
+      `Fonte Oficial: ${portal}`,
+      ``,
+      lead,
+      ``,
+      `Acesse a matéria oficial completa com fotos e detalhes:`,
+      shareUrl
+    ].join('\n');
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    closeNewsShareModal();
+    showToast('Abrindo aplicativo de E-mail...');
+  }
+
+  /**
+   * 7. Compartilhamento Nativo do Sistema (Web Share API - Bluesky, Threads, Signal, SMS...)
+   */
+  async function shareToNative(news) {
+    if (!news) return;
+    const shareUrl = getNewsSharePageUrl(news);
+    const portal = (news.portalNome || news.fonte || 'Justiça Eleitoral').trim();
+    const shareData = {
+      title: `${news.titulo} • Alexsandra Tomaz 2223`,
+      text: `Informativo Oficial (${portal}): ${news.titulo}`,
+      url: shareUrl
+    };
+
+    if (typeof navigator !== 'undefined' && navigator.share && typeof navigator.share === 'function') {
       try {
-        const resp = await fetch(fullImgUrl);
-        const blob = await resp.blob();
-        const file = new File([blob], `${news.id}.jpg`, { type: 'image/jpeg' });
-
-        if (navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            title: news.titulo,
-            text: `Confira no portal oficial: ${shareUrl}`,
-            files: [file]
-          });
-          closeNewsShareModal();
-          showToast('Informativo compartilhado com sucesso!');
-          return;
-        }
+        await navigator.share(shareData);
+        closeNewsShareModal();
+        showToast('Informativo compartilhado!');
+        return;
       } catch (err) {
-        // Se usuário cancelou ou navegador não suportou, segue para o fallback perfeito
+        if (err.name !== 'AbortError') {
+          copyNewsShareLink(news);
+        }
       }
+    } else {
+      copyNewsShareLink(news);
     }
-
-    // 2. Fallback Inteligente para Stories: Baixa foto oficial + copia o link da matéria
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(shareUrl);
-      } else {
-        const tmp = document.createElement('textarea');
-        tmp.value = shareUrl;
-        document.body.appendChild(tmp);
-        tmp.select();
-        document.execCommand('copy');
-        document.body.removeChild(tmp);
-      }
-    } catch (e) {}
-
-    // Dispara o download da imagem oficial da notícia
-    const dl = document.createElement('a');
-    dl.href = fullImgUrl;
-    dl.download = `noticia-${news.id}.jpg`;
-    dl.target = '_blank';
-    document.body.appendChild(dl);
-    dl.click();
-    document.body.removeChild(dl);
-
-    closeNewsShareModal();
-    showToast('📸 Foto oficial salva! 🔗 Link copiado! Cole na figurinha de Link do Story.');
   }
 
   /**
-   * Copia o link direto oficial com imagem e meta tags para a área de transferência
+   * 8. Copia o link direto oficial com feedback visual no botão
    */
   function copyNewsShareLink(news) {
     if (!news) return;
     const shareUrl = getNewsSharePageUrl(news);
+    const copyBtn = document.getElementById('btnShareCopyLink');
+    const copyIcon = document.getElementById('copyBtnIcon');
+    const copyTitle = document.getElementById('copyBtnTitle');
+    const copySub = document.getElementById('copyBtnSub');
+    const copyArrow = document.getElementById('copyBtnArrow');
+
+    function applySuccessState() {
+      if (copyBtn) copyBtn.classList.add('copied');
+      if (copyIcon) {
+        copyIcon.className = 'fas fa-check';
+        const wrap = copyBtn ? copyBtn.querySelector('.share-opt-icon-wrap') : null;
+        if (wrap) wrap.classList.add('copied');
+      }
+      if (copyTitle) copyTitle.textContent = 'Link Oficial Copiado com Sucesso!';
+      if (copySub) copySub.textContent = 'Pronto para colar em qualquer rede social ou mensagem';
+      if (copyArrow) copyArrow.className = 'fas fa-check';
+
+      showToast('🔗 Link oficial com foto copiado para a área de transferência!');
+
+      setTimeout(() => {
+        if (copyBtn) copyBtn.classList.remove('copied');
+        if (copyIcon) {
+          copyIcon.className = 'fas fa-link';
+          const wrap = copyBtn ? copyBtn.querySelector('.share-opt-icon-wrap') : null;
+          if (wrap) wrap.classList.remove('copied');
+        }
+        if (copyTitle) copyTitle.textContent = 'Copiar Link com Foto Oficial';
+        if (copySub) copySub.textContent = 'Link direto com foto e dados para qualquer rede';
+        if (copyArrow) copyArrow.className = 'fas fa-copy share-opt-arrow';
+        closeNewsShareModal();
+      }, 1500);
+    }
+
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(shareUrl).then(() => {
-          showToast('🔗 Link oficial com foto copiado para a área de transferência!');
-        }).catch(() => {
+        navigator.clipboard.writeText(shareUrl).then(applySuccessState).catch(() => {
           copyFallback(shareUrl);
+          applySuccessState();
         });
       } else {
         copyFallback(shareUrl);
+        applySuccessState();
       }
     } catch (e) {
       copyFallback(shareUrl);
+      applySuccessState();
     }
-    closeNewsShareModal();
   }
 
   function copyFallback(text) {
     const tmp = document.createElement('textarea');
     tmp.value = text;
+    tmp.style.position = 'fixed';
+    tmp.style.left = '-9999px';
     document.body.appendChild(tmp);
     tmp.select();
-    document.execCommand('copy');
+    try {
+      document.execCommand('copy');
+    } catch (e) {}
     document.body.removeChild(tmp);
-    showToast('🔗 Link oficial da notícia copiado!');
   }
 
   /**
@@ -1128,19 +1198,43 @@
 
     if (btnShareZapRegular) {
       btnShareZapRegular.addEventListener('click', () => {
-        if (activeShareNews) shareToWhatsAppRegular(activeShareNews);
+        if (activeShareNews) shareToWhatsApp(activeShareNews);
       });
     }
 
-    if (btnShareZapBusiness) {
-      btnShareZapBusiness.addEventListener('click', () => {
-        if (activeShareNews) shareToWhatsAppBusiness(activeShareNews);
+    if (btnShareTelegram) {
+      btnShareTelegram.addEventListener('click', () => {
+        if (activeShareNews) shareToTelegram(activeShareNews);
       });
     }
 
-    if (btnShareStories) {
-      btnShareStories.addEventListener('click', () => {
-        if (activeShareNews) shareToStories(activeShareNews);
+    if (btnShareTwitter) {
+      btnShareTwitter.addEventListener('click', () => {
+        if (activeShareNews) shareToTwitter(activeShareNews);
+      });
+    }
+
+    if (btnShareLinkedIn) {
+      btnShareLinkedIn.addEventListener('click', () => {
+        if (activeShareNews) shareToLinkedIn(activeShareNews);
+      });
+    }
+
+    if (btnShareFacebook) {
+      btnShareFacebook.addEventListener('click', () => {
+        if (activeShareNews) shareToFacebook(activeShareNews);
+      });
+    }
+
+    if (btnShareEmail) {
+      btnShareEmail.addEventListener('click', () => {
+        if (activeShareNews) shareToEmail(activeShareNews);
+      });
+    }
+
+    if (btnShareNative) {
+      btnShareNative.addEventListener('click', () => {
+        if (activeShareNews) shareToNative(activeShareNews);
       });
     }
 
@@ -1299,8 +1393,8 @@
                 <span>Ler matéria completa</span>
                 <i class="fas fa-arrow-right"></i>
               </span>
-              <button type="button" class="news-btn-zap" title="Compartilhar Notícia (WhatsApp & Stories)" aria-label="Compartilhar Notícia" data-share-id="${news.id}" onclick="event.stopPropagation()">
-                <i class="fab fa-whatsapp"></i>
+              <button type="button" class="news-btn-zap news-btn-share" title="Compartilhar Informativo Oficial (WhatsApp, Telegram, X, LinkedIn e mais)" aria-label="Compartilhar Informativo" data-share-id="${news.id}" onclick="event.stopPropagation()">
+                <i class="fas fa-share-nodes"></i>
               </button>
             </div>
           </div>
@@ -1316,18 +1410,18 @@
 
       // Torna todo o card confortavelmente clicável para abrir a leitura na íntegra
       card.addEventListener('click', (e) => {
-        if (e.target.closest('.news-btn-zap')) return;
+        if (e.target.closest('.news-btn-zap, .news-btn-share')) return;
         const id = card.getAttribute('data-news-id');
         if (id) openNewsModal(id);
       });
 
-      // Botão de compartilhamento inteligente (WhatsApp Comum, Business, Stories)
-      const zapBtn = card.querySelector('.news-btn-zap');
-      if (zapBtn) {
-        zapBtn.addEventListener('click', (e) => {
+      // Botão de compartilhamento inteligente multiplataforma
+      const shareBtn = card.querySelector('.news-btn-zap, .news-btn-share');
+      if (shareBtn) {
+        shareBtn.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
-          const id = zapBtn.getAttribute('data-share-id') || card.getAttribute('data-news-id');
+          const id = shareBtn.getAttribute('data-share-id') || card.getAttribute('data-news-id');
           const newsItem = allNews.find(n => n.id === id);
           if (newsItem) openNewsShareModal(newsItem);
         });
@@ -1336,7 +1430,7 @@
       // Suporte à navegação por teclado (Enter ou Barra de Espaço)
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          if (e.target.closest('.news-btn-zap')) return;
+          if (e.target.closest('.news-btn-zap, .news-btn-share')) return;
           e.preventDefault();
           const id = card.getAttribute('data-news-id');
           if (id) openNewsModal(id);

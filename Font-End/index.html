@@ -1209,8 +1209,8 @@
             <a id="modalNewsOfficialLink" href="https://www.tse.jus.br" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
               <i class="fas fa-external-link-alt"></i> Acessar no Portal Oficial
             </a>
-            <button type="button" id="modalNewsShareZap" class="btn btn-whatsapp btn-sm">
-              <i class="fab fa-whatsapp"></i> Compartilhar Informação Oficial
+            <button type="button" id="modalNewsShareZap" class="btn btn-gold btn-sm news-modal-share-btn" aria-label="Compartilhar Informativo Oficial">
+              <i class="fas fa-share-nodes"></i> Compartilhar Informativo
             </button>
           </div>
         </div>
@@ -1219,15 +1219,15 @@
   </div>
 
   <!-- ========================================================================
-       12. MODAL DE COMPARTILHAMENTO INTELIGENTE (WHATSAPP COMUM, BUSINESS & STORIES)
-       Permite ao visitante escolher entre WhatsApp Pessoal, WhatsApp Business, Stories ou Copiar Link
+       12. MODAL DE COMPARTILHAMENTO OFICIAL MULTIPLATAFORMA (WHATSAPP, TELEGRAM, X, LINKEDIN, EMAIL E MAIS)
+       Permite ao visitante escolher a rede social ou mensageiro oficial para compartilhar
        ======================================================================== -->
   <div id="newsShareModal" class="modal-backdrop news-share-backdrop" aria-hidden="true" role="dialog" aria-labelledby="shareModalTitle">
     <div class="news-share-dialog">
       <div class="news-share-header">
         <div class="news-share-header-top">
           <span class="news-share-badge" id="shareModalTitle">
-            <i class="fas fa-share-alt"></i> Compartilhar Informativo
+            <i class="fas fa-share-nodes"></i> Compartilhar Informativo Oficial
           </span>
           <button type="button" id="newsShareModalClose" class="modal-close-btn" aria-label="Fechar Compartilhamento">&times;</button>
         </div>
@@ -1243,56 +1243,105 @@
       </div>
 
       <div class="news-share-body">
-        <p class="news-share-instruction">Selecione como deseja compartilhar:</p>
+        <p class="news-share-instruction">Escolha a rede ou aplicativo oficial:</p>
 
-        <div class="news-share-options-list">
-          <!-- 1. WhatsApp Pessoal / Comum -->
-          <button type="button" class="news-share-opt-btn btn-zap-regular" id="btnShareZapRegular">
+        <div class="news-share-grid">
+          <!-- 1. WhatsApp -->
+          <button type="button" class="news-share-opt-btn btn-zap-regular" id="btnShareZapRegular" aria-label="Compartilhar no WhatsApp">
             <div class="share-opt-icon-wrap zap-reg-bg">
               <i class="fab fa-whatsapp"></i>
             </div>
             <div class="share-opt-text-wrap">
-              <strong>WhatsApp Pessoal / Tradicional</strong>
-              <span>Enviar para contatos, conversas ou grupos pessoais</span>
+              <strong>WhatsApp</strong>
+              <span>Conversas e grupos</span>
             </div>
             <i class="fas fa-arrow-right share-opt-arrow"></i>
           </button>
 
-          <!-- 2. WhatsApp Business -->
-          <button type="button" class="news-share-opt-btn btn-zap-business" id="btnShareZapBusiness">
-            <div class="share-opt-icon-wrap zap-biz-bg">
-              <i class="fab fa-whatsapp"></i>
-              <span class="zap-biz-letter">B</span>
+          <!-- 2. Telegram -->
+          <button type="button" class="news-share-opt-btn btn-share-telegram" id="btnShareTelegram" aria-label="Compartilhar no Telegram">
+            <div class="share-opt-icon-wrap telegram-bg">
+              <i class="fab fa-telegram"></i>
             </div>
             <div class="share-opt-text-wrap">
-              <strong>WhatsApp Business</strong>
-              <span>Enviar pela sua conta comercial / empresarial</span>
+              <strong>Telegram</strong>
+              <span>Canais e grupos</span>
             </div>
             <i class="fas fa-arrow-right share-opt-arrow"></i>
           </button>
 
-          <!-- 3. Compartilhar nos Stories (Instagram & Status) -->
-          <button type="button" class="news-share-opt-btn btn-share-stories" id="btnShareStories">
-            <div class="share-opt-icon-wrap stories-bg">
-              <i class="fab fa-instagram"></i>
+          <!-- 3. X (Twitter) -->
+          <button type="button" class="news-share-opt-btn btn-share-twitter" id="btnShareTwitter" aria-label="Compartilhar no X (Twitter)">
+            <div class="share-opt-icon-wrap twitter-bg">
+              <i class="fab fa-x-twitter"></i>
             </div>
             <div class="share-opt-text-wrap">
-              <strong>Stories (Instagram &amp; Status)</strong>
-              <span>Compartilhar foto oficial + link da matéria no Story</span>
+              <strong>X (Twitter)</strong>
+              <span>Feed oficial com tags</span>
             </div>
-            <i class="fas fa-camera-retro share-opt-arrow"></i>
+            <i class="fas fa-arrow-right share-opt-arrow"></i>
           </button>
 
-          <!-- 4. Copiar Link Oficial -->
-          <button type="button" class="news-share-opt-btn btn-share-copy" id="btnShareCopyLink">
+          <!-- 4. LinkedIn -->
+          <button type="button" class="news-share-opt-btn btn-share-linkedin" id="btnShareLinkedIn" aria-label="Compartilhar no LinkedIn">
+            <div class="share-opt-icon-wrap linkedin-bg">
+              <i class="fab fa-linkedin-in"></i>
+            </div>
+            <div class="share-opt-text-wrap">
+              <strong>LinkedIn</strong>
+              <span>Rede profissional</span>
+            </div>
+            <i class="fas fa-arrow-right share-opt-arrow"></i>
+          </button>
+
+          <!-- 5. Facebook -->
+          <button type="button" class="news-share-opt-btn btn-share-facebook" id="btnShareFacebook" aria-label="Compartilhar no Facebook">
+            <div class="share-opt-icon-wrap facebook-bg">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="share-opt-text-wrap">
+              <strong>Facebook</strong>
+              <span>Feed e comunidades</span>
+            </div>
+            <i class="fas fa-arrow-right share-opt-arrow"></i>
+          </button>
+
+          <!-- 6. E-mail Oficial -->
+          <button type="button" class="news-share-opt-btn btn-share-email" id="btnShareEmail" aria-label="Enviar por E-mail">
+            <div class="share-opt-icon-wrap email-bg">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="share-opt-text-wrap">
+              <strong>E-mail</strong>
+              <span>Enviar informativo completo</span>
+            </div>
+            <i class="fas fa-arrow-right share-opt-arrow"></i>
+          </button>
+        </div>
+
+        <div class="news-share-secondary-actions">
+          <!-- 7. Copiar Link Oficial -->
+          <button type="button" class="news-share-opt-btn btn-share-copy full-width" id="btnShareCopyLink" aria-label="Copiar Link Oficial">
             <div class="share-opt-icon-wrap copy-bg">
-              <i class="fas fa-link"></i>
+              <i class="fas fa-link" id="copyBtnIcon"></i>
             </div>
             <div class="share-opt-text-wrap">
-              <strong>Copiar Link com Foto Oficial</strong>
-              <span>Link direto com foto e dados para qualquer rede</span>
+              <strong id="copyBtnTitle">Copiar Link com Foto Oficial</strong>
+              <span id="copyBtnSub">Link direto com foto e dados para qualquer rede</span>
             </div>
-            <i class="fas fa-copy share-opt-arrow"></i>
+            <i class="fas fa-copy share-opt-arrow" id="copyBtnArrow"></i>
+          </button>
+
+          <!-- 8. Menu Nativo do Aparelho (Web Share API) -->
+          <button type="button" class="news-share-opt-btn btn-share-native full-width" id="btnShareNative" aria-label="Mais Opções de Compartilhamento">
+            <div class="share-opt-icon-wrap native-bg">
+              <i class="fas fa-share-nodes"></i>
+            </div>
+            <div class="share-opt-text-wrap">
+              <strong>Outros Aplicativos</strong>
+              <span>Abrir menu do celular (Bluesky, Threads, Signal, SMS...)</span>
+            </div>
+            <i class="fas fa-ellipsis share-opt-arrow"></i>
           </button>
         </div>
       </div>
