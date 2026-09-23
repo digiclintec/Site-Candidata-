@@ -395,6 +395,7 @@
   // Elementos do Modal de Compartilhamento Inteligente Multiplataforma
   let shareModal;
   let shareModalCloseBtn;
+  let shareModalTitle;
   let shareModalThumb;
   let shareModalPortal;
   let shareModalNewsTitle;
@@ -407,6 +408,7 @@
   let btnShareNative;
   let btnShareCopyLink;
   let activeShareNews = null;
+  let activeShareItem = null;
 
   /**
    * Inicialização do módulo de notícias
@@ -453,6 +455,7 @@
     // Mapeamento do Compartilhador Inteligente Multiplataforma
     shareModal = document.getElementById('newsShareModal');
     shareModalCloseBtn = document.getElementById('newsShareModalClose');
+    shareModalTitle = document.getElementById('shareModalTitle');
     shareModalThumb = document.getElementById('shareModalThumb');
     shareModalPortal = document.getElementById('shareModalPortal');
     shareModalNewsTitle = document.getElementById('shareModalNewsTitle');
@@ -947,32 +950,107 @@
   }
 
   /**
-   * Abre o modal oficial de compartilhamento multiplataforma
+   * Obtém a URL oficial para compartilhamento de qualquer item (Notícia, Proposta ou Vídeo)
    */
-  function openNewsShareModal(news) {
-    if (!news || !shareModal) return;
-    activeShareNews = news;
+  function getItemShareUrl(item) {
+    if (!item) return window.location.href;
+    if (item.url) return item.url;
+    if (item.type === 'noticia' || !item.type) {
+      return getNewsSharePageUrl(item);
+    }
+    return window.location.href;
+  }
 
+  /**
+   * Abre o modal oficial de compartilhamento multiplataforma (Notícias, Propostas e Vídeos)
+   */
+  function openOfficialShareModal(item) {
+    if (!item) return;
+    if (!shareModal) cacheDomElements();
+    if (!shareModal) return;
+
+    activeShareItem = item;
+    activeShareNews = (item.type === 'noticia' || !item.type) ? item : null;
+
+    const itemType = item.type || 'noticia';
+
+    // 1. Título do cabeçalho do modal (Badge)
+    if (shareModalTitle) {
+      if (itemType === 'proposta') {
+        shareModalTitle.innerHTML = '<i class="fas fa-share-nodes"></i> Compartilhar Proposta Oficial';
+      } else if (itemType === 'video') {
+        shareModalTitle.innerHTML = '<i class="fas fa-share-nodes"></i> Compartilhar Vídeo Oficial';
+      } else {
+        shareModalTitle.innerHTML = '<i class="fas fa-share-nodes"></i> Compartilhar Informativo Oficial';
+      }
+    }
+
+    // 2. Thumbnail com fallback inteligente
     if (shareModalThumb) {
-      const fallback = getNewsImageFallback(news.categoria, news.portal);
-      shareModalThumb.src = news.imagem || fallback;
-      shareModalThumb.alt = news.titulo;
+      let fallback;
+      if (itemType === 'video') {
+        fallback = 'assets/images/foto-alexsandra-oficial.png';
+      } else if (itemType === 'proposta') {
+        fallback = 'assets/images/campanha/WhatsApp Image 2026-09-12 at 10.29.50 (1).jpeg';
+      } else {
+        fallback = getNewsImageFallback(item.categoria, item.portal);
+      }
+
+      shareModalThumb.src = item.imagem || item.image || item.thumb || fallback;
+      shareModalThumb.alt = item.titulo || item.title || 'Prévia oficial';
       shareModalThumb.onerror = function() {
         this.onerror = null;
         this.src = fallback;
       };
     }
 
+    // 3. Portal / Tag / Origem
     if (shareModalPortal) {
-      shareModalPortal.textContent = news.portalNome || news.fonte || 'Portal Oficial';
+      if (itemType === 'proposta') {
+        shareModalPortal.textContent = item.tag || 'Propostas • Alexsandra Tomaz 2223';
+      } else if (itemType === 'video') {
+        shareModalPortal.textContent = item.tag || 'Vídeo Oficial • YouTube';
+      } else {
+        shareModalPortal.textContent = item.portalNome || item.fonte || 'Portal Oficial';
+      }
     }
 
+    // 4. Título Principal
     if (shareModalNewsTitle) {
-      shareModalNewsTitle.textContent = news.titulo;
+      shareModalNewsTitle.textContent = item.titulo || item.title || 'Alexsandra Tomaz 2223';
+    }
+
+    // 5. Rótulo inicial do botão de cópia
+    const copyTitle = document.getElementById('copyBtnTitle');
+    const copySub = document.getElementById('copyBtnSub');
+    if (copyTitle && copySub) {
+      if (itemType === 'proposta') {
+        copyTitle.textContent = 'Copiar Link da Proposta';
+        copySub.textContent = 'Link direto com foto e dados para qualquer rede';
+      } else if (itemType === 'video') {
+        copyTitle.textContent = 'Copiar Link do Vídeo';
+        copySub.textContent = 'Link direto para assistir e compartilhar em qualquer rede';
+      } else {
+        copyTitle.textContent = 'Copiar Link com Foto Oficial';
+        copySub.textContent = 'Link direto com foto e dados para qualquer rede';
+      }
     }
 
     shareModal.classList.add('active');
     shareModal.setAttribute('aria-hidden', 'false');
+  }
+
+  /**
+   * Atalho para compartilhamento de notícias (retrocompatibilidade)
+   */
+  function openNewsShareModal(news) {
+    if (!news) return;
+    openOfficialShareModal({
+      ...news,
+      type: 'noticia',
+      title: news.titulo,
+      url: getNewsSharePageUrl(news)
+    });
   }
 
   /**
@@ -982,16 +1060,34 @@
     if (!shareModal) return;
     shareModal.classList.remove('active');
     shareModal.setAttribute('aria-hidden', 'true');
+    activeShareItem = null;
     activeShareNews = null;
   }
 
   /**
    * 1. Compartilha via WhatsApp (Universal e Confiável)
    */
-  function shareToWhatsApp(news) {
-    if (!news) return;
-    const shareUrl = getNewsSharePageUrl(news);
-    const text = buildShareMessage(news, shareUrl);
+  function shareToWhatsApp(item) {
+    if (!item) return;
+    const itemType = item.type || 'noticia';
+    const shareUrl = getItemShareUrl(item);
+    let text = '';
+
+    if (itemType === 'proposta') {
+      const title = (item.title || item.titulo || '').trim();
+      const quote = (item.quote || item.resumo || '').trim();
+      text = `Confira o que Alexsandra Tomaz 2223 defende para o Espírito Santo!\n\n` +
+             `*${title}*${quote ? `\n"${quote}"` : ''}\n\n` +
+             `Acesse a proposta completa no portal oficial:\n${shareUrl}`;
+    } else if (itemType === 'video') {
+      const title = (item.title || item.titulo || '').trim();
+      text = `Assista ao vídeo oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo):\n` +
+             `"${title}"\n\n` +
+             `Assista direto no portal oficial:\n${shareUrl}`;
+    } else {
+      text = buildShareMessage(item, shareUrl);
+    }
+
     const encoded = encodeURIComponent(text);
     window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank', 'noopener,noreferrer');
     closeNewsShareModal();
@@ -999,15 +1095,30 @@
   }
 
   /**
-   * 2. Compartilha via Telegram (Oficial)
+   * 2. Compartilha via Telegram (Oficial com formatação rica)
    */
-  function shareToTelegram(news) {
-    if (!news) return;
-    const shareUrl = getNewsSharePageUrl(news);
-    const portal = (news.portalNome || news.fonte || 'Justiça Eleitoral').trim();
-    const title = (news.titulo || '').trim();
-    const lead = (news.resumo || '').trim();
-    const telegramText = `*INFORMATIVO OFICIAL • ${portal}*\n\n*${title}*\n\n${lead}`;
+  function shareToTelegram(item) {
+    if (!item) return;
+    const itemType = item.type || 'noticia';
+    const shareUrl = getItemShareUrl(item);
+    let telegramText = '';
+
+    if (itemType === 'proposta') {
+      const title = (item.title || item.titulo || '').trim();
+      const quote = (item.quote || item.resumo || '').trim();
+      telegramText = `*PROPOSTA OFICIAL • ALEXSANDRA TOMAZ 2223*\n\n*${title}*` +
+                     (quote ? `\n\n"${quote}"` : '') +
+                     `\n\nDeputada Federal • PL Espírito Santo`;
+    } else if (itemType === 'video') {
+      const title = (item.title || item.titulo || '').trim();
+      telegramText = `*VÍDEO OFICIAL • ALEXSANDRA TOMAZ 2223*\n\n*${title}*\n\nPronunciamento de Alexsandra Tomaz • Deputada Federal 2223`;
+    } else {
+      const portal = (item.portalNome || item.fonte || 'Justiça Eleitoral').trim();
+      const title = (item.titulo || item.title || '').trim();
+      const lead = (item.resumo || '').trim();
+      telegramText = `*INFORMATIVO OFICIAL • ${portal}*\n\n*${title}*\n\n${lead}`;
+    }
+
     const url = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(telegramText)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
     closeNewsShareModal();
@@ -1015,17 +1126,29 @@
   }
 
   /**
-   * 3. Compartilha via X / Twitter (Oficial com limite de caracteres e hashtags)
+   * 3. Compartilha via X / Twitter (Oficial com hashtags e limite)
    */
-  function shareToTwitter(news) {
-    if (!news) return;
-    const shareUrl = getNewsSharePageUrl(news);
-    const portal = (news.portalNome || news.fonte || 'Justiça Eleitoral').trim();
-    let title = (news.titulo || '').trim();
-    if (title.length > 140) {
-      title = title.substring(0, 137) + '...';
+  function shareToTwitter(item) {
+    if (!item) return;
+    const itemType = item.type || 'noticia';
+    const shareUrl = getItemShareUrl(item);
+    let tweetText = '';
+
+    if (itemType === 'proposta') {
+      let title = (item.title || item.titulo || '').trim();
+      if (title.length > 140) title = title.substring(0, 137) + '...';
+      tweetText = `Confira a proposta oficial de Alexsandra Tomaz 2223: "${title}"\n\n#AlexsandraTomaz2223 #Propostas #EspiritoSanto #PL22`;
+    } else if (itemType === 'video') {
+      let title = (item.title || item.titulo || '').trim();
+      if (title.length > 140) title = title.substring(0, 137) + '...';
+      tweetText = `Assista ao vídeo oficial de Alexsandra Tomaz 2223: "${title}"\n\n#AlexsandraTomaz2223 #EspiritoSanto #TrabalhoEFe #PL22`;
+    } else {
+      const portal = (item.portalNome || item.fonte || 'Justiça Eleitoral').trim();
+      let title = (item.titulo || item.title || '').trim();
+      if (title.length > 140) title = title.substring(0, 137) + '...';
+      tweetText = `Informativo Oficial (${portal}): ${title}\n\n#Eleicoes2026 #AlexsandraTomaz2223 #ES`;
     }
-    const tweetText = `Informativo Oficial (${portal}): ${title}\n\n#Eleicoes2026 #AlexsandraTomaz2223 #ES`;
+
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(shareUrl)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
     closeNewsShareModal();
@@ -1035,9 +1158,9 @@
   /**
    * 4. Compartilha via LinkedIn (Rede Profissional / Institucional)
    */
-  function shareToLinkedIn(news) {
-    if (!news) return;
-    const shareUrl = getNewsSharePageUrl(news);
+  function shareToLinkedIn(item) {
+    if (!item) return;
+    const shareUrl = getItemShareUrl(item);
     const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
     closeNewsShareModal();
@@ -1047,9 +1170,9 @@
   /**
    * 5. Compartilha via Facebook (Feed e Comunidades)
    */
-  function shareToFacebook(news) {
-    if (!news) return;
-    const shareUrl = getNewsSharePageUrl(news);
+  function shareToFacebook(item) {
+    if (!item) return;
+    const shareUrl = getItemShareUrl(item);
     const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
     closeNewsShareModal();
@@ -1059,25 +1182,56 @@
   /**
    * 6. Compartilha via E-mail Oficial
    */
-  function shareToEmail(news) {
-    if (!news) return;
-    const shareUrl = getNewsSharePageUrl(news);
-    const portal = (news.portalNome || news.fonte || 'Justiça Eleitoral').trim();
-    const title = (news.titulo || '').trim();
-    const lead = (news.resumo || '').trim();
-    const subject = `Informativo Oficial • ${portal}: ${title}`;
-    const body = [
-      `Olá! Compartilho este comunicado oficial relevante do portal Alexsandra Tomaz 2223:`,
-      ``,
-      `${title}`,
-      ``,
-      `Fonte Oficial: ${portal}`,
-      ``,
-      lead,
-      ``,
-      `Acesse a matéria oficial completa com fotos e detalhes:`,
-      shareUrl
-    ].join('\n');
+  function shareToEmail(item) {
+    if (!item) return;
+    const itemType = item.type || 'noticia';
+    const shareUrl = getItemShareUrl(item);
+    let subject = '';
+    let body = '';
+
+    if (itemType === 'proposta') {
+      const title = (item.title || item.titulo || '').trim();
+      const quote = (item.quote || item.resumo || '').trim();
+      subject = `Proposta Oficial • Alexsandra Tomaz 2223: ${title}`;
+      body = [
+        `Olá! Compartilho esta proposta oficial de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo):`,
+        ``,
+        title,
+        quote ? `"${quote}"` : '',
+        ``,
+        `Confira as propostas completas no portal oficial:`,
+        shareUrl
+      ].filter(Boolean).join('\n');
+    } else if (itemType === 'video') {
+      const title = (item.title || item.titulo || '').trim();
+      subject = `Vídeo Oficial • Alexsandra Tomaz 2223: ${title}`;
+      body = [
+        `Olá! Assista ao pronunciamento oficial em vídeo de Alexsandra Tomaz (Deputada Federal 2223 • PL Espírito Santo):`,
+        ``,
+        `"${title}"`,
+        ``,
+        `Assista direto no portal oficial:`,
+        shareUrl
+      ].join('\n');
+    } else {
+      const portal = (item.portalNome || item.fonte || 'Justiça Eleitoral').trim();
+      const title = (item.titulo || item.title || '').trim();
+      const lead = (item.resumo || '').trim();
+      subject = `Informativo Oficial • ${portal}: ${title}`;
+      body = [
+        `Olá! Compartilho este comunicado oficial relevante do portal Alexsandra Tomaz 2223:`,
+        ``,
+        `${title}`,
+        ``,
+        `Fonte Oficial: ${portal}`,
+        ``,
+        lead,
+        ``,
+        `Acesse a matéria oficial completa com fotos e detalhes:`,
+        shareUrl
+      ].join('\n');
+    }
+
     window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     closeNewsShareModal();
     showToast('Abrindo aplicativo de E-mail...');
@@ -1086,38 +1240,59 @@
   /**
    * 7. Compartilhamento Nativo do Sistema (Web Share API - Bluesky, Threads, Signal, SMS...)
    */
-  async function shareToNative(news) {
-    if (!news) return;
-    const shareUrl = getNewsSharePageUrl(news);
-    const portal = (news.portalNome || news.fonte || 'Justiça Eleitoral').trim();
-    const shareData = {
-      title: `${news.titulo} • Alexsandra Tomaz 2223`,
-      text: `Informativo Oficial (${portal}): ${news.titulo}`,
-      url: shareUrl
-    };
+  async function shareToNative(item) {
+    if (!item) return;
+    const itemType = item.type || 'noticia';
+    const shareUrl = getItemShareUrl(item);
+    let shareData = {};
+
+    if (itemType === 'proposta') {
+      const title = (item.title || item.titulo || '').trim();
+      shareData = {
+        title: `${title} • Alexsandra Tomaz 2223`,
+        text: `Proposta Oficial de Alexsandra Tomaz 2223: ${title}`,
+        url: shareUrl
+      };
+    } else if (itemType === 'video') {
+      const title = (item.title || item.titulo || '').trim();
+      shareData = {
+        title: `${title} • Alexsandra Tomaz 2223`,
+        text: `Assista ao vídeo oficial de Alexsandra Tomaz 2223: ${title}`,
+        url: shareUrl
+      };
+    } else {
+      const portal = (item.portalNome || item.fonte || 'Justiça Eleitoral').trim();
+      const title = (item.titulo || item.title || '').trim();
+      shareData = {
+        title: `${title} • Alexsandra Tomaz 2223`,
+        text: `Informativo Oficial (${portal}): ${title}`,
+        url: shareUrl
+      };
+    }
 
     if (typeof navigator !== 'undefined' && navigator.share && typeof navigator.share === 'function') {
       try {
         await navigator.share(shareData);
         closeNewsShareModal();
-        showToast('Informativo compartilhado!');
+        showToast('Conteúdo compartilhado com sucesso!');
         return;
       } catch (err) {
         if (err.name !== 'AbortError') {
-          copyNewsShareLink(news);
+          copyNewsShareLink(item);
         }
       }
     } else {
-      copyNewsShareLink(news);
+      copyNewsShareLink(item);
     }
   }
 
   /**
    * 8. Copia o link direto oficial com feedback visual no botão
    */
-  function copyNewsShareLink(news) {
-    if (!news) return;
-    const shareUrl = getNewsSharePageUrl(news);
+  function copyNewsShareLink(item) {
+    if (!item) return;
+    const itemType = item.type || 'noticia';
+    const shareUrl = getItemShareUrl(item);
     const copyBtn = document.getElementById('btnShareCopyLink');
     const copyIcon = document.getElementById('copyBtnIcon');
     const copyTitle = document.getElementById('copyBtnTitle');
@@ -1135,7 +1310,10 @@
       if (copySub) copySub.textContent = 'Pronto para colar em qualquer rede social ou mensagem';
       if (copyArrow) copyArrow.className = 'fas fa-check';
 
-      showToast('🔗 Link oficial com foto copiado para a área de transferência!');
+      const toastMsg = itemType === 'proposta'
+        ? '🔗 Link oficial da proposta copiado!'
+        : (itemType === 'video' ? '🔗 Link oficial do vídeo copiado!' : '🔗 Link oficial com foto copiado!');
+      showToast(toastMsg);
 
       setTimeout(() => {
         if (copyBtn) copyBtn.classList.remove('copied');
@@ -1144,8 +1322,16 @@
           const wrap = copyBtn ? copyBtn.querySelector('.share-opt-icon-wrap') : null;
           if (wrap) wrap.classList.remove('copied');
         }
-        if (copyTitle) copyTitle.textContent = 'Copiar Link com Foto Oficial';
-        if (copySub) copySub.textContent = 'Link direto com foto e dados para qualquer rede';
+        if (copyTitle) {
+          copyTitle.textContent = itemType === 'proposta'
+            ? 'Copiar Link da Proposta'
+            : (itemType === 'video' ? 'Copiar Link do Vídeo' : 'Copiar Link com Foto Oficial');
+        }
+        if (copySub) {
+          copySub.textContent = itemType === 'video'
+            ? 'Link direto para assistir e compartilhar em qualquer rede'
+            : (itemType === 'proposta' ? 'Link direto com foto e dados para qualquer rede' : 'Link direto com foto e dados para qualquer rede');
+        }
         if (copyArrow) copyArrow.className = 'fas fa-copy share-opt-arrow';
         closeNewsShareModal();
       }, 1500);
@@ -1196,51 +1382,63 @@
       }
     });
 
+    function getActiveItem() {
+      return activeShareItem || activeShareNews;
+    }
+
     if (btnShareZapRegular) {
       btnShareZapRegular.addEventListener('click', () => {
-        if (activeShareNews) shareToWhatsApp(activeShareNews);
+        const item = getActiveItem();
+        if (item) shareToWhatsApp(item);
       });
     }
 
     if (btnShareTelegram) {
       btnShareTelegram.addEventListener('click', () => {
-        if (activeShareNews) shareToTelegram(activeShareNews);
+        const item = getActiveItem();
+        if (item) shareToTelegram(item);
       });
     }
 
     if (btnShareTwitter) {
       btnShareTwitter.addEventListener('click', () => {
-        if (activeShareNews) shareToTwitter(activeShareNews);
+        const item = getActiveItem();
+        if (item) shareToTwitter(item);
       });
     }
 
     if (btnShareLinkedIn) {
       btnShareLinkedIn.addEventListener('click', () => {
-        if (activeShareNews) shareToLinkedIn(activeShareNews);
+        const item = getActiveItem();
+        if (item) shareToLinkedIn(item);
       });
     }
 
     if (btnShareFacebook) {
       btnShareFacebook.addEventListener('click', () => {
-        if (activeShareNews) shareToFacebook(activeShareNews);
+        const item = getActiveItem();
+        if (item) shareToFacebook(item);
       });
     }
 
     if (btnShareEmail) {
       btnShareEmail.addEventListener('click', () => {
-        if (activeShareNews) shareToEmail(activeShareNews);
+        const item = getActiveItem();
+        if (item) shareToEmail(item);
       });
     }
 
     if (btnShareNative) {
       btnShareNative.addEventListener('click', () => {
-        if (activeShareNews) shareToNative(activeShareNews);
+        const item = getActiveItem();
+        if (item) shareToNative(item);
       });
     }
 
     if (btnShareCopyLink) {
       btnShareCopyLink.addEventListener('click', () => {
-        if (activeShareNews) copyNewsShareLink(activeShareNews);
+        const item = getActiveItem();
+        if (item) copyNewsShareLink(item);
       });
     }
 
@@ -1767,6 +1965,9 @@
   window.openOfficialNews = openNewsModal;
   window.closeOfficialNews = closeNewsModal;
   window.getOfficialNewsSvg = getNewsImageFallback;
+  window.openOfficialShareModal = openOfficialShareModal;
+  window.openNewsShareModal = openNewsShareModal;
+  window.closeOfficialShareModal = closeNewsShareModal;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

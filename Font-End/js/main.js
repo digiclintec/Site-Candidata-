@@ -388,9 +388,28 @@ function initPhotoGallery() {
       const cardId = card.getAttribute('data-card-id') || (currentIndex + 1);
       const cardTitle = title ? title.textContent.trim() : 'Alexsandra Tomaz 2223';
       const cardQuote = quote ? quote.textContent.trim() : '';
+      const cardTag = badge ? badge.textContent.trim() : 'Propostas com Clareza';
+      const cardImgSrc = img ? img.src : '';
 
       if (modalShareZap) {
-        modalShareZap.href = `https://api.whatsapp.com/send?text=${getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote)}`;
+        modalShareZap.onclick = (e) => {
+          e.preventDefault();
+          const shareItem = {
+            type: 'proposta',
+            id: cardId,
+            title: cardTitle,
+            quote: cardQuote,
+            tag: `Propostas • ${cardTag}`,
+            image: cardImgSrc,
+            url: getPhotoShareUrl(cardId)
+          };
+          if (typeof window.openOfficialShareModal === 'function') {
+            window.openOfficialShareModal(shareItem);
+          } else {
+            const msg = getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote);
+            window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
+          }
+        };
       }
 
     }
@@ -453,10 +472,28 @@ function initPhotoGallery() {
           e.preventDefault();
           e.stopPropagation();
           const cardId = card.getAttribute('data-card-id') || (index + 1);
-          const cardTitle = card.getAttribute('data-card-title') || card.querySelector('.gallery-caption-title')?.textContent?.trim();
-          const cardQuote = card.querySelector('.gallery-caption-quote')?.textContent?.trim();
-          const msg = getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote);
-          window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
+          const cardTitle = card.getAttribute('data-card-title') || card.querySelector('.gallery-caption-title')?.textContent?.trim() || 'Alexsandra Tomaz 2223';
+          const cardQuote = card.querySelector('.gallery-caption-quote')?.textContent?.trim() || '';
+          const cardTag = card.querySelector('.gallery-caption-badge')?.textContent?.trim() || 'Proposta Oficial';
+          const cardImg = card.querySelector('.gallery-card-img')?.src || '';
+          const shareUrl = getPhotoShareUrl(cardId);
+
+          const shareItem = {
+            type: 'proposta',
+            id: cardId,
+            title: cardTitle,
+            quote: cardQuote,
+            tag: `Propostas • ${cardTag}`,
+            image: cardImg,
+            url: shareUrl
+          };
+
+          if (typeof window.openOfficialShareModal === 'function') {
+            window.openOfficialShareModal(shareItem);
+          } else {
+            const msg = getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote);
+            window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
+          }
         });
       }
     });
@@ -614,7 +651,25 @@ function initVideoModal() {
     }
 
     if (videoModalShareZap) {
-      videoModalShareZap.href = `https://api.whatsapp.com/send?text=${getWhatsAppVideoShareMessage(videoId, videoTitle)}`;
+      videoModalShareZap.onclick = (e) => {
+        e.preventDefault();
+        const shareUrl = getVideoShareUrl(videoId);
+        const videoThumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+        const shareItem = {
+          type: 'video',
+          id: videoId,
+          title: videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal',
+          tag: 'Vídeo Oficial • YouTube',
+          image: videoThumb,
+          url: shareUrl
+        };
+        if (typeof window.openOfficialShareModal === 'function') {
+          window.openOfficialShareModal(shareItem);
+        } else {
+          const shareText = getWhatsAppVideoShareMessage(videoId, videoTitle);
+          window.open(`https://api.whatsapp.com/send?text=${shareText}`, '_blank');
+        }
+      };
     }
 
     videoModal.classList.add('active');
@@ -654,15 +709,33 @@ function initVideoModal() {
     });
   });
 
-  // Botões de compartilhamento direto no WhatsApp dentro de cada card
+  // Botões de compartilhamento oficial dentro de cada card de vídeo
   document.querySelectorAll('.video-share-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       const videoId = btn.getAttribute('data-video-id');
       const videoTitle = btn.getAttribute('data-video-title');
-      const shareText = getWhatsAppVideoShareMessage(videoId, videoTitle);
-      window.open(`https://api.whatsapp.com/send?text=${shareText}`, '_blank');
+      const videoCard = btn.closest('.video-card');
+      const videoTag = videoCard?.querySelector('.video-category-tag')?.textContent?.trim() || 'Vídeo Oficial';
+      const videoThumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+      const shareUrl = getVideoShareUrl(videoId);
+
+      const shareItem = {
+        type: 'video',
+        id: videoId,
+        title: videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal',
+        tag: `Vídeo Oficial • ${videoTag}`,
+        image: videoThumb,
+        url: shareUrl
+      };
+
+      if (typeof window.openOfficialShareModal === 'function') {
+        window.openOfficialShareModal(shareItem);
+      } else {
+        const shareText = getWhatsAppVideoShareMessage(videoId, videoTitle);
+        window.open(`https://api.whatsapp.com/send?text=${shareText}`, '_blank');
+      }
     });
   });
 
