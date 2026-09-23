@@ -27,9 +27,9 @@
       fonteUrl: "https://www.gov.br/inss/pt-br/assuntos/noticias/comparecimento-as-urnas-vale-como-prova-de-vida-automatica-no-inss",
       destaque: true,
       resumo: "Voto garante a manutenção de benefícios previdenciários e assistenciais de forma automática para mais de 40 milhões de beneficiários, dispensando aposentados de deslocamentos e filas em bancos.",
-      imagem: "assets/images/noticias/inss-prova-vida.svg",
-      imagemFallback: "assets/images/noticias/inss-prova-vida.svg",
-      fotoCredito: "Foto: Tribunal Superior Eleitoral / TSE / Arquivo (Portal Gov.br)",
+      imagem: "assets/images/noticias/inss-prova-vida.jpg",
+      imagemFallback: "assets/images/noticias/inss-prova-vida.jpg",
+      fotoCredito: "Foto: Agência Brasil / Arquivo Oficial (Portal Gov.br & TSE)",
       conteudo: [
         "O comparecimento eleitoral é válido para a verificação no processo de Prova de Vida no INSS. O procedimento de revisão anual, focado em identificar se o titular do benefício previdenciário ou assistencial continua vivo para garantir a manutenção de pagamentos, abrange atualmente cerca de 40 milhões de beneficiários ativos, entre aposentadorias, pensões e auxílios.",
         "“A Prova de Vida pode se dar por meio do comparecimento eleitoral. Então, se você for votar no dia das eleições, você já terá a prova de vida realizada. O INSS recebe esses dados e já computa como prova de vida”, explica o ministro da Previdência Social, destacando a praticidade da medida para idosos e cidadãos de todo o país.",
@@ -60,8 +60,8 @@
       fonteUrl: "https://www.gov.br/inss/pt-br",
       destaque: false,
       resumo: "Criminosos usam pretexto das eleições para pedir fotos de documentos e selfies por mensagem; INSS reitera que nunca solicita fotos ou senhas por canais não oficiais.",
-      imagem: "assets/images/noticias/tse-fato-boato.svg",
-      imagemFallback: "assets/images/noticias/tse-fato-boato.svg",
+      imagem: "assets/images/noticias/govbr-alerta-golpes.jpg",
+      imagemFallback: "assets/images/noticias/govbr-alerta-golpes.jpg",
       fotoCredito: "Foto: Coordenação de Segurança da Informação Gov.br",
       conteudo: [
         "O INSS e o Ministério da Previdência Social emitiram comunicado público de alerta para toda a população idosa contra tentativas de fraude via aplicativos de mensagens e chamadas telefônicas.",
@@ -91,8 +91,8 @@
       fonteUrl: "https://www.tse.jus.br",
       destaque: true,
       resumo: "Plenário do Tribunal Superior Eleitoral consolida as principais diretrizes, prazos de registro de candidatura, início da propaganda eleitoral e datas de votação em todo o território nacional.",
-      imagem: "assets/images/noticias/tse-plenario.svg",
-      imagemFallback: "assets/images/noticias/tse-plenario.svg",
+      imagem: "assets/images/noticias/tse-plenario.jpg",
+      imagemFallback: "assets/images/noticias/tse-plenario.jpg",
       fotoCredito: "Foto: Tribunal Superior Eleitoral / Comunicação Social TSE",
       conteudo: [
         "O Tribunal Superior Eleitoral (TSE) aprovou por unanimidade as resoluções que balizam todo o calendário e os procedimentos das Eleições 2026.",
@@ -122,8 +122,8 @@
       fonteUrl: "https://www.tse.jus.br/servicos-eleitorais/autoatendimento-eleitoral",
       destaque: true,
       resumo: "Aplicativo oficial e-Título permite consultar local de votação, seção eleitoral, emitir certidão de quitação e justificar ausência com praticidade e segurança.",
-      imagem: "assets/images/noticias/etitulo-app.svg",
-      imagemFallback: "assets/images/noticias/etitulo-app.svg",
+      imagem: "assets/images/noticias/etitulo-app.jpg",
+      imagemFallback: "assets/images/noticias/etitulo-app.jpg",
       fotoCredito: "Foto: Assessoria de Comunicação TSE",
       conteudo: [
         "A Justiça Eleitoral reforça aos cidadãos que o aplicativo oficial e-Título é a forma mais rápida e segura de consultar dados do cadastro eleitoral diretamente pelo smartphone.",
@@ -153,8 +153,8 @@
       fonteUrl: "https://www.tse.jus.br/fato-ou-boato",
       destaque: false,
       resumo: "Iniciativa conjunta com agências de fact-checking e plataformas digitais monitora e esclarece boatos sobre o processo eleitoral e as urnas eletrônicas.",
-      imagem: "assets/images/noticias/tse-fato-boato.svg",
-      imagemFallback: "assets/images/noticias/tse-fato-boato.svg",
+      imagem: "assets/images/noticias/tse-fato-boato.jpg",
+      imagemFallback: "assets/images/noticias/tse-fato-boato.jpg",
       fotoCredito: "Foto: Núcleo de Combate à Desinformação TSE",
       conteudo: [
         "A página 'Fato ou Boato' do TSE permanece em constante atualização para desmentir narrativas fraudulentas que circulam em redes sociais e aplicativos de mensagens.",
@@ -184,8 +184,8 @@
       fonteUrl: "https://www.tse.jus.br",
       destaque: false,
       resumo: "Novas diretrizes exigem aviso explícito sobre conteúdo gerado por IA e proíbem o uso de deepfakes contra candidatos e o processo de votação.",
-      imagem: "assets/images/noticias/tse-ia-regras.svg",
-      imagemFallback: "assets/images/noticias/tse-ia-regras.svg",
+      imagem: "assets/images/noticias/tse-ia-regras.jpg",
+      imagemFallback: "assets/images/noticias/tse-ia-regras.jpg",
       fotoCredito: "Foto: Plenário do Tribunal Superior Eleitoral",
       conteudo: [
         "Em decisão histórica, o TSE definiu regras claras para a utilização de ferramentas de inteligência artificial em materiais de campanha e publicidade partidária.",
@@ -215,8 +215,8 @@
       fonteUrl: "https://www.tse.jus.br",
       destaque: false,
       resumo: "Prazos de envio dos relatórios parciais e final de arrecadação e gastos de campanha são obrigatórios para candidatos e partidos políticos.",
-      imagem: "assets/images/noticias/tse-spce-contas.svg",
-      imagemFallback: "assets/images/noticias/tse-spce-contas.svg",
+      imagem: "assets/images/noticias/tse-spce-contas.jpg",
+      imagemFallback: "assets/images/noticias/tse-spce-contas.jpg",
       fotoCredito: "Foto: Coordenadoria de Auditoria Eleitoral TSE",
       conteudo: [
         "A transparência na arrecadação de recursos e gastos eleitorais é um dos pilares de fiscalização da Justiça Eleitoral.",
@@ -246,8 +246,8 @@
       fonteUrl: "https://www.tre-es.jus.br",
       destaque: true,
       resumo: "Tribunal capixaba incentiva adesão ao programa Mesário Voluntário, oferecendo horas complementares para universitários e dispensa em dobro de dias de serviço.",
-      imagem: "assets/images/noticias/mesarios-tre-es.svg",
-      imagemFallback: "assets/images/noticias/mesarios-tre-es.svg",
+      imagem: "assets/images/noticias/mesarios-tre-es.jpg",
+      imagemFallback: "assets/images/noticias/mesarios-tre-es.jpg",
       fotoCredito: "Foto: Assessoria de Comunicação TRE-ES",
       conteudo: [
         "O Tribunal Regional Eleitoral do Espírito Santo (TRE-ES) convoca os cidadãos capixabas a se cadastrarem como mesários voluntários para atuar nas seções eleitorais de Vitória, Vila Velha, Serra, Cariacica, Itapemirim e demais municípios do Estado.",
@@ -277,8 +277,8 @@
       fonteUrl: "https://www.tre-es.jus.br",
       destaque: false,
       resumo: "Equipes móveis do tribunal regional facilitam regularização cadastral, coleta de biometria e transferência de domicílio eleitoral para moradores de áreas rurais e litorâneas.",
-      imagem: "assets/images/noticias/mesarios-tre-es.svg",
-      imagemFallback: "assets/images/noticias/mesarios-tre-es.svg",
+      imagem: "assets/images/noticias/tre-es-biometria.jpg",
+      imagemFallback: "assets/images/noticias/tre-es-biometria.jpg",
       fotoCredito: "Foto: Núcleo de Atendimento Itinerante TRE-ES",
       conteudo: [
         "Para garantir que todo cidadão capixaba exerça sua cidadania sem entraves geográficos, o TRE-ES intensifica os plantões de atendimento itinerante no interior do Estado e no litoral sul.",
@@ -308,8 +308,8 @@
       fonteUrl: "https://www.tre-es.jus.br",
       destaque: false,
       resumo: "Seções eleitorais de fácil acesso, fones de ouvido em todas as urnas com sintetizador de voz e auxílio de acompanhante garantem inclusão plena aos eleitores capixabas.",
-      imagem: "assets/images/noticias/inss-prova-vida.svg",
-      imagemFallback: "assets/images/noticias/inss-prova-vida.svg",
+      imagem: "assets/images/noticias/tre-es-acessibilidade.jpg",
+      imagemFallback: "assets/images/noticias/tre-es-acessibilidade.jpg",
       fotoCredito: "Foto: Comissão de Inclusão TRE-ES",
       conteudo: [
         "A Comissão de Acessibilidade do TRE-ES concluiu o mapeamento das seções eleitorais adaptadas em todos os 78 municípios do Espírito Santo.",
@@ -853,16 +853,18 @@
   }
 
   /**
-   * Obtém a URL base limpa do site para compartilhamento oficial
+   * Obtém a URL base limpa do site para compartilhamento oficial no WhatsApp
    */
   function getNewsShareBaseUrl() {
-    const isOnline = window.location.protocol.startsWith('http') &&
-                     !window.location.hostname.includes('localhost') &&
-                     !window.location.hostname.includes('127.0.0.1');
-    if (isOnline) {
-      const origin = window.location.origin;
-      const path = window.location.pathname.replace(/\/index\.html$/i, '').replace(/\/+$/, '');
-      return origin + (path ? path : '');
+    if (typeof window !== 'undefined' && window.location && window.location.protocol.startsWith('http')) {
+      if (window.location.hostname.includes('alexsandratomaz.com.br')) {
+        return 'https://alexsandratomaz.com.br';
+      }
+      if (!window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
+        const origin = window.location.origin;
+        const path = window.location.pathname.replace(/\/index\.html$/i, '').replace(/\/+$/, '');
+        return origin + (path ? path : '');
+      }
     }
     return 'https://alexsandratomaz.com.br';
   }
@@ -990,7 +992,7 @@
       return;
     }
 
-    // Renderiza todas as notícias no grid organizado
+    // Renderiza todas as notícias no grid organizado com design limpo e editorial
     let html = '';
     filtered.forEach((news, idx) => {
       const shareUrl = buildWhatsAppNewsShareUrl(news);
@@ -999,18 +1001,23 @@
       const fallbackSrc = news.imagemFallback || svgFallback;
       const creditTag = news.fotoCredito ? `<span class="news-card-credit"><i class="fas fa-camera"></i> ${escapeHtml(news.fotoCredito)}</span>` : '';
 
+      // Rótulo oficial conciso e elegante (eliminando sobrecarga de badges)
+      let portalLabel = 'TSE';
+      let portalIcon = 'fa-landmark';
+      if (news.portal === 'govbr') {
+        portalLabel = 'Gov.br • INSS';
+        portalIcon = 'fa-id-card';
+      } else if (news.portal === 'tre-es') {
+        portalLabel = 'TRE-ES';
+        portalIcon = 'fa-water';
+      }
+
       html += `
-        <article class="news-card fade-in-up visible ${delayClass}" data-news-id="${news.id}">
+        <article class="news-card fade-in-up visible ${delayClass}" data-news-id="${news.id}" role="button" tabindex="0" aria-label="Ler notícia completa: ${escapeHtml(news.titulo)}">
           <div class="news-card-media">
             <img src="${news.imagem}" alt="${escapeHtml(news.titulo)}" loading="lazy" class="news-thumb" onerror="this.onerror=null; this.src='${fallbackSrc}'; this.addEventListener('error', function() { this.src='${svgFallback}'; }, { once: true });">
-            <div class="news-card-badges">
-              <span class="news-badge-category ${news.categoria}">
-                <i class="fas ${getCategoryIcon(news.categoria)}"></i> ${escapeHtml(news.categoriaNome)}
-              </span>
-              ${news.destaque ? '<span class="news-badge-highlight"><i class="fas fa-certificate"></i> Destaque</span>' : ''}
-            </div>
-            <div class="news-card-source" title="Fonte Oficial: ${escapeHtml(news.fonte)}">
-              <i class="fas ${getPortalIcon(news.portal)}"></i> <span>${escapeHtml(news.fonte)}</span>
+            <div class="news-card-tag-pill ${news.portal}">
+              <i class="fas ${portalIcon}"></i> <span>${portalLabel}</span>
             </div>
             ${creditTag}
           </div>
@@ -1018,6 +1025,7 @@
           <div class="news-card-body">
             <div class="news-card-meta">
               <span class="news-date"><i class="far fa-calendar-alt"></i> ${news.dataFormatada}</span>
+              <span class="news-meta-sep">•</span>
               <span class="news-read-time"><i class="far fa-clock"></i> ${news.tempoLeitura}</span>
             </div>
 
@@ -1025,10 +1033,11 @@
             <p class="news-card-excerpt">${escapeHtml(news.resumo)}</p>
 
             <div class="news-card-footer">
-              <button class="btn btn-gold btn-sm btn-open-news" data-id="${news.id}">
-                <i class="fas fa-book-open"></i> Acessar Notícia Completa
-              </button>
-              <a href="${shareUrl}" target="_blank" rel="noopener noreferrer" class="news-btn-zap" title="Compartilhar no WhatsApp" aria-label="Compartilhar no WhatsApp">
+              <span class="news-card-action">
+                <span>Ler matéria completa</span>
+                <i class="fas fa-arrow-right"></i>
+              </span>
+              <a href="${shareUrl}" target="_blank" rel="noopener noreferrer" class="news-btn-zap" title="Compartilhar no WhatsApp" aria-label="Compartilhar no WhatsApp" onclick="event.stopPropagation()">
                 <i class="fab fa-whatsapp"></i>
               </a>
             </div>
@@ -1042,13 +1051,22 @@
     // Garante visibilidade imediata das cartas no grid
     containerGrid.querySelectorAll('.news-card').forEach(card => {
       card.classList.add('visible');
-    });
 
-    // Vincula cliques nos botões para abrir a leitura completa no modal
-    containerGrid.querySelectorAll('.btn-open-news').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-id');
+      // Torna todo o card confortavelmente clicável para abrir a leitura na íntegra
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.news-btn-zap')) return;
+        const id = card.getAttribute('data-news-id');
         if (id) openNewsModal(id);
+      });
+
+      // Suporte à navegação por teclado (Enter ou Barra de Espaço)
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          if (e.target.closest('.news-btn-zap')) return;
+          e.preventDefault();
+          const id = card.getAttribute('data-news-id');
+          if (id) openNewsModal(id);
+        }
       });
     });
   }

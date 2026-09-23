@@ -50,6 +50,11 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     gap: 1.5rem;
   }
 
+  .gallery-cards-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
   .videos-grid {
     grid-template-columns: repeat(4, 1fr) !important;
     gap: 1.25rem !important;
@@ -68,10 +73,10 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
 }
 
 /* --------------------------------------------------------------------------
-   3. DESKTOPS COMPACTOS, NOTEBOOKS E TABLETS LANDSCAPE (1024px até 1199px)
+   3. DESKTOPS COMPACTOS, NOTEBOOKS E TABLETS LANDSCAPE (992px até 1199px)
    Elimina quebra de linhas no menu superior e calibra o Hero para telas de 768px de altura
    -------------------------------------------------------------------------- */
-@media (max-width: 1199px) and (min-width: 1024px) and (min-height: 601px) {
+@media (max-width: 1199px) and (min-width: 992px) {
   /* Navbar Compacta e Fluida - Sem quebra de linha de textos como 'Quem Sou' ou 'Fotos & Pautas' */
   .nav-wrapper {
     gap: 0.5rem !important;
@@ -182,20 +187,51 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   .proposal-card {
     padding: 1.75rem 1.4rem;
   }
+
+  .gallery-cards-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1.25rem !important;
+  }
 }
 
-/* Telas com Altura Reduzida (ex: 1024x768, 1280x720, 1366x768) */
-@media (min-width: 1024px) and (max-height: 820px) {
+/* Telas com Altura Reduzida / Laptops (ex: 1024x768, 1280x720, 1366x768) */
+@media (min-width: 992px) and (max-height: 840px) {
   .hero-section {
-    padding: calc(75px + 1rem) 0 1.25rem !important;
-    min-height: calc(100vh - 64px) !important;
+    padding: calc(75px + 0.85rem) 0 1.25rem !important;
+    min-height: calc(100vh - 56px) !important;
     display: flex !important;
     align-items: center !important;
   }
 
+  .hero-grid {
+    gap: clamp(1.2rem, 2.5vw, 2.25rem) !important;
+    align-items: center !important;
+  }
+
+  .hero-santinho-brand {
+    font-size: clamp(1.8rem, 3.8vw, 3.2rem) !important;
+  }
+
+  .hero-slogan {
+    font-size: 0.95rem !important;
+    line-height: 1.45 !important;
+    max-width: 500px !important;
+    margin-bottom: 0.85rem !important;
+  }
+
+  .hero-ctas {
+    gap: 0.65rem !important;
+    margin-top: 0.35rem !important;
+  }
+
+  .hero-ctas .btn {
+    padding: 0.6rem 1.25rem !important;
+    font-size: 0.82rem !important;
+  }
+
   .hero-image-frame {
-    max-height: clamp(350px, 56vh, 440px) !important;
-    max-width: 350px !important;
+    max-height: clamp(340px, 54vh, 420px) !important;
+    max-width: 360px !important;
     width: auto !important;
     aspect-ratio: 4 / 5 !important;
     margin: 0 auto !important;
@@ -207,13 +243,18 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
     aspect-ratio: 4 / 5 !important;
     object-fit: contain !important;
   }
+
+  .gallery-cards-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1.25rem !important;
+  }
 }
 
 /* --------------------------------------------------------------------------
-   4. TABLETS E TELAS MÉDIAS (768px até 1023px)
+   4. TABLETS E TELAS MÉDIAS (768px até 991px)
    Otimização para eliminação de espaços mortos (Grid 2x4 perfeito de propostas)
    -------------------------------------------------------------------------- */
-@media (max-width: 1023px) and (min-width: 768px) {
+@media (max-width: 991px) and (min-width: 768px) {
   section {
     padding: 3.5rem 0 !important;
   }
@@ -1483,8 +1524,8 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
   }
 
   .gallery-cards-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-    gap: 1.5rem !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem !important;
   }
 
   .modal-photo-dialog {
@@ -1615,14 +1656,10 @@ h1, h2, h3, h4, h5, h6, p, span, a, li, label, div {
 
 /* ==========================================================================
    7. CELULARES DEITADOS / SMARTPHONES EM MODO LANDSCAPE (PAISAGEM)
-   Otimização extrema para telas com altura reduzida (320px até 680px)
-   Garante visualização perfeita no Samsung Galaxy S20, iPhone e todos celulares:
-   Header compacto sem cortes, menu gaveta em 2 colunas e zero sobreposição.
+   Otimização estrita e exclusiva para smartphones touch na horizontal.
+   Nunca aciona em computadores/notebooks (que usam mouse e telas de desktop).
    ========================================================================== */
-@media screen and (orientation: landscape) and (max-height: 680px),
-       screen and (orientation: landscape) and (max-height: 600px),
-       screen and (orientation: landscape) and (max-width: 1200px) and (max-height: 680px),
-       screen and (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-height: 720px) {
+@media screen and (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-width: 950px) and (max-height: 500px) {
 
   /* 1. Header Compacto e Limpo */
   .header-navbar {
