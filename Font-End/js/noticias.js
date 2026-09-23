@@ -1682,7 +1682,14 @@
 
     if (modalOfficialLink) {
       modalOfficialLink.href = news.fonteUrl || 'https://www.tse.jus.br';
-      modalOfficialLink.innerHTML = `<i class="fas fa-external-link-alt"></i> Acessar no Portal Oficial (${news.fonte})`;
+      let portalShort = 'Portal Oficial';
+      if (news.portal === 'govbr') portalShort = 'Gov.br • INSS';
+      else if (news.portal === 'tre-es') portalShort = 'TRE-ES';
+      else if (news.portal === 'tse') portalShort = 'TSE Oficial';
+      else if (news.portalNome) portalShort = news.portalNome;
+
+      modalOfficialLink.innerHTML = `<i class="fas fa-arrow-up-right-from-square"></i> <span>Acessar no ${portalShort}</span>`;
+      modalOfficialLink.setAttribute('title', `Abrir comunicado original no ${news.fonte || portalShort}`);
     }
 
     // Reseta rolagem do corpo da notícia ao topo
