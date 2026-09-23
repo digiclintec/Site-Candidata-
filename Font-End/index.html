@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Stylesheets (com versionamento para prevenção de cache no PC) -->
-  <link rel="stylesheet" href="css/style.css?v=20260923c">
+  <link rel="stylesheet" href="css/style.css?v=20260923e">
   <link rel="stylesheet" href="css/animations.css?v=20260923">
   <link rel="stylesheet" href="css/responsive.css?v=20260923">
 </head>
@@ -1113,7 +1113,7 @@
         <ul id="modalPhotoPoints" class="gallery-points-list"></ul>
 
         <div class="gallery-card-actions" style="margin-top: auto; padding-top: 1.25rem; padding-bottom: 0.5rem;">
-          <button type="button" id="modalPhotoShareZap" class="btn btn-gold btn-sm modal-photo-share-btn" style="width: 100%; justify-content: center; padding: 0.85rem 1.25rem; font-weight: 700; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);" aria-label="Compartilhar Proposta Oficial">
+          <button type="button" id="modalPhotoShareZap" onclick="window.handlePhotoModalShareClick && window.handlePhotoModalShareClick(event)" class="btn btn-gold btn-sm modal-photo-share-btn" style="width: 100%; justify-content: center; padding: 0.85rem 1.25rem; font-weight: 700; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);" aria-label="Compartilhar Proposta Oficial">
             <i class="fas fa-share-nodes"></i> Compartilhar Proposta
           </button>
         </div>
@@ -1146,7 +1146,7 @@
           <a id="videoModalDirect" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
             <i class="fab fa-youtube"></i> Abrir no YouTube
           </a>
-          <button type="button" id="videoModalShareZap" class="btn btn-gold btn-sm video-modal-share-action" aria-label="Compartilhar Vídeo Oficial">
+          <button type="button" id="videoModalShareZap" onclick="window.handleVideoModalShareClick && window.handleVideoModalShareClick(event)" class="btn btn-gold btn-sm video-modal-share-action" aria-label="Compartilhar Vídeo Oficial">
             <i class="fas fa-share-nodes"></i> Compartilhar Vídeo
           </button>
         </div>
@@ -1420,7 +1420,7 @@
   </a>
 
   <!-- Scripts (com versionamento para prevenção de cache no PC) -->
-  <script src="js/main.js?v=20260923c"></script>
-  <script src="js/noticias.js?v=20260923c"></script>
+  <script src="js/main.js?v=20260923e"></script>
+  <script src="js/noticias.js?v=20260923e"></script>
 </body>
 </html>

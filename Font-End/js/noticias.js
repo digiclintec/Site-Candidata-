@@ -967,6 +967,9 @@
   function openOfficialShareModal(item) {
     if (!item) return;
     if (!shareModal) cacheDomElements();
+    if (!shareModal) {
+      shareModal = document.getElementById('newsShareModal');
+    }
     if (!shareModal) return;
 
     activeShareItem = item;
@@ -975,6 +978,7 @@
     const itemType = item.type || 'noticia';
 
     // 1. Título do cabeçalho do modal (Badge)
+    if (!shareModalTitle) shareModalTitle = document.getElementById('shareModalTitle');
     if (shareModalTitle) {
       if (itemType === 'proposta') {
         shareModalTitle.innerHTML = '<i class="fas fa-share-nodes"></i> Compartilhar Proposta Oficial';
@@ -986,6 +990,7 @@
     }
 
     // 2. Thumbnail com fallback inteligente
+    if (!shareModalThumb) shareModalThumb = document.getElementById('shareModalThumb');
     if (shareModalThumb) {
       let fallback;
       if (itemType === 'video') {
@@ -993,7 +998,9 @@
       } else if (itemType === 'proposta') {
         fallback = 'assets/images/campanha/WhatsApp Image 2026-09-12 at 10.29.50 (1).jpeg';
       } else {
-        fallback = getNewsImageFallback(item.categoria, item.portal);
+        fallback = (typeof getNewsImageFallback === 'function')
+          ? getNewsImageFallback(item.categoria, item.portal)
+          : 'assets/images/foto-alexsandra-oficial.png';
       }
 
       shareModalThumb.src = item.imagem || item.image || item.thumb || fallback;
@@ -1005,6 +1012,7 @@
     }
 
     // 3. Portal / Tag / Origem
+    if (!shareModalPortal) shareModalPortal = document.getElementById('shareModalPortal');
     if (shareModalPortal) {
       if (itemType === 'proposta') {
         shareModalPortal.textContent = item.tag || 'Propostas • Alexsandra Tomaz 2223';
@@ -1016,6 +1024,7 @@
     }
 
     // 4. Título Principal
+    if (!shareModalNewsTitle) shareModalNewsTitle = document.getElementById('shareModalNewsTitle');
     if (shareModalNewsTitle) {
       shareModalNewsTitle.textContent = item.titulo || item.title || 'Alexsandra Tomaz 2223';
     }
@@ -1038,6 +1047,10 @@
 
     shareModal.classList.add('active');
     shareModal.setAttribute('aria-hidden', 'false');
+    shareModal.style.display = 'flex';
+    shareModal.style.zIndex = '12000';
+    shareModal.style.opacity = '1';
+    shareModal.style.pointerEvents = 'auto';
   }
 
   /**
@@ -1057,12 +1070,24 @@
    * Fecha o modal de compartilhamento
    */
   function closeNewsShareModal() {
+    if (!shareModal) {
+      shareModal = document.getElementById('newsShareModal');
+    }
     if (!shareModal) return;
     shareModal.classList.remove('active');
     shareModal.setAttribute('aria-hidden', 'true');
+    shareModal.style.display = '';
+    shareModal.style.zIndex = '';
+    shareModal.style.opacity = '';
+    shareModal.style.pointerEvents = '';
     activeShareItem = null;
     activeShareNews = null;
   }
+
+  // Expor globalmente de forma imediata para uso por main.js e botões inline
+  window.openOfficialShareModal = openOfficialShareModal;
+  window.openNewsShareModal = openNewsShareModal;
+  window.closeOfficialShareModal = closeNewsShareModal;
 
   /**
    * 1. Compartilha via WhatsApp (Universal e Confiável)

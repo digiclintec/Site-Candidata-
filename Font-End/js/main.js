@@ -391,27 +391,19 @@ function initPhotoGallery() {
       const cardTag = badge ? badge.textContent.trim() : 'Propostas com Clareza';
       const cardImgSrc = img ? img.src : '';
 
-      if (modalShareZap) {
-        modalShareZap.onclick = (e) => {
-          e.preventDefault();
-          const shareItem = {
-            type: 'proposta',
-            id: cardId,
-            title: cardTitle,
-            quote: cardQuote,
-            tag: `Propostas • ${cardTag}`,
-            image: cardImgSrc,
-            url: getPhotoShareUrl(cardId)
-          };
-          if (typeof window.openOfficialShareModal === 'function') {
-            window.openOfficialShareModal(shareItem);
-          } else {
-            const msg = getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote);
-            window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
-          }
-        };
+      if (photoModal) {
+        photoModal.setAttribute('data-active-card-id', cardId);
+        photoModal.setAttribute('data-active-card-title', cardTitle);
+        photoModal.setAttribute('data-active-card-quote', cardQuote);
+        photoModal.setAttribute('data-active-card-tag', cardTag);
+        photoModal.setAttribute('data-active-card-img', cardImgSrc);
       }
 
+      if (modalShareZap) {
+        modalShareZap.onclick = (e) => {
+          handlePhotoModalShareClick(e);
+        };
+      }
     }
 
     function getNavCards() {
@@ -608,6 +600,93 @@ function getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote) {
   );
 }
 
+/**
+ * Disparador Oficial e Resiliente para Compartilhamento da Proposta Aberta no Modal
+ */
+function handlePhotoModalShareClick(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const photoModal = document.getElementById('photoModal');
+  const modalImg = document.getElementById('modalPhotoImg');
+  const modalBadge = document.getElementById('modalPhotoBadge');
+  const modalTitle = document.getElementById('modalPhotoTitle');
+  const modalQuote = document.getElementById('modalPhotoQuote');
+
+  const cardId = (photoModal && photoModal.getAttribute('data-active-card-id')) || '1';
+  const cardTitle = (photoModal && photoModal.getAttribute('data-active-card-title')) ||
+                    (modalTitle ? modalTitle.textContent.trim() : 'Alexsandra Tomaz 2223');
+  const cardQuote = (photoModal && photoModal.getAttribute('data-active-card-quote')) ||
+                    (modalQuote ? modalQuote.textContent.trim() : '');
+  const cardTag = (photoModal && photoModal.getAttribute('data-active-card-tag')) ||
+                  (modalBadge ? modalBadge.textContent.trim() : 'Propostas com Clareza');
+  const cardImgSrc = (photoModal && photoModal.getAttribute('data-active-card-img')) ||
+                     (modalImg ? modalImg.src : '');
+  const shareUrl = getPhotoShareUrl(cardId);
+
+  const shareItem = {
+    type: 'proposta',
+    id: cardId,
+    title: cardTitle,
+    quote: cardQuote,
+    tag: `Propostas • ${cardTag}`,
+    image: cardImgSrc,
+    url: shareUrl
+  };
+
+  if (typeof window.openOfficialShareModal === 'function') {
+    window.openOfficialShareModal(shareItem);
+  } else {
+    const msg = getWhatsAppPhotoShareMessage(cardId, cardTitle, cardQuote);
+    window.location.href = `https://api.whatsapp.com/send?text=${msg}`;
+  }
+}
+
+/**
+ * Disparador Oficial e Resiliente para Compartilhamento do Vídeo Aberto no Player Modal
+ */
+function handleVideoModalShareClick(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const videoModal = document.getElementById('videoModal');
+  const videoIframe = document.getElementById('videoIframe');
+  const videoModalTitle = document.getElementById('videoModalTitle');
+
+  let videoId = (videoModal && videoModal.getAttribute('data-active-video-id')) || '';
+  if (!videoId && videoIframe && videoIframe.src) {
+    const m = videoIframe.src.match(/\/embed\/([a-zA-Z0-9_-]+)/);
+    if (m) videoId = m[1];
+  }
+  if (!videoId) videoId = 'j3qTG_lrL30';
+
+  const videoTitle = (videoModal && videoModal.getAttribute('data-active-video-title')) ||
+                     (videoModalTitle ? videoModalTitle.textContent.trim() : 'Alexsandra Tomaz 2223 • Deputada Federal');
+  const shareUrl = getVideoShareUrl(videoId);
+  const videoThumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+  const shareItem = {
+    type: 'video',
+    id: videoId,
+    title: videoTitle,
+    tag: 'Vídeo Oficial • YouTube',
+    image: videoThumb,
+    url: shareUrl
+  };
+
+  if (typeof window.openOfficialShareModal === 'function') {
+    window.openOfficialShareModal(shareItem);
+  } else {
+    const shareText = getWhatsAppVideoShareMessage(videoId, videoTitle);
+    window.location.href = `https://api.whatsapp.com/send?text=${shareText}`;
+  }
+}
+
+window.handlePhotoModalShareClick = handlePhotoModalShareClick;
+window.handleVideoModalShareClick = handleVideoModalShareClick;
+
 /* --------------------------------------------------------------------------
    4. MODAL DE VÍDEOS OFICIAIS (ALTA PERFORMANCE NO MOBILE & IPHONE)
    -------------------------------------------------------------------------- */
@@ -650,25 +729,14 @@ function initVideoModal() {
       videoModalDirect.href = `https://www.youtube.com/watch?v=${videoId}`;
     }
 
+    if (videoModal) {
+      videoModal.setAttribute('data-active-video-id', videoId);
+      videoModal.setAttribute('data-active-video-title', videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal');
+    }
+
     if (videoModalShareZap) {
       videoModalShareZap.onclick = (e) => {
-        e.preventDefault();
-        const shareUrl = getVideoShareUrl(videoId);
-        const videoThumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-        const shareItem = {
-          type: 'video',
-          id: videoId,
-          title: videoTitle || 'Alexsandra Tomaz 2223 • Deputada Federal',
-          tag: 'Vídeo Oficial • YouTube',
-          image: videoThumb,
-          url: shareUrl
-        };
-        if (typeof window.openOfficialShareModal === 'function') {
-          window.openOfficialShareModal(shareItem);
-        } else {
-          const shareText = getWhatsAppVideoShareMessage(videoId, videoTitle);
-          window.open(`https://api.whatsapp.com/send?text=${shareText}`, '_blank');
-        }
+        handleVideoModalShareClick(e);
       };
     }
 
@@ -757,6 +825,24 @@ function initVideoModal() {
       closeVideo();
     }
   });
+
+  // Interceptador global com capture para cliques nos botões de compartilhamento dos modais
+  document.addEventListener('click', (e) => {
+    const photoBtn = e.target.closest('#modalPhotoShareZap');
+    if (photoBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      handlePhotoModalShareClick(e);
+      return;
+    }
+    const videoBtn = e.target.closest('#videoModalShareZap');
+    if (videoBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      handleVideoModalShareClick(e);
+      return;
+    }
+  }, true);
 }
 
 /* --------------------------------------------------------------------------
