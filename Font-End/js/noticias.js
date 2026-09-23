@@ -392,6 +392,18 @@
   let currentModalNewsIndex = -1;
   let liveSyncStatusEl;
 
+  // Elementos do Modal de Compartilhamento Inteligente
+  let shareModal;
+  let shareModalCloseBtn;
+  let shareModalThumb;
+  let shareModalPortal;
+  let shareModalNewsTitle;
+  let btnShareZapRegular;
+  let btnShareZapBusiness;
+  let btnShareStories;
+  let btnShareCopyLink;
+  let activeShareNews = null;
+
   /**
    * Inicialização do módulo de notícias
    */
@@ -433,6 +445,17 @@
     newsModalPrevBtn = document.getElementById('newsModalPrev');
     newsModalNextBtn = document.getElementById('newsModalNext');
     liveSyncStatusEl = document.getElementById('newsLiveSyncStatus');
+
+    // Mapeamento do Compartilhador Inteligente
+    shareModal = document.getElementById('newsShareModal');
+    shareModalCloseBtn = document.getElementById('newsShareModalClose');
+    shareModalThumb = document.getElementById('shareModalThumb');
+    shareModalPortal = document.getElementById('shareModalPortal');
+    shareModalNewsTitle = document.getElementById('shareModalNewsTitle');
+    btnShareZapRegular = document.getElementById('btnShareZapRegular');
+    btnShareZapBusiness = document.getElementById('btnShareZapBusiness');
+    btnShareStories = document.getElementById('btnShareStories');
+    btnShareCopyLink = document.getElementById('btnShareCopyLink');
   }
 
   /**
@@ -745,6 +768,7 @@
     setupSearch();
     setupRefresh();
     setupHeroMinitela();
+    setupShareModal();
   }
 
   /**
@@ -853,7 +877,7 @@
   }
 
   /**
-   * Obtém a URL base limpa do site para compartilhamento oficial no WhatsApp
+   * Obtém a URL base limpa do site para compartilhamento oficial
    */
   function getNewsShareBaseUrl() {
     if (typeof window !== 'undefined' && window.location && window.location.protocol.startsWith('http')) {
@@ -870,29 +894,267 @@
   }
 
   /**
-   * Constrói link de compartilhamento do WhatsApp direto (api.whatsapp.com)
-   * sem caracteres frágeis/emojis que causam o caractere corrompido () em navegadores/desktops
+   * Obtém a URL canônica para compartilhamento com imagem Open Graph dedicada
+   * Ex: https://alexsandratomaz.com.br/noticia/govbr-inss-prova-de-vida.html
    */
-  function buildWhatsAppNewsShareUrl(news) {
-    if (!news) return 'https://api.whatsapp.com/send?text=';
+  function getNewsSharePageUrl(news) {
+    if (!news) return 'https://alexsandratomaz.com.br';
+    const baseUrl = getNewsShareBaseUrl();
+    return `${baseUrl}/noticia/${news.id}.html`;
+  }
+
+  /**
+   * Formata a mensagem oficial de compartilhamento para WhatsApp e redes
+   */
+  function buildShareMessage(news, shareUrl) {
     const portal = (news.portalNome || news.fonte || 'Justiça Eleitoral').trim();
     const title = (news.titulo || '').trim();
     const lead = (news.resumo || '').trim();
-    const baseUrl = getNewsShareBaseUrl();
-    const newsLink = `${baseUrl}/#noticia-${news.id}`;
+    const link = shareUrl || getNewsSharePageUrl(news);
 
-    const text = [
+    return [
       `*INFORMATIVO OFICIAL* - ${portal}`,
       ``,
       `*${title}*`,
       ``,
       lead,
       ``,
-      `Confira o comunicado oficial completo no portal:`,
-      newsLink
+      `Confira o comunicado oficial completo com foto e detalhes:`,
+      link
     ].join('\n');
+  }
 
+  /**
+   * Constrói link clássico de compartilhamento do WhatsApp
+   */
+  function buildWhatsAppNewsShareUrl(news) {
+    if (!news) return 'https://api.whatsapp.com/send?text=';
+    const shareUrl = getNewsSharePageUrl(news);
+    const text = buildShareMessage(news, shareUrl);
     return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  }
+
+  /**
+   * Abre o modal inteligente de compartilhamento (WhatsApp Comum, Business, Stories ou Link)
+   */
+  function openNewsShareModal(news) {
+    if (!news || !shareModal) return;
+    activeShareNews = news;
+
+    if (shareModalThumb) {
+      const fallback = getNewsImageFallback(news.categoria, news.portal);
+      shareModalThumb.src = news.imagem || fallback;
+      shareModalThumb.alt = news.titulo;
+      shareModalThumb.onerror = function() {
+        this.onerror = null;
+        this.src = fallback;
+      };
+    }
+
+    if (shareModalPortal) {
+      shareModalPortal.textContent = news.portalNome || news.fonte || 'Portal Oficial';
+    }
+
+    if (shareModalNewsTitle) {
+      shareModalNewsTitle.textContent = news.titulo;
+    }
+
+    shareModal.classList.add('active');
+    shareModal.setAttribute('aria-hidden', 'false');
+  }
+
+  /**
+   * Fecha o modal de compartilhamento
+   */
+  function closeNewsShareModal() {
+    if (!shareModal) return;
+    shareModal.classList.remove('active');
+    shareModal.setAttribute('aria-hidden', 'true');
+    activeShareNews = null;
+  }
+
+  /**
+   * Compartilha via WhatsApp Tradicional / Comum
+   */
+  function shareToWhatsAppRegular(news) {
+    if (!news) return;
+    const shareUrl = getNewsSharePageUrl(news);
+    const text = buildShareMessage(news, shareUrl);
+    const encoded = encodeURIComponent(text);
+
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    if (isAndroid) {
+      // Dispara Intent para o pacote padrão do WhatsApp no Android
+      const intentUrl = `intent://send?text=${encoded}#Intent;package=com.whatsapp;scheme=whatsapp;end`;
+      window.location.href = intentUrl;
+      setTimeout(() => {
+        window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
+      }, 600);
+    } else {
+      window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
+    }
+    closeNewsShareModal();
+  }
+
+  /**
+   * Compartilha especificamente via WhatsApp Business
+   */
+  function shareToWhatsAppBusiness(news) {
+    if (!news) return;
+    const shareUrl = getNewsSharePageUrl(news);
+    const text = buildShareMessage(news, shareUrl);
+    const encoded = encodeURIComponent(text);
+
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    if (isAndroid) {
+      // Dispara Intent direcionado para o pacote com.whatsapp.w4b (WhatsApp Business)
+      const intentUrl = `intent://send?text=${encoded}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;end`;
+      window.location.href = intentUrl;
+      setTimeout(() => {
+        window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
+      }, 600);
+    } else {
+      // No desktop / iOS: abre no WhatsApp Web / Desktop onde o usuário utiliza sua conta comercial
+      window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
+    }
+    closeNewsShareModal();
+  }
+
+  /**
+   * Compartilha nos Stories (Instagram & Status) com imagem oficial e link
+   */
+  async function shareToStories(news) {
+    if (!news) return;
+    const shareUrl = getNewsSharePageUrl(news);
+    const baseUrl = getNewsShareBaseUrl();
+    const fullImgUrl = news.imagem.startsWith('http') ? news.imagem : `${baseUrl}/${news.imagem}`;
+
+    // 1. Tentar Web Share API caso suporte compartilhamento de arquivos de imagem no mobile
+    if (typeof navigator !== 'undefined' && navigator.canShare && typeof File !== 'undefined') {
+      try {
+        const resp = await fetch(fullImgUrl);
+        const blob = await resp.blob();
+        const file = new File([blob], `${news.id}.jpg`, { type: 'image/jpeg' });
+
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: news.titulo,
+            text: `Confira no portal oficial: ${shareUrl}`,
+            files: [file]
+          });
+          closeNewsShareModal();
+          showToast('Informativo compartilhado com sucesso!');
+          return;
+        }
+      } catch (err) {
+        // Se usuário cancelou ou navegador não suportou, segue para o fallback perfeito
+      }
+    }
+
+    // 2. Fallback Inteligente para Stories: Baixa foto oficial + copia o link da matéria
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+      } else {
+        const tmp = document.createElement('textarea');
+        tmp.value = shareUrl;
+        document.body.appendChild(tmp);
+        tmp.select();
+        document.execCommand('copy');
+        document.body.removeChild(tmp);
+      }
+    } catch (e) {}
+
+    // Dispara o download da imagem oficial da notícia
+    const dl = document.createElement('a');
+    dl.href = fullImgUrl;
+    dl.download = `noticia-${news.id}.jpg`;
+    dl.target = '_blank';
+    document.body.appendChild(dl);
+    dl.click();
+    document.body.removeChild(dl);
+
+    closeNewsShareModal();
+    showToast('📸 Foto oficial salva! 🔗 Link copiado! Cole na figurinha de Link do Story.');
+  }
+
+  /**
+   * Copia o link direto oficial com imagem e meta tags para a área de transferência
+   */
+  function copyNewsShareLink(news) {
+    if (!news) return;
+    const shareUrl = getNewsSharePageUrl(news);
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast('🔗 Link oficial com foto copiado para a área de transferência!');
+        }).catch(() => {
+          copyFallback(shareUrl);
+        });
+      } else {
+        copyFallback(shareUrl);
+      }
+    } catch (e) {
+      copyFallback(shareUrl);
+    }
+    closeNewsShareModal();
+  }
+
+  function copyFallback(text) {
+    const tmp = document.createElement('textarea');
+    tmp.value = text;
+    document.body.appendChild(tmp);
+    tmp.select();
+    document.execCommand('copy');
+    document.body.removeChild(tmp);
+    showToast('🔗 Link oficial da notícia copiado!');
+  }
+
+  /**
+   * Configura eventos do modal de compartilhamento
+   */
+  function setupShareModal() {
+    if (!shareModal) return;
+
+    if (shareModalCloseBtn) {
+      shareModalCloseBtn.addEventListener('click', closeNewsShareModal);
+    }
+
+    shareModal.addEventListener('click', (e) => {
+      if (e.target === shareModal) {
+        closeNewsShareModal();
+      }
+    });
+
+    if (btnShareZapRegular) {
+      btnShareZapRegular.addEventListener('click', () => {
+        if (activeShareNews) shareToWhatsAppRegular(activeShareNews);
+      });
+    }
+
+    if (btnShareZapBusiness) {
+      btnShareZapBusiness.addEventListener('click', () => {
+        if (activeShareNews) shareToWhatsAppBusiness(activeShareNews);
+      });
+    }
+
+    if (btnShareStories) {
+      btnShareStories.addEventListener('click', () => {
+        if (activeShareNews) shareToStories(activeShareNews);
+      });
+    }
+
+    if (btnShareCopyLink) {
+      btnShareCopyLink.addEventListener('click', () => {
+        if (activeShareNews) copyNewsShareLink(activeShareNews);
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && shareModal.classList.contains('active')) {
+        closeNewsShareModal();
+      }
+    });
   }
 
   /**
@@ -1037,9 +1299,9 @@
                 <span>Ler matéria completa</span>
                 <i class="fas fa-arrow-right"></i>
               </span>
-              <a href="${shareUrl}" target="_blank" rel="noopener noreferrer" class="news-btn-zap" title="Compartilhar no WhatsApp" aria-label="Compartilhar no WhatsApp" onclick="event.stopPropagation()">
+              <button type="button" class="news-btn-zap" title="Compartilhar Notícia (WhatsApp & Stories)" aria-label="Compartilhar Notícia" data-share-id="${news.id}" onclick="event.stopPropagation()">
                 <i class="fab fa-whatsapp"></i>
-              </a>
+              </button>
             </div>
           </div>
         </article>
@@ -1058,6 +1320,18 @@
         const id = card.getAttribute('data-news-id');
         if (id) openNewsModal(id);
       });
+
+      // Botão de compartilhamento inteligente (WhatsApp Comum, Business, Stories)
+      const zapBtn = card.querySelector('.news-btn-zap');
+      if (zapBtn) {
+        zapBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const id = zapBtn.getAttribute('data-share-id') || card.getAttribute('data-news-id');
+          const newsItem = allNews.find(n => n.id === id);
+          if (newsItem) openNewsShareModal(newsItem);
+        });
+      }
 
       // Suporte à navegação por teclado (Enter ou Barra de Espaço)
       card.addEventListener('keydown', (e) => {
@@ -1220,6 +1494,16 @@
         showNewsAtIndex(currentModalNewsIndex + 1);
       }
     });
+
+    const modalShareZap = document.getElementById('modalNewsShareZap');
+    if (modalShareZap) {
+      modalShareZap.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentModalNewsIndex >= 0 && currentModalNewsIndex < allNews.length) {
+          openNewsShareModal(allNews[currentModalNewsIndex]);
+        }
+      });
+    }
   }
 
   /**
@@ -1307,10 +1591,6 @@
       modalOfficialLink.innerHTML = `<i class="fas fa-external-link-alt"></i> Acessar no Portal Oficial (${news.fonte})`;
     }
 
-    if (modalShareZap) {
-      modalShareZap.href = buildWhatsAppNewsShareUrl(news);
-    }
-
     // Reseta rolagem do corpo da notícia ao topo
     const scrollEl = modal.querySelector('.modal-news-scroll-body') || modal.querySelector('.modal-news-right');
     if (scrollEl) {
@@ -1344,7 +1624,18 @@
       setTimeout(() => {
         openNewsModal(newsId);
       }, 400);
+      return;
     }
+
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const noticiaParam = params.get('noticia') || params.get('id');
+      if (noticiaParam) {
+        setTimeout(() => {
+          openNewsModal(noticiaParam);
+        }, 400);
+      }
+    } catch (e) {}
   }
 
   function showToast(msg) {

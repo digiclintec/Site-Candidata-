@@ -1209,10 +1209,91 @@
             <a id="modalNewsOfficialLink" href="https://www.tse.jus.br" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
               <i class="fas fa-external-link-alt"></i> Acessar no Portal Oficial
             </a>
-            <a id="modalNewsShareZap" href="https://api.whatsapp.com/send?text=" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
+            <button type="button" id="modalNewsShareZap" class="btn btn-whatsapp btn-sm">
               <i class="fab fa-whatsapp"></i> Compartilhar Informação Oficial
-            </a>
+            </button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       12. MODAL DE COMPARTILHAMENTO INTELIGENTE (WHATSAPP COMUM, BUSINESS & STORIES)
+       Permite ao visitante escolher entre WhatsApp Pessoal, WhatsApp Business, Stories ou Copiar Link
+       ======================================================================== -->
+  <div id="newsShareModal" class="modal-backdrop news-share-backdrop" aria-hidden="true" role="dialog" aria-labelledby="shareModalTitle">
+    <div class="news-share-dialog">
+      <div class="news-share-header">
+        <div class="news-share-header-top">
+          <span class="news-share-badge" id="shareModalTitle">
+            <i class="fas fa-share-alt"></i> Compartilhar Informativo
+          </span>
+          <button type="button" id="newsShareModalClose" class="modal-close-btn" aria-label="Fechar Compartilhamento">&times;</button>
+        </div>
+        
+        <!-- Cartão de Prévia da Matéria que será compartilhada -->
+        <div class="news-share-preview-card">
+          <img id="shareModalThumb" src="" alt="Prévia da notícia" class="news-share-preview-img">
+          <div class="news-share-preview-info">
+            <span id="shareModalPortal" class="news-share-preview-portal">Portal Gov.br</span>
+            <h4 id="shareModalNewsTitle" class="news-share-preview-title">Título do Informativo</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-share-body">
+        <p class="news-share-instruction">Selecione como deseja compartilhar:</p>
+
+        <div class="news-share-options-list">
+          <!-- 1. WhatsApp Pessoal / Comum -->
+          <button type="button" class="news-share-opt-btn btn-zap-regular" id="btnShareZapRegular">
+            <div class="share-opt-icon-wrap zap-reg-bg">
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <div class="share-opt-text-wrap">
+              <strong>WhatsApp Pessoal / Tradicional</strong>
+              <span>Enviar para contatos, conversas ou grupos pessoais</span>
+            </div>
+            <i class="fas fa-arrow-right share-opt-arrow"></i>
+          </button>
+
+          <!-- 2. WhatsApp Business -->
+          <button type="button" class="news-share-opt-btn btn-zap-business" id="btnShareZapBusiness">
+            <div class="share-opt-icon-wrap zap-biz-bg">
+              <i class="fab fa-whatsapp"></i>
+              <span class="zap-biz-letter">B</span>
+            </div>
+            <div class="share-opt-text-wrap">
+              <strong>WhatsApp Business</strong>
+              <span>Enviar pela sua conta comercial / empresarial</span>
+            </div>
+            <i class="fas fa-arrow-right share-opt-arrow"></i>
+          </button>
+
+          <!-- 3. Compartilhar nos Stories (Instagram & Status) -->
+          <button type="button" class="news-share-opt-btn btn-share-stories" id="btnShareStories">
+            <div class="share-opt-icon-wrap stories-bg">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="share-opt-text-wrap">
+              <strong>Stories (Instagram &amp; Status)</strong>
+              <span>Compartilhar foto oficial + link da matéria no Story</span>
+            </div>
+            <i class="fas fa-camera-retro share-opt-arrow"></i>
+          </button>
+
+          <!-- 4. Copiar Link Oficial -->
+          <button type="button" class="news-share-opt-btn btn-share-copy" id="btnShareCopyLink">
+            <div class="share-opt-icon-wrap copy-bg">
+              <i class="fas fa-link"></i>
+            </div>
+            <div class="share-opt-text-wrap">
+              <strong>Copiar Link com Foto Oficial</strong>
+              <span>Link direto com foto e dados para qualquer rede</span>
+            </div>
+            <i class="fas fa-copy share-opt-arrow"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -1288,7 +1369,7 @@
   </a>
 
   <!-- Scripts (com versionamento para prevenção de cache no PC) -->
-  <script src="js/main.js?v=20260923"></script>
-  <script src="js/noticias.js?v=20260923"></script>
+  <script src="js/main.js?v=20260923b"></script>
+  <script src="js/noticias.js?v=20260923b"></script>
 </body>
 </html>

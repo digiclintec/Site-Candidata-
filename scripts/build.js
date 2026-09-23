@@ -78,6 +78,12 @@ check('Dados das Notícias Oficiais (noticias.json)', () => {
   console.log(`      ↳ ${items.length} notícias oficiais ativas e validadas.`);
 });
 
+// 4.1. Geração de Páginas Estáticas de Notícias para Compartilhamento (Open Graph / WhatsApp / Stories)
+check('Geração de páginas de notícias (Open Graph para WhatsApp e Stories)', () => {
+  const generator = require('./generate-news-pages');
+  generator.run();
+});
+
 // 5. Validação do Back-end
 check('Servidor e Rotas do Back-end (server.js)', () => {
   const p = path.join(BACK_DIR, 'server.js');

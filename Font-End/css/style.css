@@ -4875,3 +4875,293 @@ section {
   }
 }
 
+/* ==========================================================================
+   12. MODAL DE COMPARTILHAMENTO INTELIGENTE (WHATSAPP COMUM, BUSINESS & STORIES)
+   ========================================================================== */
+.news-share-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 10, 22, 0.86);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 10005;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.news-share-backdrop.active {
+  display: flex;
+  opacity: 1;
+}
+
+.news-share-dialog {
+  background: linear-gradient(170deg, #0d1e38 0%, #061124 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 490px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 175, 55, 0.15);
+  overflow: hidden;
+  transform: scale(0.94) translateY(15px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.news-share-backdrop.active .news-share-dialog {
+  transform: scale(1) translateY(0);
+}
+
+.news-share-header {
+  padding: 22px 24px 16px;
+  background: rgba(15, 27, 49, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.news-share-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.news-share-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-family: var(--font-heading);
+}
+
+.news-share-preview-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(4, 13, 27, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.news-share-preview-img {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.news-share-preview-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.news-share-preview-portal {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 3px;
+}
+
+.news-share-preview-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-family: var(--font-heading);
+}
+
+.news-share-body {
+  padding: 20px 24px 26px;
+}
+
+.news-share-instruction {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #94a3b8;
+  margin: 0 0 16px;
+}
+
+.news-share-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.news-share-opt-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(15, 27, 50, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  font-family: var(--font-body);
+}
+
+.news-share-opt-btn:hover {
+  background: rgba(25, 45, 80, 0.9);
+  transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.news-share-opt-btn:active {
+  transform: scale(0.98);
+}
+
+.share-opt-icon-wrap {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  color: #ffffff;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.zap-reg-bg {
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+}
+
+.zap-biz-bg {
+  background: linear-gradient(135deg, #075e54 0%, #128c7e 100%);
+  border: 1px solid rgba(37, 211, 102, 0.4);
+}
+
+.zap-biz-letter {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  background: #ffffff;
+  color: #075e54;
+  font-size: 0.65rem;
+  font-weight: 900;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  font-family: var(--font-heading);
+}
+
+.stories-bg {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.copy-bg {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.share-opt-text-wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.share-opt-text-wrap strong {
+  font-size: 0.95rem;
+  color: #f8fafc;
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
+}
+
+.share-opt-text-wrap span {
+  font-size: 0.77rem;
+  color: #94a3b8;
+  line-height: 1.35;
+}
+
+.share-opt-arrow {
+  color: #64748b;
+  font-size: 0.85rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.news-share-opt-btn:hover .share-opt-arrow {
+  color: var(--gold);
+  transform: translateX(3px);
+}
+
+/* Responsividade Mobile para o Compartilhador */
+@media (max-width: 640px) {
+  .news-share-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .news-share-dialog {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top: 2px solid var(--gold);
+    max-height: 90vh;
+    transform: translateY(100%);
+  }
+
+  .news-share-backdrop.active .news-share-dialog {
+    transform: translateY(0);
+  }
+
+  .news-share-header {
+    padding: 18px 20px 14px;
+  }
+
+  .news-share-body {
+    padding: 16px 20px 30px;
+  }
+
+  .news-share-opt-btn {
+    padding: 12px 14px;
+  }
+
+  .share-opt-icon-wrap {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 1.2rem;
+  }
+
+  .share-opt-text-wrap strong {
+    font-size: 0.9rem;
+  }
+
+  .share-opt-text-wrap span {
+    font-size: 0.73rem;
+  }
+}
+
+

@@ -65,6 +65,28 @@ function syncCampaignAssets() {
   return true;
 }
 
+/**
+ * Garante que a pasta de dados e os arquivos essenciais existam
+ */
+function initializeStorage() {
+  const { dataDir, supportersFile, contactsFile, noticiasFile } = config.paths;
+
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+
+  if (!fs.existsSync(supportersFile)) {
+    fs.writeFileSync(supportersFile, JSON.stringify([], null, 2), 'utf8');
+  }
+
+  if (!fs.existsSync(contactsFile)) {
+    fs.writeFileSync(contactsFile, JSON.stringify([], null, 2), 'utf8');
+  }
+
+  if (noticiasFile && !fs.existsSync(noticiasFile)) {
+    fs.writeFileSync(noticiasFile, JSON.stringify([], null, 2), 'utf8');
+  }
+
   // Sincronizar imagens reais de material de campanha
   try {
     syncCampaignAssets();

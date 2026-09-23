@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Notícias Oficiais • Alexsandra Tomaz 2223</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Informativos Oficiais • Alexsandra Tomaz 2223">
+  <meta property="og:description" content="Acompanhe as notícias oficiais da Justiça Eleitoral, TSE, TRE-ES e Gov.br.">
+  <meta property="og:image" content="https://alexsandratomaz.com.br/assets/images/alexsandra-portrait.jpg">
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var id = params.get('id');
+      var isLocal = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
+      var base = isLocal ? '/Font-End/index.html' : '/';
+      var target = id ? base + '#noticia-' + id : base + '#noticias';
+      window.location.replace(target);
+    })();
+  </script>
+</head>
+<body style="background:#040d1a;color:#fff;font-family:sans-serif;text-align:center;padding:50px;">
+  <h2>Redirecionando para as Notícias Oficiais...</h2>
+</body>
+</html>
